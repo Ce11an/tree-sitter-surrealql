@@ -1,0 +1,545 @@
+[
+  {
+    "type": "order_criteria",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_asc",
+          "named": true
+        },
+        {
+          "type": "keyword_collate",
+          "named": true
+        },
+        {
+          "type": "keyword_desc",
+          "named": true
+        },
+        {
+          "type": "keyword_numeric",
+          "named": true
+        },
+        {
+          "type": "keyword_rand",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_alias",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_as",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_explain",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_explain",
+          "named": true
+        },
+        {
+          "type": "keyword_full",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_fetch",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_fetch",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_fields",
+    "named": true,
+    "fields": {
+      "fields": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "select_group_by",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_group_by",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_limit",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_limit",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_omit",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_omit",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_order_by",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_order_by",
+          "named": true
+        },
+        {
+          "type": "order_criteria",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_split",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_at",
+          "named": true
+        },
+        {
+          "type": "keyword_split",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_start",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_start_at",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_from",
+          "named": true
+        },
+        {
+          "type": "keyword_only",
+          "named": true
+        },
+        {
+          "type": "keyword_parallel",
+          "named": true
+        },
+        {
+          "type": "keyword_select",
+          "named": true
+        },
+        {
+          "type": "keyword_value",
+          "named": true
+        },
+        {
+          "type": "select_alias",
+          "named": true
+        },
+        {
+          "type": "select_explain",
+          "named": true
+        },
+        {
+          "type": "select_fetch",
+          "named": true
+        },
+        {
+          "type": "select_fields",
+          "named": true
+        },
+        {
+          "type": "select_group_by",
+          "named": true
+        },
+        {
+          "type": "select_limit",
+          "named": true
+        },
+        {
+          "type": "select_omit",
+          "named": true
+        },
+        {
+          "type": "select_order_by",
+          "named": true
+        },
+        {
+          "type": "select_split",
+          "named": true
+        },
+        {
+          "type": "select_start",
+          "named": true
+        },
+        {
+          "type": "select_targets",
+          "named": true
+        },
+        {
+          "type": "select_timeout",
+          "named": true
+        },
+        {
+          "type": "select_where",
+          "named": true
+        },
+        {
+          "type": "select_with",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_targets",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_timeout",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_timeout",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_where",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_where",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_with",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_index",
+          "named": true
+        },
+        {
+          "type": "keyword_no_index",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "select_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": ";",
+    "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
+  },
+  {
+    "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "keyword_as",
+    "named": true
+  },
+  {
+    "type": "keyword_asc",
+    "named": true
+  },
+  {
+    "type": "keyword_at",
+    "named": true
+  },
+  {
+    "type": "keyword_by",
+    "named": true
+  },
+  {
+    "type": "keyword_collate",
+    "named": true
+  },
+  {
+    "type": "keyword_desc",
+    "named": true
+  },
+  {
+    "type": "keyword_explain",
+    "named": true
+  },
+  {
+    "type": "keyword_fetch",
+    "named": true
+  },
+  {
+    "type": "keyword_from",
+    "named": true
+  },
+  {
+    "type": "keyword_full",
+    "named": true
+  },
+  {
+    "type": "keyword_group_by",
+    "named": true
+  },
+  {
+    "type": "keyword_index",
+    "named": true
+  },
+  {
+    "type": "keyword_limit",
+    "named": true
+  },
+  {
+    "type": "keyword_no_index",
+    "named": true
+  },
+  {
+    "type": "keyword_numeric",
+    "named": true
+  },
+  {
+    "type": "keyword_omit",
+    "named": true
+  },
+  {
+    "type": "keyword_only",
+    "named": true
+  },
+  {
+    "type": "keyword_order_by",
+    "named": true
+  },
+  {
+    "type": "keyword_parallel",
+    "named": true
+  },
+  {
+    "type": "keyword_rand",
+    "named": true
+  },
+  {
+    "type": "keyword_select",
+    "named": true
+  },
+  {
+    "type": "keyword_split",
+    "named": true
+  },
+  {
+    "type": "keyword_start_at",
+    "named": true
+  },
+  {
+    "type": "keyword_timeout",
+    "named": true
+  },
+  {
+    "type": "keyword_value",
+    "named": true
+  },
+  {
+    "type": "keyword_where",
+    "named": true
+  },
+  {
+    "type": "keyword_with",
+    "named": true
+  },
+  {
+    "type": "number",
+    "named": true
+  }
+]
