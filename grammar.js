@@ -9,14 +9,20 @@ module.exports = grammar({
     rules: {
         source_file: $ => repeat($._statement),
 
-        comment: _ => token(choice(
-            seq('--', /.*/),
-            seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/')
-        )),
+        comment: _ => token(
+            choice(
+                seq("--", /.*/),
+                seq("/*", /.*/, repeat(seq("\n", /.*/)), "*/"),
+                seq("#", /.*/),
+                seq("//", /.*/),
+            )
+        ),
 
         _statement: $ => seq(
-            $.select_statement,
-            ';'
+            choice(
+                $.select_statement,
+            ),
+            optional($.semi_colon)
         ),
 
         keyword_select: _ => token('SELECT'),
@@ -46,74 +52,95 @@ module.exports = grammar({
         keyword_split: _ => token('SPLIT'),
         keyword_at: _ => token('AT'),
         keyword_group_by: _ => token('GROUP BY'),
+        keyword_true: _ => token("TRUE"),
+        keyword_false: _ => token("FALSE"),
+        semi_colon: _ => token(';'),
 
-        select_statement: $ => seq(
-            $.keyword_select,
-            optional($.keyword_value),
-            optional($.select_fields),
-            optional($.select_alias),
-            optional($.select_omit),
-            $.keyword_from,
-            optional($.keyword_only),
-            $.select_targets,
-            optional($.select_with),
-            optional($.select_where),
-            optional($.select_split),
-            optional($.select_group_by),
-            optional($.select_order_by),
-            optional($.select_limit),
-            optional($.select_start),
-            optional($.select_fetch),
-            optional($.select_timeout),
-            optional($.keyword_parallel),
-            optional($.select_explain)
+        select_statement: $ => seq($._select_statement),
+
+        _select_statement: $ => prec.right(
+            seq(
+                $.select_clause,
+                optional($.omit_clause),
+                $.from_clause,
+                optional($.with_clause),
+                optional($.where_clause),
+                optional($.split_clause),
+                optional($.group_by_clause),
+                optional($.order_by_clause),
+                optional($.limit_clause),
+                optional($.start_clause),
+                optional($.fetch_clause),
+                optional($.timeout_clause),
+                optional($.keyword_parallel),
+                optional($.explain_clause)
+            ),
         ),
 
-        select_fields: $ => choice(
-            token('*'),
-            seq(field('fields', $.identifier)
-            )
-        ),
-
-        select_alias: $ => seq(
+        _aliased_expression: $ => seq(
+            $.identifier,
             $.keyword_as,
-            field('alias', $.identifier)
+            $.identifier
         ),
 
-        select_omit: $ => seq(
+        _aliasable_expression: $ =>
+            prec.right(choice($._expression, $._aliased_expression)),
+
+        select_clause: $ =>
+            prec.right(
+                seq(
+                    $.keyword_select,
+                    optional(
+                        commaSep1(
+                            seq(
+                                $._aliasable_expression
+                            )
+                        )
+                    ),
+                ),
+            ),
+
+        from_clause: $ => seq(
+            $.keyword_from,
+            commaSep1($._from_targets)),
+
+        _from_targets: $ =>
+            seq(
+                optional($.keyword_only),
+                $.identifier,
+            ),
+
+        omit_clause: $ => seq(
             $.keyword_omit,
-            repeat1($.identifier)
+            commaSep1($.identifier)
         ),
 
-        select_targets: $ => repeat1($.identifier),
-
-
-        select_with: $ => seq(
+        with_clause: $ => seq(
             $.keyword_with,
             choice(
                 $.keyword_no_index,
-                seq($.keyword_index, repeat1($.identifier))
+                seq($.keyword_index, commaSep1($.identifier))
             )
         ),
 
-        select_where: $ => seq(
+        where_clause: $ => seq(
             $.keyword_where,
         ),
 
-        select_split: $ => seq(
+        split_clause: $ => seq(
             $.keyword_split,
             optional($.keyword_at),
-            repeat1($.identifier)
+            commaSep1($.identifier)
         ),
 
-        select_group_by: $ => seq(
+        group_by_clause: $ => seq(
             $.keyword_group_by,
-            repeat1($.identifier)
+            commaSep1($.identifier)
         ),
 
-        select_order_by: $ => seq(
+        order_by_clause: $ => seq(
             $.keyword_order_by,
-            repeat1($.order_criteria)
+            commaSep1($.order_criteria)
         ),
 
         order_criteria: $ => seq(
@@ -126,33 +153,51 @@ module.exports = grammar({
             optional(choice($.keyword_asc, $.keyword_desc))
         ),
 
-        select_limit: $ => seq(
+        limit_clause: $ => seq(
             $.keyword_limit,
             optional($.keyword_by),
             $.number
         ),
 
-        select_start: $ => seq(
+        start_clause: $ => seq(
             $.keyword_start_at,
             $.number
         ),
 
-        select_fetch: $ => seq(
+        fetch_clause: $ => seq(
             $.keyword_fetch,
-            repeat1($.identifier)
+            commaSep1($.identifier)
         ),
 
-        select_timeout: $ => seq(
+        timeout_clause: $ => seq(
             $.keyword_timeout,
             $.number
         ),
 
-        select_explain: $ => seq(
+        explain_clause: $ => seq(
             $.keyword_explain,
             optional($.keyword_full)
         ),
 
         identifier: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
         number: _ => /\d+/,
+        asterisk_expression: $ => choice("*", seq($.identifier, ".*")),
+        _expression: $ =>
+            choice(
+                $.identifier,
+                $.keyword_true,
+                $.keyword_false,
+                $.asterisk_expression,
+                $.number,
+            ),
     }
 });
+
+// -- https://github.com/m-novikov/tree-sitter-sql/blob/main/grammar.js#L1286
+function commaSep1(rule) {
+    return sep1(rule, ",");
+}
+
+function sep1(rule, separator) {
+    return seq(rule, repeat(seq(separator, rule)));
+}
