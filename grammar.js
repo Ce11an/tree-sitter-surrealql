@@ -86,17 +86,19 @@ module.exports = grammar({
         _aliasable_expression: $ =>
             prec.right(choice($._expression, $._aliased_expression)),
 
+        select_fields: $ => optional(
+            commaSep1(
+                seq(
+                    $._aliasable_expression
+                )
+            )
+        ),
+
         select_clause: $ =>
             prec.right(
                 seq(
                     $.keyword_select,
-                    optional(
-                        commaSep1(
-                            seq(
-                                $._aliasable_expression
-                            )
-                        )
-                    ),
+                    $.select_fields,
                 ),
             ),
 
