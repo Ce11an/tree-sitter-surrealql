@@ -1,15 +1,53 @@
 {
   "name": "tree-sitter-surrealql",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Tree-sitter grammar for SurrealQL",
   "main": "bindings/node",
+  "types": "bindings/node",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tree-sitter generate && tree-sitter test",
+    "generate": "tree-sitter generate",
+    "highlight": "tree-sitter highlight",
+    "parse": "tree-sitter parse",
+    "prettier": "prettier --write .",
+    "install": "node-gyp-build",
+    "prebuildify": "prebuildify --napi --strip"
   },
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "parser",
+    "tree-sitter",
+    "surrealql",
+    "surrealdb"
+  ],
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ce11an/tree-sitter-surrealql.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ce11an/tree-sitter-surrealql/issues"
+  },
+  "homepage": "https://github.com/Ce11an/tree-sitter-surrealql#readme",
+  "author": "Cellan Hall <hallcellan@gmail.com> (https://github.com/Ce11an)",
+  "license": "MIT",
   "dependencies": {
-    "nan": "^2.19.0"
+    "node-addon-api": "^7.1.0",
+    "node-gyp-build": "^4.8.0"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.21.0"
+  },
+  "peerDependenciesMeta": {
+    "tree_sitter": {
+      "optional": true
+    }
   },
   "tree-sitter": [
     {
@@ -22,6 +60,8 @@
     }
   ],
   "devDependencies": {
-    "tree-sitter-cli": "^0.22.5"
+    "prettier": "3.1.0",
+    "tree-sitter-cli": "^0.22.5",
+    "prebuildify": "^6.0.0"
   }
 }
