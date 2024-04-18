@@ -40,7 +40,7 @@
 ; Table identifiers
 [
  (table)
- (record) 
+ (record)
 ] @constant
 
 ; Operators
@@ -54,4 +54,3 @@
 
 ; Errors
 (ERROR) @error
-

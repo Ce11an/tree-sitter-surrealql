@@ -179,5 +179,3 @@ SELECT VALUE name FROM person:00e1nc508h9f7v63x72O;
         (table)
         (record))))
   (semi_colon))
-
-
