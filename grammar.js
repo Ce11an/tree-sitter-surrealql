@@ -25,6 +25,9 @@ module.exports = grammar({
             optional($.semi_colon)
         ),
 
+        semi_colon: _ => token(';'),
+
+        // Keywords
         keyword_select: _ => token('SELECT'),
         keyword_from: _ => token('FROM'),
         keyword_only: _ => token('ONLY'),
@@ -54,8 +57,8 @@ module.exports = grammar({
         keyword_group_by: _ => token('GROUP BY'),
         keyword_true: _ => token("TRUE"),
         keyword_false: _ => token("FALSE"),
-        semi_colon: _ => token(';'),
 
+        // Main statements
         select_statement: $ => seq($._select_statement),
 
         _select_statement: $ => prec.right(
@@ -77,30 +80,22 @@ module.exports = grammar({
             ),
         ),
 
-        _aliased_expression: $ => seq(
-            $.identifier,
-            $.keyword_as,
-            $.identifier
-        ),
-
-        _aliasable_expression: $ =>
-            prec.right(choice($._expression, $._aliased_expression)),
-
-        select_fields: $ => optional(
-            commaSep1(
-                seq(
-                    $._aliasable_expression
-                )
+        select_clause: $ => prec.right(
+            seq(
+                $.keyword_select,
+                optional($.keyword_value),
+                $.fields
             )
         ),
 
-        select_clause: $ =>
-            prec.right(
-                seq(
-                    $.keyword_select,
-                    $.select_fields,
-                ),
-            ),
+        fields: $ => prec.right(commaSep1($.field)),
+
+        field: $ => seq(
+            $._aliasable_expression,
+            optional(seq($.keyword_as, $.alias))
+        ),
+
+        _aliasable_expression: $ => choice($._expression),
 
         from_clause: $ => seq(
             $.keyword_from,
@@ -109,19 +104,29 @@ module.exports = grammar({
         _from_targets: $ =>
             seq(
                 optional($.keyword_only),
-                $.identifier,
+                $.target,
             ),
+
+        target: $ => seq(
+            $.table,
+            optional(
+                seq(
+                    ":",
+                    $.record
+                )
+            )
+        ),
 
         omit_clause: $ => seq(
             $.keyword_omit,
-            commaSep1($.identifier)
+            $.fields,
         ),
 
         with_clause: $ => seq(
             $.keyword_with,
             choice(
                 $.keyword_no_index,
-                seq($.keyword_index, commaSep1($.identifier))
+                seq($.keyword_index, commaSep1($.index))
             )
         ),
 
@@ -132,12 +137,12 @@ module.exports = grammar({
         split_clause: $ => seq(
             $.keyword_split,
             optional($.keyword_at),
-            commaSep1($.identifier)
+            commaSep1($.fields)
         ),
 
         group_by_clause: $ => seq(
             $.keyword_group_by,
-            commaSep1($.identifier)
+            commaSep1($.fields)
         ),
 
         order_by_clause: $ => seq(
@@ -146,7 +151,7 @@ module.exports = grammar({
         ),
 
         order_criteria: $ => seq(
-            $.identifier,
+            $.fields,
             optional(choice(
                 $.keyword_rand,
                 $.keyword_collate,
@@ -168,7 +173,7 @@ module.exports = grammar({
 
         fetch_clause: $ => seq(
             $.keyword_fetch,
-            commaSep1($.identifier)
+            commaSep1($.fields)
         ),
 
         timeout_clause: $ => seq(
@@ -181,12 +186,16 @@ module.exports = grammar({
             optional($.keyword_full)
         ),
 
-        identifier: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+        // TODO: Revist when creating more complex statements
         number: _ => /\d+/,
-        asterisk_expression: $ => choice("*", seq($.identifier, ".*")),
+        table: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+        record: _ => /[\w\-]+/,
+        index: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+        alias: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+        asterisk_expression: _ => choice("*", seq(/[a-zA-Z_][a-zA-Z0-9_]*/, ".*")),
         _expression: $ =>
             choice(
-                $.identifier,
+                /[a-zA-Z_][a-zA-Z0-9_]*/,
                 $.keyword_true,
                 $.keyword_false,
                 $.asterisk_expression,
@@ -195,11 +204,6 @@ module.exports = grammar({
     }
 });
 
-// -- https://github.com/m-novikov/tree-sitter-sql/blob/main/grammar.js#L1286
 function commaSep1(rule) {
-    return sep1(rule, ",");
-}
-
-function sep1(rule, separator) {
-    return seq(rule, repeat(seq(separator, rule)));
+    return seq(rule, repeat(seq(",", rule)));
 }

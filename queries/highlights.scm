@@ -1,4 +1,3 @@
-
 ; Keywords
 [
   (keyword_select)
@@ -33,12 +32,21 @@
 ; Numeric literals
 (number) @number
 
-; Identifiers (e.g., table names, column names)
-(identifier) @variable
+; Fields
+[
+ (field)
+] @variable
+
+; Table identifiers
+[
+ (table)
+ (record) 
+] @constant
 
 ; Operators
 [
   "*"
+  ":"
 ] @operator
 
 ; Comments
