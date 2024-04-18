@@ -1,0 +1,27 @@
+{
+  "name": "tree-sitter-surrealql",
+  "version": "1.0.0",
+  "description": "Tree-sitter grammar for SurrealQL",
+  "main": "bindings/node",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nan": "^2.19.0"
+  },
+  "tree-sitter": [
+    {
+      "file-types": [
+        "surql"
+      ],
+      "highlights": [
+        "queries/highlights.scm"
+      ]
+    }
+  ],
+  "devDependencies": {
+    "tree-sitter-cli": "^0.22.5"
+  }
+}
