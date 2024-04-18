@@ -124,7 +124,6 @@ module.exports = grammar({
 
     explain_clause: $ => seq($.keyword_explain, optional($.keyword_full)),
 
-    // TODO: Revist when creating more complex statements
     number: _ => /\d+/,
     table: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
     record: _ => /[\w\-]+/,
