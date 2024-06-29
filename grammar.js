@@ -51,7 +51,6 @@ module.exports = grammar({
     keyword_true: _ => token("TRUE"),
     keyword_false: _ => token("FALSE"),
 
-    // Main statements
     select_statement: $ => seq($._select_statement),
 
     _select_statement: $ =>
@@ -73,9 +72,12 @@ module.exports = grammar({
 
     _aliasable_expression: $ => choice($._expression),
 
+    _is_complete: _ => /[\s\uFEFF\u2060\u200B\u00A0]+/,
+
     from_clause: $ => seq(
       $.keyword_from,
       commaSep1($._from_targets),
+      $._is_complete,
       optional($.with_clause),
       optional($.where_clause),
       optional($.split_clause),
