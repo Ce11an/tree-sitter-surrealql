@@ -106,6 +106,18 @@
       "required": true,
       "types": [
         {
+          "type": "explain_clause",
+          "named": true
+        },
+        {
+          "type": "fetch_clause",
+          "named": true
+        },
+        {
+          "type": "group_by_clause",
+          "named": true
+        },
+        {
           "type": "keyword_from",
           "named": true
         },
@@ -114,7 +126,39 @@
           "named": true
         },
         {
+          "type": "keyword_parallel",
+          "named": true
+        },
+        {
+          "type": "limit_clause",
+          "named": true
+        },
+        {
+          "type": "order_by_clause",
+          "named": true
+        },
+        {
+          "type": "split_clause",
+          "named": true
+        },
+        {
+          "type": "start_clause",
+          "named": true
+        },
+        {
           "type": "target",
+          "named": true
+        },
+        {
+          "type": "timeout_clause",
+          "named": true
+        },
+        {
+          "type": "where_clause",
+          "named": true
+        },
+        {
+          "type": "with_clause",
           "named": true
         }
       ]
@@ -272,27 +316,7 @@
       "required": true,
       "types": [
         {
-          "type": "explain_clause",
-          "named": true
-        },
-        {
-          "type": "fetch_clause",
-          "named": true
-        },
-        {
           "type": "from_clause",
-          "named": true
-        },
-        {
-          "type": "group_by_clause",
-          "named": true
-        },
-        {
-          "type": "keyword_parallel",
-          "named": true
-        },
-        {
-          "type": "limit_clause",
           "named": true
         },
         {
@@ -300,31 +324,7 @@
           "named": true
         },
         {
-          "type": "order_by_clause",
-          "named": true
-        },
-        {
           "type": "select_clause",
-          "named": true
-        },
-        {
-          "type": "split_clause",
-          "named": true
-        },
-        {
-          "type": "start_clause",
-          "named": true
-        },
-        {
-          "type": "timeout_clause",
-          "named": true
-        },
-        {
-          "type": "where_clause",
-          "named": true
-        },
-        {
-          "type": "with_clause",
           "named": true
         }
       ]

@@ -60,17 +60,6 @@ module.exports = grammar({
           $.select_clause,
           optional($.omit_clause),
           $.from_clause,
-          optional($.with_clause),
-          optional($.where_clause),
-          optional($.split_clause),
-          optional($.group_by_clause),
-          optional($.order_by_clause),
-          optional($.limit_clause),
-          optional($.start_clause),
-          optional($.fetch_clause),
-          optional($.timeout_clause),
-          optional($.keyword_parallel),
-          optional($.explain_clause),
         ),
       ),
 
@@ -84,7 +73,21 @@ module.exports = grammar({
 
     _aliasable_expression: $ => choice($._expression),
 
-    from_clause: $ => seq($.keyword_from, commaSep1($._from_targets)),
+    from_clause: $ => seq(
+      $.keyword_from,
+      commaSep1($._from_targets),
+      optional($.with_clause),
+      optional($.where_clause),
+      optional($.split_clause),
+      optional($.group_by_clause),
+      optional($.order_by_clause),
+      optional($.limit_clause),
+      optional($.start_clause),
+      optional($.fetch_clause),
+      optional($.timeout_clause),
+      optional($.keyword_parallel),
+      optional($.explain_clause),
+    ),
 
     _from_targets: $ => seq(optional($.keyword_only), $.target),
 
