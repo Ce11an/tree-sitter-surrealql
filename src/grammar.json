@@ -459,10 +459,6 @@
         }
       ]
     },
-    "_is_complete": {
-      "type": "PATTERN",
-      "value": "[\\s\\uFEFF\\u2060\\u200B\\u00A0]+"
-    },
     "from_clause": {
       "type": "SEQ",
       "members": [
@@ -494,10 +490,6 @@
               }
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_is_complete"
         },
         {
           "type": "CHOICE",
