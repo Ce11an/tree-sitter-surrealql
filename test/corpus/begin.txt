@@ -1,0 +1,106 @@
+=====================================
+Begin and commit a transaction
+=====================================
+
+BEGIN TRANSACTION;
+CREATE account:one SET balance = 135605.16;
+CREATE account:two SET balance = 91031.31;
+UPDATE account:one SET balance += 300.00;
+UPDATE account:two SET balance -= 300.00;
+COMMIT TRANSACTION;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (begin_statement
+          (keyword_begin)
+          (keyword_transaction))))
+    (semi_colon)
+    (expression
+      (statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (record_id
+              (object_key)
+              (record_id_value
+                (record_id_ident))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (number
+                    (float)))))))))
+    (semi_colon)
+    (expression
+      (statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (record_id
+              (object_key)
+              (record_id_value
+                (record_id_ident))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (number
+                    (float)))))))))
+    (semi_colon)
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (number
+                    (float)))))))))
+    (semi_colon)
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (number
+                    (float)))))))))
+    (semi_colon)
+    (expression
+      (statement
+        (commit_statement
+          (keyword_commit)
+          (keyword_transaction))))
+    (semi_colon)))
+

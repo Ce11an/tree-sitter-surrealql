@@ -4,8 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tree-sitter-surrealql"
-description = "Surrealql grammar for tree-sitter"
-version = "0.0.1"
+description = "SurrealQL grammar for tree-sitter"
+version = "0.1.0"
+authors = [{name = "Cellan Hall", email = "hallcellan@gmail.com"}]
 keywords = ["incremental", "parsing", "tree-sitter", "surrealql"]
 classifiers = [
   "Intended Audience :: Developers",
