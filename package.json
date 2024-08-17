@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-surrealql",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Tree-sitter grammar for SurrealQL",
   "main": "bindings/node",
   "types": "bindings/node",

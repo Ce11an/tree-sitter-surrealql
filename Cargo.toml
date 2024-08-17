@@ -1,7 +1,7 @@
 [package]
 name = "tree-sitter-surrealql"
 description = "SurrealQL grammar for the tree-sitter parsing library"
-version = "0.1.0"
+version = "0.1.1"
 keywords = ["incremental", "parsing", "surrealql"]
 categories = ["parsing", "text-editors"]
 repository = "https://github.com/ce11an/tree-sitter-surrealql"
