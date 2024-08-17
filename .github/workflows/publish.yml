@@ -9,10 +9,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  npm:
-    uses: tree-sitter/workflows/.github/workflows/package-npm.yml@main
-    secrets:
-      NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
   crates:
     uses: tree-sitter/workflows/.github/workflows/package-crates.yml@main
     secrets:
