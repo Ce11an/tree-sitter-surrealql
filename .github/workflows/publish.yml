@@ -17,3 +17,6 @@ jobs:
     uses: tree-sitter/workflows/.github/workflows/package-pypi.yml@main
     secrets:
       PYPI_API_TOKEN: ${{secrets.PYPI_API_TOKEN}}
+    with:
+      python-version: 3.11
+      generate: true
