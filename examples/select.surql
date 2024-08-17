@@ -45,12 +45,6 @@ SELECT array::group(tags) AS tags FROM article GROUP ALL;
 -- Use mathematical calculations in a select expression
 SELECT (( celsius * 1.8 ) + 32) AS fahrenheit FROM temperature;
 
--- Return boolean expressions with an alias
-SELECT rating >= 4 as positive FROM review;
-
--- Select manually generated object structure
-SELECT { weekly: false, monthly: true } AS `marketing settings` FROM user;
-
 -- Select filtered nested array values
 SELECT address[WHERE active = true] FROM person;
 
@@ -63,13 +57,6 @@ SELECT ->likes->friend.name AS friends FROM person:tobie;
 
 -- Use the result of a subquery as a returned field
 SELECT *, (SELECT * FROM events WHERE type = 'activity' LIMIT 5) AS history FROM user;
-
--- Destructure objects in a select expression (since 2.0.0)
-SELECT address.{city, country} FROM person;
-
--- Store the subquery result in a variable and query that result.
-LET $history = SELECT * FROM events WHERE type = 'activity' LIMIT 5;
-SELECT * from $history;
 
 -- Use the parent instance's field in a subquery (predefined variable)
 SELECT *, (SELECT * FROM events WHERE host == $parent.id) AS hosted_events FROM user;
@@ -84,33 +71,6 @@ SELECT * FROM temperature:..['London', '2022-08-29T08:09:31'];
 SELECT * FROM temperature:['London', '2022-08-29T08:03:39']..;
 -- Select all temperature records with IDs between the specified range
 SELECT * FROM temperature:['London', '2022-08-29T08:03:39']..['London', '2022-08-29T08:09:31'];
-
--- Omit the password field and security field in the options object
-CREATE person:tobie SET name = 'Tobie', password = '123456', opts.security = 'secure', opts.enabled = true;
-CREATE person:jaime SET name = 'Jaime', password = 'asdfgh', opts.security = 'secure', opts.enabled = false;
-
-SELECT * FROM person;
-SELECT * OMIT password, opts.security FROM person;
-
--- Using a destructuring syntax (since 2.0.0)
-SELECT * OMIT password, opts.{ security, enabled } FROM person;
-
--- This command selects all records from both 'user' and 'admin' tables.
-SELECT * FROM user, admin;
-
--- This command selects all records from the table named in the variable '$table',
--- but only if the 'admin' field of those records is true.
--- This query is equivalent to 'SELECT * FROM user WHERE admin = true'.
-LET $table = "user";
-SELECT * FROM type::table($table) WHERE admin = true;
-
--- This command selects a single record from:
--- * the table named in the variable '$table',
--- * and the identifier named in the variable '$id'.
--- This query is equivalent to 'SELECT * FROM user:admin'.
-LET $table = "user";
-LET $id = "admin";
-SELECT * FROM type::thing($table, $id);
 
 -- This command selects all records for specific users 'tobie' and 'jaime', as well as all records for the company 'surrealdb'.
 SELECT * FROM user:tobie, user:jaime, company:surrealdb;
@@ -131,9 +91,6 @@ SELECT * FROM (SELECT age >= 18 AS adult FROM user) WHERE adult = true;
 -- Simple conditional filtering
 SELECT * FROM article WHERE published = true;
 
--- Conditional filtering based on graph edges
-SELECT * FROM profile WHERE count(->experience->organisation) > 3;
-
 -- Conditional filtering based on graph edge properties
 SELECT * FROM person WHERE ->(reaction WHERE type='celebrate')->post;
 
@@ -146,17 +103,11 @@ SELECT address[WHERE active = true] FROM person;
 -- Split the results by each value in an array
 SELECT * FROM user SPLIT emails;
 
--- Split the results by each value in a nested array
-SELECT * FROM country SPLIT locations.cities;
-
 -- Filter the result of a subquery
 SELECT * FROM (SELECT * FROM person SPLIT loggedin) WHERE loggedin > '2023-05-01';
 
 -- Group records by a single field
 SELECT country FROM user GROUP BY country;
-
--- Group results by a nested field
-SELECT settings.published FROM article GROUP BY settings.published;
 
 -- Group results by multiple fields
 SELECT gender, country, city FROM person GROUP BY gender, country, city;
@@ -188,9 +139,6 @@ SELECT * FROM article ORDER BY title NUMERIC ASC;
 -- Select only the top 50 records from the person table
 SELECT * FROM person LIMIT 50;
 
--- Start at record 50 and select the following 50 records
-SELECT * FROM user LIMIT 50 START 50;
-
 -- Select all the review information
 -- and the artist's email from the artist table
 SELECT *, artist.email FROM review FETCH artist;
@@ -206,9 +154,6 @@ SELECT * FROM person WHERE ->knows->person->(knows WHERE influencer = true) TIME
 -- Fetch and process the person, purchased and product targets in parallel
 -- Select every product that was purchased by a person that purchased a product that person tobie also purchased
 SELECT ->purchased->product<-purchased<-person->purchased->product FROM person:tobie PARALLEL;
-
--- Select every person and order them by name using temporary files rather than memory.
-SELECT * FROM person ORDER BY name TEMPFILES;
 
 -- Returns the execution plan
 SELECT * FROM person WHERE email='tobie@surrealdb.com' EXPLAIN;
