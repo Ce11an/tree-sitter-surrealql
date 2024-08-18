@@ -194,6 +194,7 @@ module.exports = grammar({
     statement: $ =>
       choice(
         $.select_statement,
+        $.live_select_statement,
         $.begin_statement,
         $.cancel_statement,
         $.commit_statement,

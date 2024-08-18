@@ -1,0 +1,91 @@
+=====================================
+Live select all fields from a table
+=====================================
+
+LIVE SELECT * FROM person;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (live_select_statement
+          (keyword_live)
+          (select_statement
+            (select_clause
+              (keyword_select)
+              (inclusive_predicate))
+            (from_clause
+              (keyword_from)
+              (value
+                (base_value
+                  (identifier))))))))
+    (semi_colon)))
+
+=====================================
+Live select using DIFF
+=====================================
+
+LIVE SELECT DIFF FROM person;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (live_select_statement
+          (keyword_live)
+          (select_statement
+            (select_clause
+              (keyword_select)
+              (inclusive_predicate
+                (predicate
+                  (value
+                    (base_value
+                      (identifier))))))
+            (from_clause
+              (keyword_from)
+              (value
+                (base_value
+                  (identifier))))))))
+    (semi_colon)))
+
+=====================================
+Live select with a filter
+=====================================
+
+LIVE SELECT * FROM person WHERE age > 18;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (live_select_statement
+          (keyword_live)
+          (select_statement
+            (select_clause
+              (keyword_select)
+              (inclusive_predicate))
+            (from_clause
+              (keyword_from)
+              (value
+                (base_value
+                  (identifier)))
+              (where_clause
+                (keyword_where)
+                (value
+                  (binary_expression
+                    (value
+                      (base_value
+                        (identifier)))
+                    (operator)
+                    (value
+                      (base_value
+                        (number
+                          (int))))))))))))
+    (semi_colon)))
+
