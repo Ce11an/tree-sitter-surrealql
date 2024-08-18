@@ -538,47 +538,48 @@ module.exports = grammar({
 
     select_statement: $ =>
       seq(
-        $.keyword_select,
-        choice(
-          seq($.keyword_value, $.predicate),
-          commaSeparated($.inclusive_predicate),
-        ),
-        $.keyword_from,
-        optional($.keyword_only),
-        choice(
-          $.statement,
-          seq(
-            commaSeparated($.value),
-            optional($.with_clause),
-            optional($.where_clause),
-            optional($.split_clause),
-            optional($.group_clause),
-            optional($.order_clause),
-            optional($.limit_clause),
-            optional($.fetch_clause),
-            optional($.timeout_clause),
-            optional($.parallel_clause),
-            optional($.explain_clause),
-          ),
-        ),
+        $.select_clause,
+        optional($.omit_clause),
+        $.from_clause,
       ),
 
     live_select_statement: $ =>
       seq(
         $.keyword_live,
-        $.keyword_select,
-        choice(
-          $.keyword_diff,
-          seq($.keyword_value, $.predicate),
-          commaSeparated($.inclusive_predicate),
-        ),
-        $.keyword_from,
-        commaSeparated(choice($.identifier, $.record_id)),
-        optional($.where_clause),
-        optional($.fetch_clause),
+        $.select_statement,
       ),
 
     // Clauses
+
+    select_clause: $ => seq(
+      $.keyword_select,
+      choice(
+        seq($.keyword_value, $.predicate),
+        commaSeparated($.inclusive_predicate),
+      ),
+    ),
+
+    from_clause: $ => seq(
+      $.keyword_from,
+      optional($.keyword_only),
+      choice(
+        $.statement,
+        seq(
+          commaSeparated($.value),
+          optional($.with_clause),
+          optional($.where_clause),
+          optional($.split_clause),
+          optional($.group_clause),
+          optional($.order_clause),
+          optional($.limit_clause),
+          optional($.fetch_clause),
+          optional($.timeout_clause),
+          optional($.parallel_clause),
+          optional($.explain_clause),
+        ),
+      ),
+    ),
+
     omit_clause: $ => seq($.keyword_omit, $.value),
 
     with_clause: $ =>
