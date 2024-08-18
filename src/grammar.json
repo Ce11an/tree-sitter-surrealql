@@ -3254,6 +3254,44 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "select_clause"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "omit_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "from_clause"
+        }
+      ]
+    },
+    "live_select_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_live"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "select_statement"
+        }
+      ]
+    },
+    "select_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
           "name": "keyword_select"
         },
         {
@@ -3298,7 +3336,12 @@
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    "from_clause": {
+      "type": "SEQ",
+      "members": [
         {
           "type": "SYMBOL",
           "name": "keyword_from"
@@ -3471,137 +3514,6 @@
                   ]
                 }
               ]
-            }
-          ]
-        }
-      ]
-    },
-    "live_select_statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_live"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_select"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "keyword_diff"
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "keyword_value"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "predicate"
-                }
-              ]
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "inclusive_predicate"
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ","
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "inclusive_predicate"
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_from"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "identifier"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "record_id"
-                }
-              ]
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": ","
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "identifier"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "record_id"
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "where_clause"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "fetch_clause"
-            },
-            {
-              "type": "BLANK"
             }
           ]
         }
