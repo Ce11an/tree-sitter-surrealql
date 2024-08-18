@@ -1624,6 +1624,25 @@
     }
   },
   {
+    "type": "live_select_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_live",
+          "named": true
+        },
+        {
+          "type": "select_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "merge_clause",
     "named": true,
     "fields": {},
@@ -2799,6 +2818,10 @@
         },
         {
           "type": "insert_statement",
+          "named": true
+        },
+        {
+          "type": "live_select_statement",
           "named": true
         },
         {

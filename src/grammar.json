@@ -1299,6 +1299,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "live_select_statement"
+        },
+        {
+          "type": "SYMBOL",
           "name": "begin_statement"
         },
         {
