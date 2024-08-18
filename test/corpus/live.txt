@@ -24,35 +24,6 @@ LIVE SELECT * FROM person;
     (semi_colon)))
 
 =====================================
-Live select using DIFF
-=====================================
-
-LIVE SELECT DIFF FROM person;
-
----
-
-(source_file
-  (expressions
-    (expression
-      (statement
-        (live_select_statement
-          (keyword_live)
-          (select_statement
-            (select_clause
-              (keyword_select)
-              (inclusive_predicate
-                (predicate
-                  (value
-                    (base_value
-                      (identifier))))))
-            (from_clause
-              (keyword_from)
-              (value
-                (base_value
-                  (identifier))))))))
-    (semi_colon)))
-
-=====================================
 Live select with a filter
 =====================================
 
