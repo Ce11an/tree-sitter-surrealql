@@ -414,6 +414,25 @@
     }
   },
   {
+    "type": "database_info",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_database",
+          "named": true
+        },
+        {
+          "type": "keyword_db",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "db_clause",
     "named": true,
     "fields": {},
@@ -1620,6 +1639,60 @@
     }
   },
   {
+    "type": "info_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "info_target",
+          "named": true
+        },
+        {
+          "type": "keyword_for",
+          "named": true
+        },
+        {
+          "type": "keyword_info",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "info_target",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "database_info",
+          "named": true
+        },
+        {
+          "type": "namespace_info",
+          "named": true
+        },
+        {
+          "type": "root_info",
+          "named": true
+        },
+        {
+          "type": "table_info",
+          "named": true
+        },
+        {
+          "type": "user_info",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "insert_statement",
     "named": true,
     "fields": {},
@@ -1661,6 +1734,29 @@
         },
         {
           "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "level_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_database",
+          "named": true
+        },
+        {
+          "type": "keyword_namespace",
+          "named": true
+        },
+        {
+          "type": "keyword_root",
           "named": true
         }
       ]
@@ -1718,6 +1814,25 @@
         },
         {
           "type": "object",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "namespace_info",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_namespace",
+          "named": true
+        },
+        {
+          "type": "keyword_ns",
           "named": true
         }
       ]
@@ -1837,6 +1952,25 @@
         },
         {
           "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "on_level_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "level_clause",
           "named": true
         }
       ]
@@ -2587,6 +2721,21 @@
     }
   },
   {
+    "type": "root_info",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_root",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "search_analyzer_clause",
     "named": true,
     "fields": {},
@@ -2902,6 +3051,10 @@
           "named": true
         },
         {
+          "type": "info_statement",
+          "named": true
+        },
+        {
           "type": "insert_statement",
           "named": true
         },
@@ -2965,6 +3118,25 @@
         },
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_info",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
           "named": true
         }
       ]
@@ -3353,6 +3525,29 @@
         },
         {
           "type": "ns_clause",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "user_info",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_user",
+          "named": true
+        },
+        {
+          "type": "on_level_clause",
           "named": true
         }
       ]
@@ -3954,6 +4149,10 @@
   },
   {
     "type": "keyword_index",
+    "named": true
+  },
+  {
+    "type": "keyword_info",
     "named": true
   },
   {

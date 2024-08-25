@@ -127,6 +127,13 @@
         "value": ";"
       }
     },
+    "keyword_info": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "INFO"
+      }
+    },
     "keyword_if": {
       "type": "TOKEN",
       "content": {
@@ -1395,6 +1402,52 @@
         {
           "type": "SYMBOL",
           "name": "use_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "info_statement"
+        }
+      ]
+    },
+    "info_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_info"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "info_target"
+        }
+      ]
+    },
+    "info_target": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "root_info"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "namespace_info"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "database_info"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "table_info"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "user_info"
         }
       ]
     },
@@ -3409,6 +3462,104 @@
         {
           "type": "SYMBOL",
           "name": "select_statement"
+        }
+      ]
+    },
+    "root_info": {
+      "type": "SYMBOL",
+      "name": "keyword_root"
+    },
+    "namespace_info": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_ns"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_namespace"
+        }
+      ]
+    },
+    "database_info": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_db"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_database"
+        }
+      ]
+    },
+    "table_info": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_table"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
+    },
+    "user_info": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_user"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "on_level_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "on_level_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_on"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "level_clause"
+        }
+      ]
+    },
+    "level_clause": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_root"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_namespace"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_database"
         }
       ]
     },
