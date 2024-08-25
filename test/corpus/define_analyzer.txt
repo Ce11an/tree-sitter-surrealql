@@ -1,0 +1,313 @@
+=====================================
+Define blank tokenizer
+=====================================
+
+DEFINE ANALYZER example_blank TOKENIZERS blank;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_analyzer_statement
+          (keyword_define)
+          (keyword_analyzer)
+          (identifier)
+          (tokenizers_clause
+            (keyword_tokenizers)
+            (analyzer_tokenizers)))))
+    (semi_colon)))
+
+=====================================
+Define camel tokenizer
+=====================================
+
+DEFINE ANALYZER example_camel TOKENIZERS camel;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_analyzer_statement
+          (keyword_define)
+          (keyword_analyzer)
+          (identifier)
+          (tokenizers_clause
+            (keyword_tokenizers)
+            (analyzer_tokenizers)))))
+    (semi_colon)))
+
+
+=====================================
+Define class tokenizer
+=====================================
+
+DEFINE ANALYZER example_class TOKENIZERS class;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_analyzer_statement
+          (keyword_define)
+          (keyword_analyzer)
+          (identifier)
+          (tokenizers_clause
+            (keyword_tokenizers)
+            (analyzer_tokenizers)))))
+    (semi_colon)))
+
+
+=====================================
+Define punct tokenizer
+=====================================
+
+DEFINE ANALYZER example_punct TOKENIZERS punct;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_analyzer_statement
+          (keyword_define)
+          (keyword_analyzer)
+          (identifier)
+          (tokenizers_clause
+            (keyword_tokenizers)
+            (analyzer_tokenizers)))))
+    (semi_colon)))
+
+
+=====================================
+Define class tokenizer with ascii filter
+=====================================
+
+DEFINE ANALYZER example_ascii TOKENIZERS class FILTERS ascii;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_analyzer_statement
+          (keyword_define)
+          (keyword_analyzer)
+          (identifier)
+          (tokenizers_clause
+            (keyword_tokenizers)
+            (analyzer_tokenizers))
+          (filters_clause
+            (keyword_filters)
+            (analyzer_filters)))))
+    (semi_colon)))
+
+=====================================
+Define class tokenizer with ngram filter
+=====================================
+
+DEFINE ANALYZER example_ngram TOKENIZERS class FILTERS ngram(1,3);
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_analyzer_statement
+          (keyword_define)
+          (keyword_analyzer)
+          (identifier)
+          (tokenizers_clause
+            (keyword_tokenizers)
+            (analyzer_tokenizers))
+          (filters_clause
+            (keyword_filters)
+            (analyzer_filters
+              (int)
+              (int))))))
+    (semi_colon)))
+
+=====================================
+Define class tokenizer with edgengram filter
+=====================================
+
+DEFINE ANALYZER example_edgengram TOKENIZERS class FILTERS edgengram(1,3);
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_analyzer_statement
+          (keyword_define)
+          (keyword_analyzer)
+          (identifier)
+          (tokenizers_clause
+            (keyword_tokenizers)
+            (analyzer_tokenizers))
+          (filters_clause
+            (keyword_filters)
+            (analyzer_filters
+              (int)
+              (int))))))
+    (semi_colon)))
+
+
+=====================================
+Define class tokenizer with lowercase filter
+=====================================
+
+DEFINE ANALYZER example_lowercase TOKENIZERS class FILTERS lowercase;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_analyzer_statement
+          (keyword_define)
+          (keyword_analyzer)
+          (identifier)
+          (tokenizers_clause
+            (keyword_tokenizers)
+            (analyzer_tokenizers))
+          (filters_clause
+            (keyword_filters)
+            (analyzer_filters)))))
+    (semi_colon)))
+
+
+=====================================
+Define class tokenizer with snowball filter
+=====================================
+
+DEFINE ANALYZER example_snowball TOKENIZERS class FILTERS snowball(english);
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_analyzer_statement
+          (keyword_define)
+          (keyword_analyzer)
+          (identifier)
+          (tokenizers_clause
+            (keyword_tokenizers)
+            (analyzer_tokenizers))
+          (filters_clause
+            (keyword_filters)
+            (analyzer_filters
+              (identifier))))))
+    (semi_colon)))
+
+
+=====================================
+Define class tokenizer with uppercase filter
+=====================================
+
+DEFINE ANALYZER example_uppercase TOKENIZERS class FILTERS uppercase;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_analyzer_statement
+          (keyword_define)
+          (keyword_analyzer)
+          (identifier)
+          (tokenizers_clause
+            (keyword_tokenizers)
+            (analyzer_tokenizers))
+          (filters_clause
+            (keyword_filters)
+            (analyzer_filters)))))
+    (semi_colon)))
+
+
+=====================================
+Define analyzer with multiple filters
+=====================================
+
+DEFINE ANALYZER ascii TOKENIZERS class FILTERS lowercase,ascii;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_analyzer_statement
+          (keyword_define)
+          (keyword_analyzer)
+          (identifier)
+          (tokenizers_clause
+            (keyword_tokenizers)
+            (analyzer_tokenizers))
+          (filters_clause
+            (keyword_filters)
+            (analyzer_filters)
+            (analyzer_filters)))))
+    (semi_colon)))
+
+=====================================
+Create an `ANALYZER` if it does not already exist
+=====================================
+
+DEFINE ANALYZER IF NOT EXISTS example TOKENIZERS blank;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_analyzer_statement
+          (keyword_define)
+          (keyword_analyzer)
+          (if_not_exists_clause
+            (keyword_if)
+            (keyword_not)
+            (keyword_exists))
+          (identifier)
+          (tokenizers_clause
+            (keyword_tokenizers)
+            (analyzer_tokenizers)))))
+    (semi_colon)))
+
+
+=====================================
+Create an `ANALYZER` and overwrite if it already exists
+=====================================
+
+DEFINE ANALYZER OVERWRITE example TOKENIZERS blank;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_analyzer_statement
+          (keyword_define)
+          (keyword_analyzer)
+          (keyword_overwrite)
+          (identifier)
+          (tokenizers_clause
+            (keyword_tokenizers)
+            (analyzer_tokenizers)))))
+    (semi_colon)))
+

@@ -457,11 +457,19 @@
           "named": true
         },
         {
+          "type": "if_not_exists_clause",
+          "named": true
+        },
+        {
           "type": "keyword_analyzer",
           "named": true
         },
         {
           "type": "keyword_define",
+          "named": true
+        },
+        {
+          "type": "keyword_overwrite",
           "named": true
         },
         {
@@ -3954,6 +3962,10 @@
   },
   {
     "type": "keyword_outside",
+    "named": true
+  },
+  {
+    "type": "keyword_overwrite",
     "named": true
   },
   {
