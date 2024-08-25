@@ -19,6 +19,10 @@ module.exports = grammar({
         ),
       ),
     semi_colon: _ => token(";"),
+    keyword_if: _ => token("IF"),
+    keyword_exists: _ => token("EXISTS"),
+    keyword_tokenizers: _ => token("TOKENIZERS"),
+    keyword_overwrite: _ => token("OVERWRITE"),
     keyword_on: _ => token("ON"),
     keyword_let: _ => token("LET"),
     keyword_return: _ => token("RETURN"),
@@ -146,7 +150,6 @@ module.exports = grammar({
     keyword_update: _ => token("UPDATE"),
     keyword_insert: _ => token("INSERT"),
     keyword_into: _ => token("INTO"),
-    keyword_tokenizers: _ => token("TOKENIZERS"),
     keyword_filters: _ => token("FILTERS"),
     keyword_when: _ => token("WHEN"),
     keyword_then: _ => token("THEN"),
@@ -166,8 +169,6 @@ module.exports = grammar({
     keyword_session: _ => token("SESSION"),
     keyword_signin: _ => token("SIGNIN"),
     keyword_signup: _ => token("SIGNUP"),
-    keyword_if: _ => token("IF"),
-    keyword_exists: _ => token("EXISTS"),
     keyword_database: _ => token("DATABASE"),
     keyword_password: _ => token("PASSWORD"),
     keyword_password_hash: _ => token("PASSHASH"),
@@ -229,6 +230,7 @@ module.exports = grammar({
       seq(
         $.keyword_define,
         $.keyword_analyzer,
+        optional(choice($.if_not_exists_clause, $.keyword_overwrite)),
         $.identifier,
         repeat(
           choice(
@@ -538,48 +540,42 @@ module.exports = grammar({
       ),
 
     select_statement: $ =>
-      seq(
-        $.select_clause,
-        optional($.omit_clause),
-        $.from_clause,
-      ),
+      seq($.select_clause, optional($.omit_clause), $.from_clause),
 
-    live_select_statement: $ =>
-      seq(
-        $.keyword_live,
-        $.select_statement,
-      ),
+    live_select_statement: $ => seq($.keyword_live, $.select_statement),
 
     // Clauses
 
-    select_clause: $ => seq(
-      $.keyword_select,
-      choice(
-        seq($.keyword_value, $.predicate),
-        commaSeparated($.inclusive_predicate),
-      ),
-    ),
-
-    from_clause: $ => seq(
-      $.keyword_from,
-      optional($.keyword_only),
-      choice(
-        $.statement,
-        seq(
-          commaSeparated($.value),
-          optional($.with_clause),
-          optional($.where_clause),
-          optional($.split_clause),
-          optional($.group_clause),
-          optional($.order_clause),
-          optional($.limit_clause),
-          optional($.fetch_clause),
-          optional($.timeout_clause),
-          optional($.parallel_clause),
-          optional($.explain_clause),
+    select_clause: $ =>
+      seq(
+        $.keyword_select,
+        choice(
+          seq($.keyword_value, $.predicate),
+          commaSeparated($.inclusive_predicate),
         ),
       ),
-    ),
+
+    from_clause: $ =>
+      seq(
+        $.keyword_from,
+        optional($.keyword_only),
+        choice(
+          $.statement,
+          seq(
+            commaSeparated($.value),
+            optional($.with_clause),
+            optional($.where_clause),
+            optional($.split_clause),
+            optional($.group_clause),
+            optional($.order_clause),
+            optional($.limit_clause),
+            optional($.fetch_clause),
+            optional($.timeout_clause),
+            optional($.parallel_clause),
+            optional($.explain_clause),
+          ),
+        ),
+      ),
 
     omit_clause: $ => seq($.keyword_omit, $.value),
 

@@ -127,6 +127,34 @@
         "value": ";"
       }
     },
+    "keyword_if": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "IF"
+      }
+    },
+    "keyword_exists": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "EXISTS"
+      }
+    },
+    "keyword_tokenizers": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "TOKENIZERS"
+      }
+    },
+    "keyword_overwrite": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "OVERWRITE"
+      }
+    },
     "keyword_on": {
       "type": "TOKEN",
       "content": {
@@ -1016,13 +1044,6 @@
         "value": "INTO"
       }
     },
-    "keyword_tokenizers": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "TOKENIZERS"
-      }
-    },
     "keyword_filters": {
       "type": "TOKEN",
       "content": {
@@ -1154,20 +1175,6 @@
       "content": {
         "type": "STRING",
         "value": "SIGNUP"
-      }
-    },
-    "keyword_if": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "IF"
-      }
-    },
-    "keyword_exists": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "EXISTS"
       }
     },
     "keyword_database": {
@@ -1456,6 +1463,27 @@
         {
           "type": "SYMBOL",
           "name": "keyword_analyzer"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "if_not_exists_clause"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_overwrite"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "SYMBOL",
