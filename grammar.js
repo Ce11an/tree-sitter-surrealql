@@ -217,6 +217,13 @@ module.exports = grammar({
         $.insert_statement,
         $.relate_statement,
         $.delete_statement,
+        $.use_statement,
+      ),
+
+    use_statement: $ =>
+      seq(
+        $.keyword_use,
+        choice($.ns_clause, $.db_clause, seq($.ns_clause, $.db_clause)),
       ),
 
     begin_statement: $ => seq($.keyword_begin, optional($.keyword_transaction)),
@@ -555,6 +562,9 @@ module.exports = grammar({
     live_select_statement: $ => seq($.keyword_live, $.select_statement),
 
     // Clauses
+
+    ns_clause: $ => seq($.keyword_ns, $.identifier),
+    db_clause: $ => seq($.keyword_db, $.identifier),
 
     select_clause: $ =>
       seq(
