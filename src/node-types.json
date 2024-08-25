@@ -480,6 +480,41 @@
     }
   },
   {
+    "type": "define_database",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comment_clause",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_not_exists_clause",
+          "named": true
+        },
+        {
+          "type": "keyword_database",
+          "named": true
+        },
+        {
+          "type": "keyword_define",
+          "named": true
+        },
+        {
+          "type": "keyword_overwrite",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "define_event_statement",
     "named": true,
     "fields": {},
@@ -2778,6 +2813,10 @@
         },
         {
           "type": "define_analyzer_statement",
+          "named": true
+        },
+        {
+          "type": "define_database",
           "named": true
         },
         {
