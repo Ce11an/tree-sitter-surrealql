@@ -414,6 +414,25 @@
     }
   },
   {
+    "type": "db_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_db",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "default_clause",
     "named": true,
     "fields": {},
@@ -1705,6 +1724,25 @@
     }
   },
   {
+    "type": "ns_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_ns",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "number",
     "named": true,
     "fields": {},
@@ -2886,6 +2924,10 @@
         {
           "type": "update_statement",
           "named": true
+        },
+        {
+          "type": "use_statement",
+          "named": true
         }
       ]
     }
@@ -3288,6 +3330,29 @@
         },
         {
           "type": "where_clause",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "use_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "db_clause",
+          "named": true
+        },
+        {
+          "type": "keyword_use",
+          "named": true
+        },
+        {
+          "type": "ns_clause",
           "named": true
         }
       ]
@@ -3748,6 +3813,10 @@
     "named": true
   },
   {
+    "type": "keyword_db",
+    "named": true
+  },
+  {
     "type": "keyword_default",
     "named": true
   },
@@ -3961,6 +4030,10 @@
   },
   {
     "type": "keyword_not_inside",
+    "named": true
+  },
+  {
+    "type": "keyword_ns",
     "named": true
   },
   {
@@ -4197,6 +4270,10 @@
   },
   {
     "type": "keyword_update",
+    "named": true
+  },
+  {
+    "type": "keyword_use",
     "named": true
   },
   {

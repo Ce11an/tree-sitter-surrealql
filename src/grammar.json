@@ -1391,6 +1391,45 @@
         {
           "type": "SYMBOL",
           "name": "delete_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "use_statement"
+        }
+      ]
+    },
+    "use_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_use"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "ns_clause"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "db_clause"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "ns_clause"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "db_clause"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -3370,6 +3409,32 @@
         {
           "type": "SYMBOL",
           "name": "select_statement"
+        }
+      ]
+    },
+    "ns_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_ns"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
+    },
+    "db_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_db"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
         }
       ]
     },

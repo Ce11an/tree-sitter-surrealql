@@ -1,0 +1,60 @@
+=====================================
+Switch namespace to test
+=====================================
+
+USE NS test;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (use_statement
+          (keyword_use)
+          (ns_clause
+            (keyword_ns)
+            (identifier)))))
+    (semi_colon)))
+
+=====================================
+Switch database to test
+=====================================
+
+USE DB test;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (use_statement
+          (keyword_use)
+          (db_clause
+            (keyword_db)
+            (identifier)))))
+    (semi_colon)))
+
+=====================================
+Switch namespace to test and database to test
+=====================================
+
+USE NS test DB test;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (use_statement
+          (keyword_use)
+          (ns_clause
+            (keyword_ns)
+            (identifier))
+          (db_clause
+            (keyword_db)
+            (identifier)))))
+    (semi_colon)))
+
