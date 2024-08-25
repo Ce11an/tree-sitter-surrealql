@@ -1,0 +1,80 @@
+=====================================
+Create a database
+=====================================
+
+DEFINE DATABASE app_vitalsense;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_database
+          (keyword_define)
+          (keyword_database)
+          (identifier))))
+    (semi_colon)))
+
+=====================================
+Create a DATABASE if it does not already exist
+=====================================
+
+DEFINE DATABASE IF NOT EXISTS app_vitalsense;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_database
+          (keyword_define)
+          (keyword_database)
+          (if_not_exists_clause
+            (keyword_if)
+            (keyword_not)
+            (keyword_exists))
+          (identifier))))
+    (semi_colon)))
+
+=====================================
+Create a DATABASE and overwrite if it already exists
+=====================================
+
+DEFINE DATABASE OVERWRITE app_vitalsense;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_database
+          (keyword_define)
+          (keyword_database)
+          (keyword_overwrite)
+          (identifier))))
+    (semi_colon)))
+
+=====================================
+Create a DATABASE and overwrite if it already exists with a comment
+=====================================
+
+DEFINE DATABASE OVERWRITE app_vitalsense COMMENT "This is a comment";
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (define_database
+          (keyword_define)
+          (keyword_database)
+          (keyword_overwrite)
+          (identifier)
+          (comment_clause
+            (keyword_comment)
+            (string)))))
+    (semi_colon)))

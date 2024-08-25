@@ -200,6 +200,7 @@ module.exports = grammar({
         $.cancel_statement,
         $.commit_statement,
         $.define_analyzer_statement,
+        $.define_database,
         $.define_event_statement,
         $.define_field_statement,
         $.define_function_statement,
@@ -240,6 +241,15 @@ module.exports = grammar({
             $.comment_clause,
           ),
         ),
+      ),
+
+    define_database: $ =>
+      seq(
+        $.keyword_define,
+        $.keyword_database,
+        optional(choice($.if_not_exists_clause, $.keyword_overwrite)),
+        $.identifier,
+        optional($.comment_clause),
       ),
 
     define_event_statement: $ =>
