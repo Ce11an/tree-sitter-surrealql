@@ -19,6 +19,7 @@ module.exports = grammar({
         ),
       ),
     semi_colon: _ => token(";"),
+    keyword_info: _ => token("INFO"),
     keyword_if: _ => token("IF"),
     keyword_exists: _ => token("EXISTS"),
     keyword_tokenizers: _ => token("TOKENIZERS"),
@@ -170,6 +171,7 @@ module.exports = grammar({
     keyword_signin: _ => token("SIGNIN"),
     keyword_signup: _ => token("SIGNUP"),
     keyword_database: _ => token("DATABASE"),
+    keyword_namespace: _ => token("NAMESPACE"),
     keyword_password: _ => token("PASSWORD"),
     keyword_password_hash: _ => token("PASSHASH"),
     keyword_on_duplicate_key_update: _ => token("ON DUPLICATE KEY UPDATE"),
@@ -218,6 +220,18 @@ module.exports = grammar({
         $.relate_statement,
         $.delete_statement,
         $.use_statement,
+        $.info_statement,
+      ),
+
+    info_statement: $ => seq($.keyword_info, $.keyword_for, $.info_target),
+
+    info_target: $ =>
+      choice(
+        $.root_info,
+        $.namespace_info,
+        $.database_info,
+        $.table_info,
+        $.user_info,
       ),
 
     use_statement: $ =>
@@ -562,6 +576,22 @@ module.exports = grammar({
     live_select_statement: $ => seq($.keyword_live, $.select_statement),
 
     // Clauses
+
+    root_info: $ => $.keyword_root,
+
+    namespace_info: $ => choice($.keyword_ns, $.keyword_namespace),
+
+    database_info: $ => choice($.keyword_db, $.keyword_database),
+
+    table_info: $ => seq($.keyword_table, $.identifier),
+
+    user_info: $ =>
+      seq($.keyword_user, $.identifier, optional($.on_level_clause)),
+
+    on_level_clause: $ => seq($.keyword_on, $.level_clause),
+
+    level_clause: $ =>
+      choice($.keyword_root, $.keyword_namespace, $.keyword_database),
 
     ns_clause: $ => seq($.keyword_ns, $.identifier),
     db_clause: $ => seq($.keyword_db, $.identifier),

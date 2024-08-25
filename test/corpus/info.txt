@@ -1,0 +1,136 @@
+=====================================
+Root information
+=====================================
+
+INFO FOR ROOT;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (info_statement
+          (keyword_info)
+          (keyword_for)
+          (info_target
+              (root_info
+                (keyword_root))))))
+    (semi_colon)))
+
+=====================================
+Namespace information
+=====================================
+
+INFO FOR NS;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (info_statement
+          (keyword_info)
+          (keyword_for)
+          (info_target
+            (namespace_info
+              (keyword_ns))))))
+    (semi_colon)))
+
+=====================================
+Database information
+=====================================
+
+INFO FOR DB;
+
+---
+
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (info_statement
+          (keyword_info)
+          (keyword_for)
+          (info_target
+            (database_info
+              (keyword_db))))))
+    (semi_colon)))
+
+=====================================
+Table information
+=====================================
+
+INFO FOR TABLE user;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (info_statement
+          (keyword_info)
+          (keyword_for)
+          (info_target
+            (table_info
+              (keyword_table)
+              (identifier))))))
+    (semi_colon)))
+
+=====================================
+User information
+=====================================
+
+INFO FOR USER root ON ROOT;
+INFO FOR USER ns_user ON NAMESPACE;
+INFO FOR USER db_user ON DATABASE;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (info_statement
+          (keyword_info)
+          (keyword_for)
+          (info_target
+            (user_info
+              (keyword_user)
+              (identifier)
+              (on_level_clause
+                (keyword_on)
+                (level_clause
+                  (keyword_root))))))))
+    (semi_colon)
+    (expression
+      (statement
+        (info_statement
+          (keyword_info)
+          (keyword_for)
+          (info_target
+            (user_info
+              (keyword_user)
+              (identifier)
+              (on_level_clause
+                (keyword_on)
+                (level_clause
+                  (keyword_namespace))))))))
+    (semi_colon)
+    (expression
+      (statement
+        (info_statement
+          (keyword_info)
+          (keyword_for)
+          (info_target
+            (user_info
+              (keyword_user)
+              (identifier)
+              (on_level_clause
+                (keyword_on)
+                (level_clause
+                  (keyword_database))))))))
+    (semi_colon)))
