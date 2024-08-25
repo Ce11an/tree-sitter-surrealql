@@ -155,6 +155,7 @@
   (keyword_dimension)
   (keyword_mtree)
   (keyword_dist)
+  (keyword_overwrite)
 ] @keyword
 
 ; Operators
