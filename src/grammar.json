@@ -1406,6 +1406,31 @@
         {
           "type": "SYMBOL",
           "name": "info_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "let_statement"
+        }
+      ]
+    },
+    "let_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_let"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "variable_name"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
         }
       ]
     },

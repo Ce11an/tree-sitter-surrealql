@@ -222,4 +222,3 @@
 (graph_path) @operator
 
 ; Errors
-(ERROR) @error

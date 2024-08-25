@@ -1,0 +1,95 @@
+=====================================
+Basic parameter assignment
+=====================================
+
+LET $name = "tobie";
+CREATE person SET name = $name;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (let_statement
+          (keyword_let)
+          (variable_name)
+          (value
+            (base_value
+              (string))))))
+    (semi_colon)
+    (expression
+      (statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (identifier))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (variable_name))))))))
+    (semi_colon)))
+
+=====================================
+Storing query results
+=====================================
+
+LET $adults = (SELECT * FROM person WHERE age > 18);
+UPDATE $adults SET adult = true;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (let_statement
+          (keyword_let)
+          (variable_name)
+          (value
+            (base_value
+              (sub_query
+                (expression
+                  (statement
+                    (select_statement
+                      (select_clause
+                        (keyword_select)
+                        (inclusive_predicate))
+                      (from_clause
+                        (keyword_from)
+                        (value
+                          (base_value
+                            (identifier)))
+                        (where_clause
+                          (keyword_where)
+                          (value
+                            (binary_expression
+                              (value
+                                (base_value
+                                  (identifier)))
+                              (operator)
+                              (value
+                                (base_value
+                                  (number
+                                    (int)))))))))))))))))
+    (semi_colon)
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (variable_name)))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (identifier))))))))
+    (semi_colon)))

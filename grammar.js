@@ -221,7 +221,10 @@ module.exports = grammar({
         $.delete_statement,
         $.use_statement,
         $.info_statement,
+        $.let_statement,
       ),
+
+    let_statement: $ => seq($.keyword_let, $.variable_name, "=", $.value),
 
     info_statement: $ => seq($.keyword_info, $.keyword_for, $.info_target),
 

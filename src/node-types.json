@@ -1740,6 +1740,29 @@
     }
   },
   {
+    "type": "let_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_let",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        },
+        {
+          "type": "variable_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "level_clause",
     "named": true,
     "fields": {},
@@ -3059,6 +3082,10 @@
           "named": true
         },
         {
+          "type": "let_statement",
+          "named": true
+        },
+        {
           "type": "live_select_statement",
           "named": true
         },
@@ -4181,6 +4208,10 @@
   },
   {
     "type": "keyword_jwks",
+    "named": true
+  },
+  {
+    "type": "keyword_let",
     "named": true
   },
   {
