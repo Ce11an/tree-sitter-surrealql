@@ -1,0 +1,299 @@
+=====================================
+Create a new record
+=====================================
+
+CREATE person;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (identifier)))))
+    (semi_colon)))
+
+=====================================
+Specific ID for a table
+=====================================
+
+CREATE person:one;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (record_id
+              (object_key)
+              (record_id_value
+                (record_id_ident)))))))
+    (semi_colon)))
+
+
+=====================================
+type::thing() function
+=====================================
+
+CREATE type::thing("person", "one");
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (function_call
+              (function_name)
+              (argument_list
+                (value
+                  (base_value
+                    (string)))
+                (value
+                  (base_value
+                    (string)))))))))
+    (semi_colon)))
+
+=====================================
+Create a new record with a text id
+=====================================
+
+CREATE person:tobie SET
+    name = 'Tobie',
+    company = 'SurrealDB',
+    skills = ['Rust', 'Go', 'JavaScript'];
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (record_id
+              (object_key)
+              (record_id_value
+                (record_id_ident))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (array
+                    (value
+                      (base_value
+                        (string)))
+                    (value
+                      (base_value
+                        (string)))
+                    (value
+                      (base_value
+                        (string)))))))))))
+    (semi_colon)))
+
+
+=====================================
+Multiple records
+=====================================
+
+CREATE townsperson, cat, dog SET
+    created_at = time::now(),
+    name = "Just a " + meta::tb(id);
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (identifier)
+            (identifier)
+            (identifier))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (function_call
+                  (function_name)
+                  (argument_list))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (binary_expression
+                  (value
+                    (base_value
+                      (string)))
+                  (operator
+                    (binary_operator))
+                  (value
+                    (function_call
+                      (function_name)
+                      (argument_list
+                        (value
+                          (base_value
+                            (identifier)))))))))))))
+    (semi_colon)))
+
+
+=====================================
+Create a single record
+=====================================
+
+CREATE ONLY person:tobie SET
+    name = 'Tobie',
+    company = 'SurrealDB',
+    skills = ['Rust', 'Go', 'JavaScript'];
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (create_statement
+          (keyword_create)
+          (keyword_only)
+          (create_target
+            (record_id
+              (object_key)
+              (record_id_value
+                (record_id_ident))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (array
+                    (value
+                      (base_value
+                        (string)))
+                    (value
+                      (base_value
+                        (string)))
+                    (value
+                      (base_value
+                        (string)))))))))))
+    (semi_colon)))
+
+=====================================
+Return DIFF
+=====================================
+
+CREATE person SET age = 46, username = "john-smith" RETURN DIFF;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (identifier))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (number
+                    (int)))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string)))))
+          (return_clause
+            (keyword_return)
+            (keyword_diff)))))
+    (semi_colon)))
+
+=====================================
+Specify a TIMEOUT
+=====================================
+
+CREATE person:john SET age = 46, username = "john-smith" TIMEOUT 500ms;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (record_id
+              (object_key)
+              (record_id_value
+                (record_id_ident))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (number
+                    (int)))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string)))))
+          (timeout_clause
+            (keyword_timeout)
+            (duration
+              (duration_part))))))
+    (semi_colon)))
+

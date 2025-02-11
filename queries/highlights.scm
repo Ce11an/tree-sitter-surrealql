@@ -149,7 +149,6 @@
   (keyword_on_duplicate_key_update)
   (keyword_count)
   (keyword_set)
-  (keyword_unset)
   (keyword_return)
   (keyword_overwrite)
   (keyword_throw)
