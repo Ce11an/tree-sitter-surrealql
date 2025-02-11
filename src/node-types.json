@@ -364,10 +364,6 @@
           "named": true
         },
         {
-          "type": "parallel_clause",
-          "named": true
-        },
-        {
           "type": "return_clause",
           "named": true
         },
@@ -378,10 +374,6 @@
         {
           "type": "timeout_clause",
           "named": true
-        },
-        {
-          "type": "unset_clause",
-          "named": true
         }
       ]
     }
@@ -391,7 +383,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -3604,25 +3596,6 @@
     }
   },
   {
-    "type": "unset_clause",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "field_assignment",
-          "named": true
-        },
-        {
-          "type": "keyword_unset",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "update_statement",
     "named": true,
     "fields": {},
@@ -3668,10 +3641,6 @@
         },
         {
           "type": "timeout_clause",
-          "named": true
-        },
-        {
-          "type": "unset_clause",
           "named": true
         },
         {
@@ -4663,10 +4632,6 @@
   },
   {
     "type": "keyword_unique",
-    "named": true
-  },
-  {
-    "type": "keyword_unset",
     "named": true
   },
   {

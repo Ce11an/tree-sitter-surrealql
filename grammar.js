@@ -514,10 +514,9 @@ module.exports = grammar({
         $.keyword_create,
         optional($.keyword_only),
         $.create_target,
-        optional(choice($.content_clause, $.set_clause, $.unset_clause)),
+        optional(choice($.content_clause, $.set_clause)),
         optional($.return_clause),
         optional($.timeout_clause),
-        optional($.parallel_clause),
       ),
 
     update_statement: $ =>
@@ -534,7 +533,6 @@ module.exports = grammar({
                 $.merge_clause,
                 $.patch_clause,
                 $.set_clause,
-                $.unset_clause,
               ),
             ),
             optional($.where_clause),
@@ -883,13 +881,11 @@ module.exports = grammar({
     if_exists_clause: $ => seq($.keyword_if, $.keyword_exists),
 
     create_target: $ =>
-      choice($.identifier, $.variable_name, $.function_call, $.record_id),
+      choice(commaSeparated($.identifier), $.variable_name, $.function_call, $.record_id),
 
     content_clause: $ => seq($.keyword_content, $.object),
 
     set_clause: $ => seq($.keyword_set, commaSeparated($.field_assignment)),
-
-    unset_clause: $ => seq($.keyword_unset, commaSeparated($.field_assignment)),
 
     return_clause: $ =>
       seq(

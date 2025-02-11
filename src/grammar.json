@@ -2889,10 +2889,6 @@
                 {
                   "type": "SYMBOL",
                   "name": "set_clause"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "unset_clause"
                 }
               ]
             },
@@ -2919,18 +2915,6 @@
             {
               "type": "SYMBOL",
               "name": "timeout_clause"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "parallel_clause"
             },
             {
               "type": "BLANK"
@@ -3014,10 +2998,6 @@
                         {
                           "type": "SYMBOL",
                           "name": "set_clause"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "unset_clause"
                         }
                       ]
                     },
@@ -5464,8 +5444,29 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  }
+                ]
+              }
+            }
+          ]
         },
         {
           "type": "SYMBOL",
@@ -5500,40 +5501,6 @@
         {
           "type": "SYMBOL",
           "name": "keyword_set"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "field_assignment"
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": ","
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "field_assignment"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      ]
-    },
-    "unset_clause": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_unset"
         },
         {
           "type": "SEQ",
