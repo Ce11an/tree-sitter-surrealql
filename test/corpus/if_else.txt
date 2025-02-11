@@ -1,0 +1,340 @@
+=====================================
+Scoped if-statement single-line
+=====================================
+
+IF 9 = 9 { RETURN 'Nine is indeed nine' };
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (if_statement
+          (keyword_if)
+          (value
+            (binary_expression
+              (value
+                (base_value
+                  (number
+                    (int))))
+              (operator)
+              (value
+                (base_value
+                  (number
+                    (int))))))
+          (block
+            (expressions
+              (expression
+                (statement
+                  (return_statement
+                    (return_clause
+                      (keyword_return)
+                      (value
+                        (base_value
+                          (string))))))))))))
+    (semi_colon)))
+
+
+=====================================
+Scoped if-statement multi-line
+=====================================
+
+LET $num = 100;
+
+RETURN IF $num < 0 {
+    "Negative"
+} ELSE IF $num = 0 {
+    "Zero"
+} ELSE IF $num = 13 {
+    "Thirteen"
+} ELSE {
+    "Positive uninteresting number"
+};
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (let_statement
+          (keyword_let)
+          (variable_name)
+          (value
+            (base_value
+              (number
+                (int)))))))
+    (semi_colon)
+    (expression
+      (statement
+        (return_statement
+          (return_clause
+            (keyword_return)
+            (if_statement
+              (keyword_if)
+              (value
+                (binary_expression
+                  (value
+                    (base_value
+                      (variable_name)))
+                  (operator)
+                  (value
+                    (base_value
+                      (number
+                        (int))))))
+              (block
+                (expressions
+                  (expression
+                    (value
+                      (base_value
+                        (string))))))
+              (else_if_clause
+                (keyword_else)
+                (keyword_if)
+                (value
+                  (binary_expression
+                    (value
+                      (base_value
+                        (variable_name)))
+                    (operator)
+                    (value
+                      (base_value
+                        (number
+                          (int))))))
+                (block
+                  (expressions
+                    (expression
+                      (value
+                        (base_value
+                          (string)))))))
+              (else_if_clause
+                (keyword_else)
+                (keyword_if)
+                (value
+                  (binary_expression
+                    (value
+                      (base_value
+                        (variable_name)))
+                    (operator)
+                    (value
+                      (base_value
+                        (number
+                          (int))))))
+                (block
+                  (expressions
+                    (expression
+                      (value
+                        (base_value
+                          (string)))))))
+              (else_clause
+                (keyword_else)
+                (block
+                  (expressions
+                    (expression
+                      (value
+                        (base_value
+                          (string))))))))))))
+    (semi_colon)))
+
+=====================================
+Throw if-statement
+=====================================
+
+LET $badly_formatted_datetime = "2024-04TT08:08:08Z";
+
+IF !type::is::datetime($badly_formatted_datetime) {
+    THROW "Whoops, that isn't a real datetime"
+};
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (let_statement
+          (keyword_let)
+          (variable_name)
+          (value
+            (base_value
+              (string))))))
+    (semi_colon)
+    (expression
+      (statement
+        (if_statement
+          (keyword_if)
+          (value
+            (negated_expression
+              (function_call
+                (function_name)
+                (argument_list
+                  (value
+                    (base_value
+                      (variable_name)))))))
+          (block
+            (expressions
+              (expression
+                (statement
+                  (throw_statement
+                    (keyword_throw)
+                    (value
+                      (base_value
+                        (string)))))))))))
+    (semi_colon)))
+
+=====================================
+Return if-statement
+=====================================
+
+RETURN
+    IF $access = "admin" { (SELECT * FROM account) }
+    ELSE IF $access = "user"  { (SELECT * FROM $auth.account) }
+    ELSE { THROW "Access method hasn't been defined!" };
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (return_statement
+          (return_clause
+            (keyword_return)
+            (if_statement
+              (keyword_if)
+              (value
+                (binary_expression
+                  (value
+                    (base_value
+                      (variable_name)))
+                  (operator)
+                  (value
+                    (base_value
+                      (string)))))
+              (block
+                (expressions
+                  (expression
+                    (value
+                      (base_value
+                        (sub_query
+                          (expression
+                            (statement
+                              (select_statement
+                                (select_clause
+                                  (keyword_select)
+                                  (inclusive_predicate))
+                                (from_clause
+                                  (keyword_from)
+                                  (value
+                                    (base_value
+                                      (identifier)))))))))))))
+              (else_if_clause
+                (keyword_else)
+                (keyword_if)
+                (value
+                  (binary_expression
+                    (value
+                      (base_value
+                        (variable_name)))
+                    (operator)
+                    (value
+                      (base_value
+                        (string)))))
+                (block
+                  (expressions
+                    (expression
+                      (value
+                        (base_value
+                          (sub_query
+                            (expression
+                              (statement
+                                (select_statement
+                                  (select_clause
+                                    (keyword_select)
+                                    (inclusive_predicate))
+                                  (from_clause
+                                    (keyword_from)
+                                    (value
+                                      (path
+                                        (base_value
+                                          (variable_name))
+                                        (path_element
+                                          (subscript
+                                            (identifier))))))))))))))))
+              (else_clause
+                (keyword_else)
+                (block
+                  (expressions
+                    (expression
+                      (statement
+                        (throw_statement
+                          (keyword_throw)
+                          (value
+                            (base_value
+                              (string))))))))))))))
+    (semi_colon)))
+
+=====================================
+Parameter if-statement
+=====================================
+
+LET $num = 9;
+LET $odd_even =
+    IF $num % 2 = 0 { "even" }
+    ELSE { "odd" };
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (let_statement
+          (keyword_let)
+          (variable_name)
+          (value
+            (base_value
+              (number
+                (int)))))))
+    (semi_colon)
+    (expression
+      (statement
+        (let_statement
+          (keyword_let)
+          (variable_name)
+          (if_statement
+            (keyword_if)
+            (value
+              (binary_expression
+                (value
+                  (binary_expression
+                    (value
+                      (base_value
+                        (variable_name)))
+                    (operator)
+                    (value
+                      (base_value
+                        (number
+                          (int))))))
+                (operator)
+                (value
+                  (base_value
+                    (number
+                      (int))))))
+            (block
+              (expressions
+                (expression
+                  (value
+                    (base_value
+                      (string))))))
+            (else_clause
+              (keyword_else)
+              (block
+                (expressions
+                  (expression
+                    (value
+                      (base_value
+                        (string)))))))))))
+    (semi_colon)))
+

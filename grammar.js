@@ -21,6 +21,7 @@ module.exports = grammar({
     semi_colon: _ => token(";"),
     keyword_info: _ => token("INFO"),
     keyword_if: _ => token("IF"),
+    keyword_throw: _ => token("THROW"),
     keyword_exists: _ => token("EXISTS"),
     keyword_tokenizers: _ => token("TOKENIZERS"),
     keyword_overwrite: _ => token("OVERWRITE"),
@@ -28,7 +29,6 @@ module.exports = grammar({
     keyword_let: _ => token("LET"),
     keyword_return: _ => token("RETURN"),
     keyword_else: _ => token("ELSE"),
-    keyword_end: _ => token("END"),
     keyword_select: _ => token("SELECT"),
     keyword_from: _ => token("FROM"),
     keyword_only: _ => token("ONLY"),
@@ -40,7 +40,6 @@ module.exports = grammar({
     keyword_parallel: _ => token("PARALLEL"),
     keyword_timeout: _ => token("TIMEOUT"),
     keyword_fetch: _ => token("FETCH"),
-    keyword_start_at: _ => token("START AT"),
     keyword_limit: _ => token("LIMIT"),
     keyword_by: _ => token("BY"),
     keyword_rand: _ => token("RAND"),
@@ -56,7 +55,6 @@ module.exports = grammar({
     keyword_split: _ => token("SPLIT"),
     keyword_at: _ => token("AT"),
     keyword_group: _ => token("GROUP"),
-    keyword_all: _ => token("ALL"),
     keyword_true: _ => token("TRUE"),
     keyword_false: _ => token("FALSE"),
     keyword_begin: _ => token("BEGIN"),
@@ -178,10 +176,6 @@ module.exports = grammar({
     keyword_count: _ => token("COUNT"),
     keyword_set: _ => token("SET"),
     keyword_unset: _ => token("UNSET"),
-    keyword_return: _ => token("RETURN"),
-    keyword_dimension: _ => token("DIMENSION"),
-    keyword_mtree: _ => token("MTREE"),
-    keyword_dist: _ => token("DIST"),
 
     // Expressions
     expressions: $ =>
@@ -222,9 +216,39 @@ module.exports = grammar({
         $.use_statement,
         $.info_statement,
         $.let_statement,
+        $.if_statement,
+        $.throw_statement,
+        $.return_statement,
       ),
 
-    let_statement: $ => seq($.keyword_let, $.variable_name, "=", $.value),
+    return_statement: $ => $.return_clause,
+
+    throw_statement: $ => seq(
+      $.keyword_throw,
+      $.value
+    ),
+
+    if_statement: $ => seq(
+      $.keyword_if,
+      $.value,
+      $.block,
+      repeat($.else_if_clause),
+      optional($.else_clause),
+    ),
+
+    else_if_clause: $ => seq(
+      $.keyword_else,
+      $.keyword_if,
+      $.value,
+      $.block
+    ),
+
+    else_clause: $ => seq(
+      $.keyword_else,
+      $.block
+    ),
+
+    let_statement: $ => seq($.keyword_let, $.variable_name, "=", choice($.value, $.if_statement)),
 
     info_statement: $ => seq($.keyword_info, $.keyword_for, $.info_target),
 
@@ -672,7 +696,6 @@ module.exports = grammar({
       ),
 
     limit_clause: $ => seq($.keyword_limit, $.number),
-    start_clause: $ => seq($.keyword_start_at, $.number),
     fetch_clause: $ => seq($.keyword_fetch, commaSeparated($.identifier)),
     timeout_clause: $ => seq($.keyword_timeout, $.duration),
     parallel_clause: $ => $.keyword_parallel,
@@ -876,6 +899,7 @@ module.exports = grammar({
           $.keyword_after,
           $.keyword_diff,
           commaSeparated($.value),
+          $.if_statement
         ),
       ),
 
@@ -896,13 +920,13 @@ module.exports = grammar({
 
     // Value-related rules
     value: $ =>
-      choice($.base_value, $.binary_expression, $.path, $.function_call),
+      choice($.base_value, $.binary_expression, $.path, $.function_call, $.negated_expression),
 
     function_call: $ =>
       choice(
         seq($.keyword_count, $.argument_list_count),
         seq(
-          choice($.function_name, $.custom_function_name, $.keyword_rand),
+          choice($.function_name, $.custom_function_name, $.keyword_rand, seq($.identifier, repeat1(seq('::', $.identifier)))),
           optional($.version),
           $.argument_list,
         ),
@@ -928,6 +952,11 @@ module.exports = grammar({
       ),
 
     binary_expression: $ => prec.left(seq($.value, $.operator, $.value)),
+
+    negated_expression: $ => seq(
+      '!',
+      $.function_call,
+    ),
 
     path: $ =>
       choice(
@@ -1035,6 +1064,7 @@ module.exports = grammar({
         "=",
         ">",
         "<",
+        "%",
         $.keyword_and,
         $.keyword_or,
         $.keyword_is,
