@@ -1,0 +1,39 @@
+{
+  "grammars": [
+    {
+      "name": "surrealql",
+      "camelcase": "Surrealql",
+      "scope": "source.surrealql",
+      "path": ".",
+      "file-types": [
+        "surql"
+      ],
+      "highlights": [
+        "queries/highlights.scm"
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "0.1.1",
+    "license": "MIT",
+    "description": "Tree-sitter grammar for SurrealQL",
+    "authors": [
+      {
+        "name": "Cellan Hall",
+        "email": "hallcellan@gmail.com",
+        "url": "https://github.com/Ce11an"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/Ce11an/tree-sitter-surrealql.git"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true
+  }
+}

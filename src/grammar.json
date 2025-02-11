@@ -1,4 +1,5 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "surrealql",
   "rules": {
     "source_file": {
@@ -141,6 +142,13 @@
         "value": "IF"
       }
     },
+    "keyword_throw": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "THROW"
+      }
+    },
     "keyword_exists": {
       "type": "TOKEN",
       "content": {
@@ -188,13 +196,6 @@
       "content": {
         "type": "STRING",
         "value": "ELSE"
-      }
-    },
-    "keyword_end": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "END"
       }
     },
     "keyword_select": {
@@ -272,13 +273,6 @@
       "content": {
         "type": "STRING",
         "value": "FETCH"
-      }
-    },
-    "keyword_start_at": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "START AT"
       }
     },
     "keyword_limit": {
@@ -384,13 +378,6 @@
       "content": {
         "type": "STRING",
         "value": "GROUP"
-      }
-    },
-    "keyword_all": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ALL"
       }
     },
     "keyword_true": {
@@ -1233,27 +1220,6 @@
         "value": "UNSET"
       }
     },
-    "keyword_dimension": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DIMENSION"
-      }
-    },
-    "keyword_mtree": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "MTREE"
-      }
-    },
-    "keyword_dist": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DIST"
-      }
-    },
     "expressions": {
       "type": "SEQ",
       "members": [
@@ -1410,6 +1376,105 @@
         {
           "type": "SYMBOL",
           "name": "let_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "if_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "throw_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "return_statement"
+        }
+      ]
+    },
+    "return_statement": {
+      "type": "SYMBOL",
+      "name": "return_clause"
+    },
+    "throw_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_throw"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        }
+      ]
+    },
+    "if_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_if"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "else_if_clause"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "else_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "else_if_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_else"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_if"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block"
+        }
+      ]
+    },
+    "else_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_else"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block"
         }
       ]
     },
@@ -1429,8 +1494,17 @@
           "value": "="
         },
         {
-          "type": "SYMBOL",
-          "name": "value"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "value"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "if_statement"
+            }
+          ]
         }
       ]
     },
@@ -4130,19 +4204,6 @@
         }
       ]
     },
-    "start_clause": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_start_at"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "number"
-        }
-      ]
-    },
     "fetch_clause": {
       "type": "SEQ",
       "members": [
@@ -5547,6 +5608,10 @@
                   }
                 }
               ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "if_statement"
             }
           ]
         }
@@ -5638,6 +5703,10 @@
         {
           "type": "SYMBOL",
           "name": "function_call"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "negated_expression"
         }
       ]
     },
@@ -5674,6 +5743,31 @@
                 {
                   "type": "SYMBOL",
                   "name": "keyword_rand"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    {
+                      "type": "REPEAT1",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": "::"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "identifier"
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
               ]
             },
@@ -5782,6 +5876,19 @@
           }
         ]
       }
+    },
+    "negated_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "!"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "function_call"
+        }
+      ]
     },
     "path": {
       "type": "CHOICE",
@@ -6701,6 +6808,10 @@
         {
           "type": "STRING",
           "value": "<"
+        },
+        {
+          "type": "STRING",
+          "value": "%"
         },
         {
           "type": "SYMBOL",
