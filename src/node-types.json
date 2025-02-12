@@ -3596,6 +3596,25 @@
     }
   },
   {
+    "type": "unset_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_unset",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "update_statement",
     "named": true,
     "fields": {},
@@ -3641,6 +3660,10 @@
         },
         {
           "type": "timeout_clause",
+          "named": true
+        },
+        {
+          "type": "unset_clause",
           "named": true
         },
         {
@@ -4632,6 +4655,10 @@
   },
   {
     "type": "keyword_unique",
+    "named": true
+  },
+  {
+    "type": "keyword_unset",
     "named": true
   },
   {

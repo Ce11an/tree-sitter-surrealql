@@ -1,0 +1,668 @@
+=====================================
+Update all records
+=====================================
+
+UPDATE person SET
+	dollars = 50,
+	skills += 'breathing',
+	enjoys += 'reading',
+	full_name = name + ' Mc' + name + 'erson';
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (identifier)))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (number
+                    (int)))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (binary_expression
+                  (value
+                    (binary_expression
+                      (value
+                        (binary_expression
+                          (value
+                            (base_value
+                              (identifier)))
+                          (operator
+                            (binary_operator))
+                          (value
+                            (base_value
+                              (string)))))
+                      (operator
+                        (binary_operator))
+                      (value
+                        (base_value
+                          (identifier)))))
+                  (operator
+                    (binary_operator))
+                  (value
+                    (base_value
+                      (string))))))))))
+    (semi_colon)))
+
+=====================================
+Update a specific ID
+=====================================
+
+UPDATE person:tobie SET skills += 'Rust';
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string))))))))
+    (semi_colon)))
+
+=====================================
+Update with removing items
+=====================================
+
+UPDATE person:tobie SET
+	skills -= 'Go',
+	dollars -= 1;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (number
+                    (int)))))))))
+    (semi_colon)))
+
+=====================================
+Update using SET
+=====================================
+
+UPDATE person:tobie SET company = NONE;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (keyword_none))))))))
+    (semi_colon)))
+
+=====================================
+Update using UNSET
+=====================================
+
+UPDATE person:tobie UNSET company;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (unset_clause
+            (keyword_unset)
+            (identifier)))))
+    (semi_colon)))
+
+
+=====================================
+Update with a condition
+=====================================
+
+UPDATE person SET skills += "System design" WHERE company != "SurrealDB";
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (identifier)))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string)))))
+          (where_clause
+            (keyword_where)
+            (value
+              (binary_expression
+                (value
+                  (base_value
+                    (identifier)))
+                (operator
+                  (binary_operator))
+                (value
+                  (base_value
+                    (string)))))))))
+    (semi_colon)))
+
+=====================================
+Update with all records with CONTENT
+=====================================
+
+UPDATE person CONTENT {
+	name: 'John',
+	company: 'SurrealDB',
+	skills: ['Rust', 'Go', 'JavaScript']
+};
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (identifier)))
+          (content_clause
+            (keyword_content)
+            (object
+              (object_content
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (string))))
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (string))))
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (array
+                        (value
+                          (base_value
+                            (string)))
+                        (value
+                          (base_value
+                            (string)))
+                        (value
+                          (base_value
+                            (string)))))))))))))
+    (semi_colon)))
+
+=====================================
+Update a specific record with CONTENT
+=====================================
+
+UPDATE person:tobie CONTENT {
+	name: 'Tobie',
+	company: 'SurrealDB',
+	skills: ['Rust', 'Go', 'JavaScript']
+};
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (content_clause
+            (keyword_content)
+            (object
+              (object_content
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (string))))
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (string))))
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (array
+                        (value
+                          (base_value
+                            (string)))
+                        (value
+                          (base_value
+                            (string)))
+                        (value
+                          (base_value
+                            (string)))))))))))))
+    (semi_colon)))
+
+=====================================
+Update all records with MERGE
+=====================================
+
+UPDATE person MERGE {
+	settings: {
+		marketing: true
+	}
+};
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (identifier)))
+          (merge_clause
+            (keyword_merge)
+            (object
+              (object_content
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (object
+                        (object_content
+                          (object_property
+                            (object_key)
+                            (value
+                              (base_value
+                                (identifier)))))))))))))))
+    (semi_colon)))
+
+
+=====================================
+Update a specific record with MERGE
+=====================================
+
+UPDATE person:tobie MERGE {
+	settings: {
+		marketing: true
+	}
+};
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (merge_clause
+            (keyword_merge)
+            (object
+              (object_content
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (object
+                        (object_content
+                          (object_property
+                            (object_key)
+                            (value
+                              (base_value
+                                (identifier)))))))))))))))
+    (semi_colon)))
+
+=====================================
+Path the JSON response
+=====================================
+
+UPDATE person:tobie PATCH [
+	{
+		"op": "add",
+		"path": "Engineering",
+		"value": "true"
+	}
+]
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (patch_clause
+            (keyword_patch)
+            (array
+              (value
+                (base_value
+                  (object
+                    (object_content
+                      (object_property
+                        (string)
+                        (value
+                          (base_value
+                            (string))))
+                      (object_property
+                        (string)
+                        (value
+                          (base_value
+                            (string))))
+                      (object_property
+                        (string)
+                        (value
+                          (base_value
+                            (string)))))))))))))))
+
+=====================================
+Return variations
+=====================================
+
+-- Don't return any result
+UPDATE person SET skills += 'reading' RETURN NONE;
+
+-- Return the changeset diff
+UPDATE person SET skills += 'reading' RETURN DIFF;
+
+-- Return the record before changes were applied
+UPDATE person SET skills += 'reading' RETURN BEFORE;
+
+-- Return the record after changes were applied (the default)
+UPDATE person SET skills += 'reading' RETURN AFTER;
+
+-- Return a specific field only from the updated records
+UPDATE person:tobie SET skills = ['skiing', 'music'] RETURN name, interests;
+
+---
+
+(source_file
+  (comment)
+  (expressions
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (identifier)))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string)))))
+          (return_clause
+            (keyword_return)
+            (value
+              (base_value
+                (keyword_none)))))))
+    (semi_colon)
+    (comment)
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (identifier)))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string)))))
+          (return_clause
+            (keyword_return)
+            (keyword_diff)))))
+    (semi_colon)
+    (comment)
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (identifier)))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string)))))
+          (return_clause
+            (keyword_return)
+            (keyword_before)))))
+    (semi_colon)
+    (comment)
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (identifier)))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string)))))
+          (return_clause
+            (keyword_return)
+            (keyword_after)))))
+    (semi_colon)
+    (comment)
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (array
+                    (value
+                      (base_value
+                        (string)))
+                    (value
+                      (base_value
+                        (string))))))))
+          (return_clause
+            (keyword_return)
+            (value
+              (base_value
+                (identifier)))
+            (value
+              (base_value
+                (identifier)))))))
+    (semi_colon)))
+
+=====================================
+Update with a TIMEOUT
+=====================================
+
+UPDATE person
+	SET important = true
+	WHERE ->knows->person->(knows WHERE influencer = true)
+	TIMEOUT 5s;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (identifier)))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (identifier)))))
+          (where_clause
+            (keyword_where)
+            (value
+              (path
+                (graph_path
+                  (identifier))
+                (path_element
+                  (graph_path
+                    (identifier)))
+                (path_element
+                  (graph_path
+                    (graph_predicate
+                      (value
+                        (base_value
+                          (identifier)))
+                      (where_clause
+                        (keyword_where)
+                        (value
+                          (binary_expression
+                            (value
+                              (base_value
+                                (identifier)))
+                            (operator)
+                            (value
+                              (base_value
+                                (identifier))))))))))))
+          (timeout_clause
+            (keyword_timeout)
+            (duration
+              (duration_part))))))
+    (semi_colon)))
