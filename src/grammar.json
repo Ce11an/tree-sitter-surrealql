@@ -1206,18 +1206,18 @@
         "value": "COUNT"
       }
     },
-    "keyword_set": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "SET"
-      }
-    },
     "keyword_unset": {
       "type": "TOKEN",
       "content": {
         "type": "STRING",
         "value": "UNSET"
+      }
+    },
+    "keyword_set": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "SET"
       }
     },
     "expressions": {
@@ -2998,6 +2998,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "set_clause"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "unset_clause"
                         }
                       ]
                     },
@@ -5521,6 +5525,40 @@
                   {
                     "type": "SYMBOL",
                     "name": "field_assignment"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "unset_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_unset"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "identifier"
                   }
                 ]
               }

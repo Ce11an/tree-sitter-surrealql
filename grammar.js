@@ -174,8 +174,8 @@ module.exports = grammar({
     keyword_password_hash: _ => token("PASSHASH"),
     keyword_on_duplicate_key_update: _ => token("ON DUPLICATE KEY UPDATE"),
     keyword_count: _ => token("COUNT"),
-    keyword_set: _ => token("SET"),
     keyword_unset: _ => token("UNSET"),
+    keyword_set: _ => token("SET"),
 
     // Expressions
     expressions: $ =>
@@ -533,6 +533,7 @@ module.exports = grammar({
                 $.merge_clause,
                 $.patch_clause,
                 $.set_clause,
+                $.unset_clause,
               ),
             ),
             optional($.where_clause),
@@ -886,6 +887,8 @@ module.exports = grammar({
     content_clause: $ => seq($.keyword_content, $.object),
 
     set_clause: $ => seq($.keyword_set, commaSeparated($.field_assignment)),
+
+    unset_clause: $ => seq($.keyword_unset, commaSeparated($.identifier)),
 
     return_clause: $ =>
       seq(
