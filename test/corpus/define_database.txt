@@ -9,7 +9,7 @@ DEFINE DATABASE app_vitalsense;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (define_database
           (keyword_define)
           (keyword_database)
@@ -27,7 +27,7 @@ DEFINE DATABASE IF NOT EXISTS app_vitalsense;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (define_database
           (keyword_define)
           (keyword_database)
@@ -49,7 +49,7 @@ DEFINE DATABASE OVERWRITE app_vitalsense;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (define_database
           (keyword_define)
           (keyword_database)
@@ -68,7 +68,7 @@ DEFINE DATABASE OVERWRITE app_vitalsense COMMENT "This is a comment";
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (define_database
           (keyword_define)
           (keyword_database)

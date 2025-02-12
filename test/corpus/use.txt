@@ -9,7 +9,7 @@ USE NS test;
 (source_file
   (expressions
     (expression
-      (statement
+      (primary_statement
         (use_statement
           (keyword_use)
           (ns_clause
@@ -28,7 +28,7 @@ USE DB test;
 (source_file
   (expressions
     (expression
-      (statement
+      (primary_statement
         (use_statement
           (keyword_use)
           (db_clause
@@ -47,7 +47,7 @@ USE NS test DB test;
 (source_file
   (expressions
     (expression
-      (statement
+      (primary_statement
         (use_statement
           (keyword_use)
           (ns_clause

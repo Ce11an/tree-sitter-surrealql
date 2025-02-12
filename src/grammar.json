@@ -1262,7 +1262,11 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "statement"
+          "name": "primary_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "subquery_statement"
         },
         {
           "type": "SYMBOL",
@@ -1270,13 +1274,9 @@
         }
       ]
     },
-    "statement": {
+    "primary_statement": {
       "type": "CHOICE",
       "members": [
-        {
-          "type": "SYMBOL",
-          "name": "select_statement"
-        },
         {
           "type": "SYMBOL",
           "name": "live_select_statement"
@@ -1292,6 +1292,63 @@
         {
           "type": "SYMBOL",
           "name": "commit_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "use_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "info_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "throw_statement"
+        }
+      ]
+    },
+    "subquery_statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "select_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "if_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "let_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "delete_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "create_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "update_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "remove_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "return_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "insert_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "relate_statement"
         },
         {
           "type": "SYMBOL",
@@ -1340,54 +1397,6 @@
         {
           "type": "SYMBOL",
           "name": "define_user_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "remove_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "create_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "update_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "insert_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "relate_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "delete_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "use_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "info_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "let_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "if_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "throw_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "return_statement"
         }
       ]
     },
@@ -1502,7 +1511,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "if_statement"
+              "name": "subquery_statement"
             }
           ]
         }
@@ -2947,7 +2956,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "statement"
+              "name": "primary_statement"
             },
             {
               "type": "SEQ",
@@ -3186,7 +3195,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "statement"
+              "name": "primary_statement"
             },
             {
               "type": "SEQ",
@@ -3748,7 +3757,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "statement"
+              "name": "primary_statement"
             },
             {
               "type": "SEQ",
@@ -6250,7 +6259,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "statement"
+                  "name": "primary_statement"
                 }
               ]
             },

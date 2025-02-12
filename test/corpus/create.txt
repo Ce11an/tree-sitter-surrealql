@@ -9,7 +9,7 @@ CREATE person;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (create_statement
           (keyword_create)
           (create_target
@@ -27,7 +27,7 @@ CREATE person:one;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (create_statement
           (keyword_create)
           (create_target
@@ -49,7 +49,7 @@ CREATE type::thing("person", "one");
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (create_statement
           (keyword_create)
           (create_target
@@ -78,7 +78,7 @@ CREATE person:tobie SET
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (create_statement
           (keyword_create)
           (create_target
@@ -131,7 +131,7 @@ CREATE townsperson, cat, dog SET
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (create_statement
           (keyword_create)
           (create_target
@@ -181,7 +181,7 @@ CREATE ONLY person:tobie SET
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (create_statement
           (keyword_create)
           (keyword_only)
@@ -232,7 +232,7 @@ CREATE person SET age = 46, username = "john-smith" RETURN DIFF;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (create_statement
           (keyword_create)
           (create_target
@@ -268,7 +268,7 @@ CREATE person:john SET age = 46, username = "john-smith" TIMEOUT 500ms;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (create_statement
           (keyword_create)
           (create_target
@@ -297,3 +297,42 @@ CREATE person:john SET age = 46, username = "john-smith" TIMEOUT 500ms;
               (duration_part))))))
     (semi_colon)))
 
+
+=====================================
+Create with CONTENT
+=====================================
+
+LET $person = CREATE person CONTENT {
+	firstname: $firstname,
+	lastname: $lastname
+};
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (let_statement
+          (keyword_let)
+          (variable_name)
+          (subquery_statement
+            (create_statement
+              (keyword_create)
+              (create_target
+                (identifier))
+              (content_clause
+                (keyword_content)
+                (object
+                  (object_content
+                    (object_property
+                      (object_key)
+                      (value
+                        (base_value
+                          (variable_name))))
+                    (object_property
+                      (object_key)
+                      (value
+                        (base_value
+                          (variable_name))))))))))))
+    (semi_colon)))
