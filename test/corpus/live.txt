@@ -9,7 +9,7 @@ LIVE SELECT * FROM person;
 (source_file
   (expressions
     (expression
-      (statement
+      (primary_statement
         (live_select_statement
           (keyword_live)
           (select_statement
@@ -34,7 +34,7 @@ LIVE SELECT * FROM person WHERE age > 18;
 (source_file
   (expressions
     (expression
-      (statement
+      (primary_statement
         (live_select_statement
           (keyword_live)
           (select_statement

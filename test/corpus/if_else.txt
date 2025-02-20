@@ -9,7 +9,7 @@ IF 9 = 9 { RETURN 'Nine is indeed nine' };
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (if_statement
           (keyword_if)
           (value
@@ -26,7 +26,7 @@ IF 9 = 9 { RETURN 'Nine is indeed nine' };
           (block
             (expressions
               (expression
-                (statement
+                (subquery_statement
                   (return_statement
                     (return_clause
                       (keyword_return)
@@ -57,7 +57,7 @@ RETURN IF $num < 0 {
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (let_statement
           (keyword_let)
           (variable_name)
@@ -67,7 +67,7 @@ RETURN IF $num < 0 {
                 (int)))))))
     (semi_colon)
     (expression
-      (statement
+      (subquery_statement
         (return_statement
           (return_clause
             (keyword_return)
@@ -152,7 +152,7 @@ IF !type::is::datetime($badly_formatted_datetime) {
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (let_statement
           (keyword_let)
           (variable_name)
@@ -161,7 +161,7 @@ IF !type::is::datetime($badly_formatted_datetime) {
               (string))))))
     (semi_colon)
     (expression
-      (statement
+      (subquery_statement
         (if_statement
           (keyword_if)
           (value
@@ -175,7 +175,7 @@ IF !type::is::datetime($badly_formatted_datetime) {
           (block
             (expressions
               (expression
-                (statement
+                (primary_statement
                   (throw_statement
                     (keyword_throw)
                     (value
@@ -188,92 +188,87 @@ Return if-statement
 =====================================
 
 RETURN
-    IF $access = "admin" { (SELECT * FROM account) }
-    ELSE IF $access = "user"  { (SELECT * FROM $auth.account) }
+    IF $access = "admin" { SELECT * FROM account }
+    ELSE IF $access = "user"  { SELECT * FROM $auth.account }
     ELSE { THROW "Access method hasn't been defined!" };
 
 ---
 
 (source_file
-  (expressions
-    (expression
-      (statement
-        (return_statement
-          (return_clause
-            (keyword_return)
-            (if_statement
-              (keyword_if)
-              (value
-                (binary_expression
-                  (value
-                    (base_value
-                      (variable_name)))
-                  (operator)
-                  (value
-                    (base_value
-                      (string)))))
-              (block
-                (expressions
-                  (expression
-                    (value
-                      (base_value
-                        (sub_query
-                          (expression
-                            (statement
-                              (select_statement
-                                (select_clause
-                                  (keyword_select)
-                                  (inclusive_predicate))
-                                (from_clause
-                                  (keyword_from)
-                                  (value
-                                    (base_value
-                                      (identifier)))))))))))))
-              (else_if_clause
-                (keyword_else)
-                (keyword_if)
-                (value
-                  (binary_expression
-                    (value
-                      (base_value
-                        (variable_name)))
-                    (operator)
-                    (value
-                      (base_value
-                        (string)))))
-                (block
-                  (expressions
-                    (expression
-                      (value
-                        (base_value
-                          (sub_query
-                            (expression
-                              (statement
-                                (select_statement
-                                  (select_clause
-                                    (keyword_select)
-                                    (inclusive_predicate))
-                                  (from_clause
-                                    (keyword_from)
-                                    (value
-                                      (path
-                                        (base_value
-                                          (variable_name))
-                                        (path_element
-                                          (subscript
-                                            (identifier))))))))))))))))
-              (else_clause
-                (keyword_else)
-                (block
-                  (expressions
-                    (expression
-                      (statement
-                        (throw_statement
-                          (keyword_throw)
-                          (value
-                            (base_value
-                              (string))))))))))))))
-    (semi_colon)))
+ (expressions
+  (expression
+   (subquery_statement
+    (return_statement
+     (return_clause
+      (keyword_return)
+      (if_statement
+       (keyword_if)
+       (value
+        (binary_expression
+         (value
+          (base_value
+           (variable_name)))
+         (operator)
+         (value
+          (base_value
+           (string)))))
+       (block
+        (expressions
+         (expression
+          (subquery_statement
+           (select_statement
+            (select_clause
+             (keyword_select)
+             (inclusive_predicate))
+            (from_clause
+             (keyword_from)
+             (value
+              (base_value
+               (identifier)))))))))
+  (else_if_clause
+   (keyword_else)
+   (keyword_if)
+   (value
+    (binary_expression
+     (value
+      (base_value
+       (variable_name)))
+     (operator)
+     (value
+      (base_value
+       (string)))))
+   (block
+    (expressions
+     (expression
+      (subquery_statement
+       (select_statement
+        (select_clause
+         (keyword_select)
+         (inclusive_predicate))
+        (from_clause
+         (keyword_from)
+         (value
+          (path
+           (base_value
+            (variable_name))
+           (path_element
+            (subscript
+             (identifier))))))))))))
+  (else_clause
+   (keyword_else)
+   (block
+    (expressions
+     (expression
+      (primary_statement
+       (throw_statement
+        (keyword_throw)
+        (value
+         (base_value
+          (string))))))))))))))
+(semi_colon)))
+
+
+
 
 =====================================
 Parameter if-statement
@@ -287,54 +282,54 @@ LET $odd_even =
 ---
 
 (source_file
-  (expressions
-    (expression
-      (statement
-        (let_statement
-          (keyword_let)
-          (variable_name)
-          (value
+ (expressions
+  (expression
+   (subquery_statement
+    (let_statement
+     (keyword_let)
+     (variable_name)
+     (value
+      (base_value
+       (number
+        (int)))))))
+  (semi_colon)
+  (expression
+   (subquery_statement
+    (let_statement
+     (keyword_let)
+     (variable_name)
+     (subquery_statement
+      (if_statement
+       (keyword_if)
+       (value
+        (binary_expression
+         (value
+          (binary_expression
+           (value
             (base_value
-              (number
-                (int)))))))
-    (semi_colon)
-    (expression
-      (statement
-        (let_statement
-          (keyword_let)
-          (variable_name)
-          (if_statement
-            (keyword_if)
-            (value
-              (binary_expression
-                (value
-                  (binary_expression
-                    (value
-                      (base_value
-                        (variable_name)))
-                    (operator)
-                    (value
-                      (base_value
-                        (number
-                          (int))))))
-                (operator)
-                (value
-                  (base_value
-                    (number
-                      (int))))))
-            (block
-              (expressions
-                (expression
-                  (value
-                    (base_value
-                      (string))))))
-            (else_clause
-              (keyword_else)
-              (block
-                (expressions
-                  (expression
-                    (value
-                      (base_value
-                        (string)))))))))))
-    (semi_colon)))
-
+             (variable_name)))
+           (operator)
+           (value
+            (base_value
+             (number
+              (int))))))
+         (operator)
+         (value
+          (base_value
+           (number
+            (int))))))
+       (block
+        (expressions
+         (expression
+          (value
+           (base_value
+            (string))))))
+  (else_clause
+   (keyword_else)
+   (block
+    (expressions
+     (expression
+      (value
+       (base_value
+        (string))))))))))))
+(semi_colon)))

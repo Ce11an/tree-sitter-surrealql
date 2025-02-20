@@ -13,7 +13,7 @@ UPDATE person SET
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -80,7 +80,7 @@ UPDATE person:tobie SET skills += 'Rust';
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -112,7 +112,7 @@ UPDATE person:tobie SET
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -149,7 +149,7 @@ UPDATE person:tobie SET company = NONE;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -179,7 +179,7 @@ UPDATE person:tobie UNSET company;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -205,7 +205,7 @@ UPDATE person SET skills += "System design" WHERE company != "SurrealDB";
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -248,7 +248,7 @@ UPDATE person CONTENT {
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -299,7 +299,7 @@ UPDATE person:tobie CONTENT {
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -353,7 +353,7 @@ UPDATE person MERGE {
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -392,7 +392,7 @@ UPDATE person:tobie MERGE {
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -435,7 +435,7 @@ UPDATE person:tobie PATCH [
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -492,7 +492,7 @@ UPDATE person:tobie SET skills = ['skiing', 'music'] RETURN name, interests;
   (comment)
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -514,7 +514,7 @@ UPDATE person:tobie SET skills = ['skiing', 'music'] RETURN name, interests;
     (semi_colon)
     (comment)
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -534,7 +534,7 @@ UPDATE person:tobie SET skills = ['skiing', 'music'] RETURN name, interests;
     (semi_colon)
     (comment)
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -554,7 +554,7 @@ UPDATE person:tobie SET skills = ['skiing', 'music'] RETURN name, interests;
     (semi_colon)
     (comment)
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -574,7 +574,7 @@ UPDATE person:tobie SET skills = ['skiing', 'music'] RETURN name, interests;
     (semi_colon)
     (comment)
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value
@@ -621,7 +621,7 @@ UPDATE person
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value

@@ -10,7 +10,7 @@ CREATE person SET name = $name;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (let_statement
           (keyword_let)
           (variable_name)
@@ -19,7 +19,7 @@ CREATE person SET name = $name;
               (string))))))
     (semi_colon)
     (expression
-      (statement
+      (subquery_statement
         (create_statement
           (keyword_create)
           (create_target
@@ -46,7 +46,7 @@ UPDATE $adults SET adult = true;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (let_statement
           (keyword_let)
           (variable_name)
@@ -54,7 +54,7 @@ UPDATE $adults SET adult = true;
             (base_value
               (sub_query
                 (expression
-                  (statement
+                  (subquery_statement
                     (select_statement
                       (select_clause
                         (keyword_select)
@@ -78,7 +78,7 @@ UPDATE $adults SET adult = true;
                                     (int)))))))))))))))))
     (semi_colon)
     (expression
-      (statement
+      (subquery_statement
         (update_statement
           (keyword_update)
           (value

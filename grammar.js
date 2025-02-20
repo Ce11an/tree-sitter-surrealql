@@ -185,16 +185,35 @@ module.exports = grammar({
         optional($.semi_colon),
       ),
 
-    expression: $ => choice($.statement, $.value),
+    expression: $ => choice($.primary_statement, $.subquery_statement, $.value),
 
     // Statements
-    statement: $ =>
+
+    // Top level statements
+    primary_statement: $ =>
       choice(
-        $.select_statement,
         $.live_select_statement,
         $.begin_statement,
         $.cancel_statement,
         $.commit_statement,
+        $.use_statement,
+        $.info_statement,
+        $.throw_statement,
+      ),
+
+    // Statements that can be stand alone or nested
+    subquery_statement: $ =>
+      choice(
+        $.select_statement,
+        $.if_statement,
+        $.let_statement,
+        $.delete_statement,
+        $.create_statement,
+        $.update_statement,
+        $.remove_statement,
+        $.return_statement,
+        $.insert_statement,
+        $.relate_statement,
         $.define_analyzer_statement,
         $.define_database,
         $.define_event_statement,
@@ -207,18 +226,6 @@ module.exports = grammar({
         $.define_table_statement,
         $.define_token_statement,
         $.define_user_statement,
-        $.remove_statement,
-        $.create_statement,
-        $.update_statement,
-        $.insert_statement,
-        $.relate_statement,
-        $.delete_statement,
-        $.use_statement,
-        $.info_statement,
-        $.let_statement,
-        $.if_statement,
-        $.throw_statement,
-        $.return_statement,
       ),
 
     return_statement: $ => $.return_clause,
@@ -248,7 +255,7 @@ module.exports = grammar({
       $.block
     ),
 
-    let_statement: $ => seq($.keyword_let, $.variable_name, "=", choice($.value, $.if_statement)),
+    let_statement: $ => seq($.keyword_let, $.variable_name, "=", choice($.value, $.subquery_statement)),
 
     info_statement: $ => seq($.keyword_info, $.keyword_for, $.info_target),
 
@@ -524,7 +531,7 @@ module.exports = grammar({
         $.keyword_update,
         optional($.keyword_only),
         choice(
-          $.statement,
+          $.primary_statement,
           seq(
             commaSeparated($.value),
             optional(
@@ -564,7 +571,7 @@ module.exports = grammar({
         $.keyword_delete,
         optional($.keyword_only),
         choice(
-          $.statement,
+          $.primary_statement,
           seq(
             commaSeparated($.value),
             optional($.where_clause),
@@ -636,7 +643,7 @@ module.exports = grammar({
         $.keyword_from,
         optional($.keyword_only),
         choice(
-          $.statement,
+          $.primary_statement,
           seq(
             commaSeparated($.value),
             optional($.with_clause),
@@ -997,7 +1004,7 @@ module.exports = grammar({
     argument_list: $ => seq("(", optional(commaSeparated($.value)), ")"),
 
     argument_list_count: $ =>
-      seq("(", optional(choice(commaSeparated($.value), $.statement)), ")"),
+      seq("(", optional(choice(commaSeparated($.value), $.primary_statement)), ")"),
 
     type: $ => choice($.type_name, $.parameterized_type),
 

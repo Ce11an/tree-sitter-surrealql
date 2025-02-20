@@ -9,7 +9,7 @@ SELECT * FROM person;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (select_statement
           (select_clause
             (keyword_select)
@@ -32,7 +32,7 @@ SELECT name, address, email FROM person;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (select_statement
           (select_clause
             (keyword_select)
@@ -69,7 +69,7 @@ SELECT * FROM person:tobie;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (select_statement
           (select_clause
             (keyword_select)
@@ -95,7 +95,7 @@ SELECT name, address, email FROM person:tobie;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (select_statement
           (select_clause
             (keyword_select)
@@ -135,7 +135,7 @@ SELECT name AS user_name, address FROM person;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (select_statement
           (select_clause
             (keyword_select)
@@ -169,7 +169,7 @@ SELECT * FROM ONLY person:john;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (select_statement
           (select_clause
             (keyword_select)
@@ -196,7 +196,7 @@ SELECT VALUE name FROM person;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (select_statement
           (select_clause
             (keyword_select)
@@ -224,7 +224,7 @@ SELECT VALUE name FROM person:00e1nc508h9f7v63x72O;
 (source_file
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (select_statement
           (select_clause
             (keyword_select)
@@ -256,7 +256,7 @@ SELECT * FROM person;
   (comment)
   (expressions
     (expression
-      (statement
+      (subquery_statement
         (select_statement
           (select_clause
             (keyword_select)

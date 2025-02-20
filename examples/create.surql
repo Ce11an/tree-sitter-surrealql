@@ -30,3 +30,8 @@ CREATE person SET age = 46, username = "john-smith" RETURN DIFF;
 -- Specify a timeout
 CREATE person:john SET age = 46, username = "john-smith" TIMEOUT 500ms;
 
+-- Create with LET and CONTENT
+LET $person = CREATE person CONTENT {
+	firstname: $firstname,
+	lastname: $lastname
+};

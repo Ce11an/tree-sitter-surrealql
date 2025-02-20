@@ -9,7 +9,7 @@ INFO FOR ROOT;
 (source_file
   (expressions
     (expression
-      (statement
+      (primary_statement
         (info_statement
           (keyword_info)
           (keyword_for)
@@ -29,7 +29,7 @@ INFO FOR NS;
 (source_file
   (expressions
     (expression
-      (statement
+      (primary_statement
         (info_statement
           (keyword_info)
           (keyword_for)
@@ -50,7 +50,7 @@ INFO FOR DB;
 (source_file
   (expressions
     (expression
-      (statement
+      (primary_statement
         (info_statement
           (keyword_info)
           (keyword_for)
@@ -70,7 +70,7 @@ INFO FOR TABLE user;
 (source_file
   (expressions
     (expression
-      (statement
+      (primary_statement
         (info_statement
           (keyword_info)
           (keyword_for)
@@ -93,7 +93,7 @@ INFO FOR USER db_user ON DATABASE;
 (source_file
   (expressions
     (expression
-      (statement
+      (primary_statement
         (info_statement
           (keyword_info)
           (keyword_for)
@@ -107,7 +107,7 @@ INFO FOR USER db_user ON DATABASE;
                   (keyword_root))))))))
     (semi_colon)
     (expression
-      (statement
+      (primary_statement
         (info_statement
           (keyword_info)
           (keyword_for)
@@ -121,7 +121,7 @@ INFO FOR USER db_user ON DATABASE;
                   (keyword_namespace))))))))
     (semi_colon)
     (expression
-      (statement
+      (primary_statement
         (info_statement
           (keyword_info)
           (keyword_for)

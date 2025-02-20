@@ -1,0 +1,140 @@
+=====================================
+Return a single value
+=====================================
+
+RETURN 123;
+RETURN "I am a string!";
+RETURN {
+	prop: "value"
+};
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (return_statement
+          (return_clause
+            (keyword_return)
+            (value
+              (base_value
+                (number
+                  (int))))))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (return_statement
+          (return_clause
+            (keyword_return)
+            (value
+              (base_value
+                (string)))))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (return_statement
+          (return_clause
+            (keyword_return)
+            (value
+              (base_value
+                (object
+                  (object_content
+                    (object_property
+                      (object_key)
+                      (value
+                        (base_value
+                          (string))))))))))))
+    (semi_colon)))
+
+=====================================
+Return statements
+=====================================
+
+BEGIN TRANSACTION;
+
+LET $firstname = "John";
+LET $lastname = "Doe";
+
+LET $person = CREATE person CONTENT {
+	firstname: $firstname,
+	lastname: $lastname
+};
+
+RETURN $person.id;
+
+COMMIT TRANSACTION;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (primary_statement
+    (begin_statement
+     (keyword_begin)
+     (keyword_transaction))))
+  (semi_colon)
+  (expression
+   (subquery_statement
+    (let_statement
+     (keyword_let)
+     (variable_name)
+     (value
+      (base_value
+       (string))))))
+  (semi_colon)
+  (expression
+   (subquery_statement
+    (let_statement
+     (keyword_let)
+     (variable_name)
+     (value
+      (base_value
+       (string))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (let_statement
+     (keyword_let)
+     (variable_name)
+     (subquery_statement
+      (create_statement
+       (keyword_create)
+       (create_target
+        (identifier))
+       (content_clause
+        (keyword_content)
+        (object
+         (object_content
+          (object_property
+           (object_key)
+           (value
+            (base_value
+             (variable_name))))
+          (object_property
+           (object_key)
+           (value
+            (base_value
+             (variable_name))))))))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (return_statement
+     (return_clause
+      (keyword_return)
+      (value
+       (path
+        (base_value
+         (variable_name))
+        (path_element
+         (subscript
+          (identifier)))))))))
+(semi_colon)
+  (expression
+   (primary_statement
+    (commit_statement
+     (keyword_commit)
+     (keyword_transaction))))
+(semi_colon)))
+
