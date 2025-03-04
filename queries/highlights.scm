@@ -184,7 +184,10 @@
 ] @constant.builtin
 
 ; Identifiers
-(identifier) @variable
+[
+  (identifier)
+  (object_key)
+] @variable
 (variable_name) @variable.builtin
 [
   (custom_function_name)
