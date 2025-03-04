@@ -1149,9 +1149,5 @@ function commaSeparated(rule) {
 }
 
 function make_keyword(word) {
-  var str = "";
-  for (var i = 0; i < word.length; i++) {
-    str = str + "[" + word.charAt(i).toLowerCase() + word.charAt(i).toUpperCase() + "]";
-  }
-  return new RegExp(str);
+  return new RegExp([...word].map(c => `[${c.toLowerCase()}${c.toUpperCase()}]`).join(''));
 }
