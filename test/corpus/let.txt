@@ -91,5 +91,5 @@ UPDATE $adults SET adult = true;
               (assignment_operator)
               (value
                 (base_value
-                  (identifier))))))))
+                  (keyword_true))))))))
     (semi_colon)))

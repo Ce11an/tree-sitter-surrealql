@@ -373,7 +373,7 @@ UPDATE person MERGE {
                             (object_key)
                             (value
                               (base_value
-                                (identifier)))))))))))))))
+                                (keyword_true)))))))))))))))
     (semi_colon)))
 
 
@@ -415,7 +415,7 @@ UPDATE person:tobie MERGE {
                             (object_key)
                             (value
                               (base_value
-                                (identifier)))))))))))))))
+                                (keyword_true)))))))))))))))
     (semi_colon)))
 
 =====================================
@@ -634,7 +634,7 @@ UPDATE person
               (assignment_operator)
               (value
                 (base_value
-                  (identifier)))))
+                  (keyword_true)))))
           (where_clause
             (keyword_where)
             (value
@@ -660,7 +660,7 @@ UPDATE person
                             (operator)
                             (value
                               (base_value
-                                (identifier))))))))))))
+                                (keyword_true))))))))))))
           (timeout_clause
             (keyword_timeout)
             (duration
