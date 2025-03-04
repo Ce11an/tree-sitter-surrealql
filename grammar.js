@@ -322,7 +322,7 @@ module.exports = grammar({
         $.keyword_define,
         $.keyword_field,
         optional($.if_not_exists_clause),
-        $.identifier,
+        $.field_path,
         $.on_table_clause,
         repeat(
           choice(
@@ -963,6 +963,12 @@ module.exports = grammar({
       '!',
       $.function_call,
     ),
+
+    field_path: $ =>
+      choice(
+        $.identifier,
+        seq($.identifier, repeat(seq(".", choice("*", $.identifier)))),
+      ),
 
     path: $ =>
       choice(

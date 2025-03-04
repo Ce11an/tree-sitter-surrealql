@@ -1,0 +1,70 @@
+=====================================
+Define a field
+=====================================
+
+DEFINE FIELD foo ON TABLE bar;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_field_statement
+          (keyword_define)
+          (keyword_field)
+          (field_path
+            (identifier))
+		  (on_table_clause
+		    (keyword_on)
+			(keyword_table)
+			(identifier)))))
+    (semi_colon)))
+
+=====================================
+Define a field on object
+=====================================
+
+DEFINE FIELD foo.bar ON TABLE bazz;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_field_statement
+          (keyword_define)
+          (keyword_field)
+          (field_path
+		    (identifier)
+			(identifier))
+		  (on_table_clause
+		    (keyword_on)
+			(keyword_table)
+			(identifier)))))
+    (semi_colon)))
+
+=====================================
+Define a field on object in array
+=====================================
+
+DEFINE FIELD foo.*.bar ON TABLE bazz;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_field_statement
+          (keyword_define)
+          (keyword_field)
+          (field_path
+		    (identifier)
+			(identifier))
+		  (on_table_clause
+		    (keyword_on)
+			(keyword_table)
+			(identifier)))))
+    (semi_colon)))
