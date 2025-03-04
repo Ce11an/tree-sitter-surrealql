@@ -153,6 +153,7 @@
   (keyword_overwrite)
   (keyword_throw)
   (keyword_unset)
+  (keyword_always)
 ] @keyword
 
 ; Operators
@@ -203,7 +204,10 @@
   "{"
   "}"
 ] @punctuation.bracket
-"," @punctuation.delimiter
+[
+ ","
+ (type_or_operator)
+] @punctuation.delimiter
 
 ; Types
 [

@@ -1,0 +1,598 @@
+=====================================
+Declare the name of a field
+=====================================
+
+DEFINE FIELD email ON TABLE user;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier)))))
+  (semi_colon)))
+
+
+=====================================
+Define field with data types
+=====================================
+
+DEFINE FIELD fd.* ON c TYPE number;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (path
+         (base_value
+          (identifier))
+         (path_element
+          (subscript))))))
+     (on_table_clause
+      (keyword_on)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (type_name))))))
+(semi_colon)))
+
+=====================================
+Define field with overwrite
+=====================================
+
+DEFINE FIELD OVERWRITE fd ON c TYPE { a: string, b: number };
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (keyword_overwrite)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (type_object
+        (type_object_property
+         (object_key)
+         (type
+          (type_name)))
+        (type_object_property
+         (object_key)
+         (type
+          (type_name)))))))))
+(semi_colon)))
+
+=====================================
+Define nested object property types
+=====================================
+
+DEFINE FIELD emails.address ON TABLE user TYPE string;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (path
+         (base_value
+          (identifier))
+         (path_element
+          (subscript
+           (identifier)))))))
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (type_name))))))
+(semi_colon)))
+
+=====================================
+Define individual fields on an array
+=====================================
+
+DEFINE FIELD metadata[0] ON person TYPE datetime;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (path
+         (base_value
+          (identifier))
+         (path_element
+          (filter
+           (value
+            (base_value
+             (number
+              (int))))))))))
+     (on_table_clause
+      (keyword_on)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (type_name))))))
+(semi_colon)))
+
+=====================================
+Set a field to the uuid or int type
+=====================================
+
+DEFINE FIELD user_id ON TABLE user TYPE uuid|int;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (union_type
+        (type_name)
+        (type_or_operator)
+        (type_name)))))))
+(semi_colon)))
+
+======================================
+Set a field to an array data type
+======================================
+
+DEFINE FIELD roles ON TABLE user TYPE array<string>;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (parameterized_type
+        (type_name)
+        (type
+         (type_name))))))))
+(semi_colon)))
+
+========================================================
+Set a field to an array data type with multiple subtypes
+========================================================
+
+DEFINE FIELD next_paths ON TABLE block TYPE array<"north" | "east" | "south" | "west", 4>;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (parameterized_type
+        (type_name)
+        (type
+         (union_type
+          (literal_value
+           (string))
+          (type_or_operator)
+          (literal_value
+           (string))
+          (type_or_operator)
+          (literal_value
+           (string))
+          (type_or_operator)
+          (literal_value
+           (string))))
+        (literal_value
+         (int))))))))
+(semi_colon)))
+
+==================================
+Set option values for none default
+==================================
+
+DEFINE FIELD biography ON TABLE user TYPE option<string>;
+DEFINE FIELD user ON TABLE POST TYPE option<record<user>>;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (parameterized_type
+        (type_name)
+        (type
+         (type_name))))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (parameterized_type
+        (type_name)
+        (type
+         (parameterized_type
+          (type_name)
+          (type
+           (type_name))))))))))
+(semi_colon)))
+
+==================
+Set flexible types
+==================
+
+DEFINE FIELD metadata ON TABLE user FLEXIBLE TYPE object;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (type_clause
+      (keyword_flexible)
+      (keyword_type)
+      (type
+       (type_name))))))
+  (semi_colon)))
+
+========================
+Using default and always
+========================
+
+DEFINE FIELD primary ON product TYPE number DEFAULT ALWAYS 123.456;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (type_name)))
+     (default_clause
+      (keyword_default)
+      (keyword_always)
+      (value
+       (base_value
+        (number
+         (float))))))))
+(semi_colon)))
+
+========================
+Define empty object type
+========================
+
+DEFINE FIELD tags ON post TYPE array<object> DEFAULT ALWAYS [];
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (parameterized_type
+        (type_name)
+        (type
+         (type_name)))))
+     (default_clause
+      (keyword_default)
+      (keyword_always)
+      (value
+       (base_value
+        (array)))))))
+(semi_colon)))
+
+============================================
+Using the VALUE clause to set a field’s value
+=============================================
+
+DEFINE FIELD updated ON TABLE user VALUE time::now();
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (value_clause
+      (keyword_value)
+      (value
+       (function_call
+        (function_name)
+        (argument_list)))))))
+(semi_colon)))
+
+===========================
+Define field with assertion
+===========================
+
+DEFINE FIELD permissions ON TABLE acl TYPE array
+  -- The array must not be empty because at least one permission is required to make a valid ACL
+  -- The items in the array must also be restricted to specific permissions
+  ASSERT
+      array::len($value) > 0
+      AND $value ALLINSIDE ["create", "read", "write", "delete"];
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (type_name)))
+     (comment)
+     (comment)
+     (assert_clause
+      (keyword_assert)
+      (value
+       (binary_expression
+        (value
+         (binary_expression
+          (value
+           (binary_expression
+            (value
+             (function_call
+              (function_name)
+              (argument_list
+               (value
+                (base_value
+                 (variable_name))))))
+            (operator)
+            (value
+             (base_value
+              (number
+               (int))))))
+          (operator
+           (keyword_and))
+          (value
+           (base_value
+            (variable_name)))))
+        (operator
+         (keyword_all_inside))
+        (value
+         (base_value
+          (array
+           (value
+            (base_value
+             (string)))
+           (value
+            (base_value
+             (string)))
+           (value
+            (base_value
+             (string)))
+           (value
+            (base_value
+             (string))))))))))))
+(semi_colon)))
+
+=================================================
+Using multiple data types for a Complex Record ID
+=================================================
+
+DEFINE FIELD id ON TABLE log TYPE [record, "info" | "warn" | "error", datetime];
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (composite_type
+        (type
+         (type_name))
+        (type
+         (union_type
+          (literal_value
+           (string))
+          (type_or_operator)
+          (literal_value
+           (string))
+          (type_or_operator)
+          (literal_value
+           (string))))
+        (type
+         (type_name))))))))
+(semi_colon)))
+

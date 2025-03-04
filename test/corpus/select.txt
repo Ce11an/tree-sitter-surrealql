@@ -268,3 +268,32 @@ SELECT * FROM person;
                 (identifier)))))))
     (semi_colon)))
 
+=====================================
+Select all from table
+=====================================
+
+SELECT table.* FROM table;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (select_statement
+     (select_clause
+      (keyword_select)
+      (inclusive_predicate
+       (predicate
+        (value
+         (path
+          (base_value
+           (identifier))
+          (path_element
+           (subscript)))))))
+     (from_clause
+      (keyword_from)
+      (value
+       (base_value
+        (identifier)))))))
+  (semi_colon)))
