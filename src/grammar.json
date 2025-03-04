@@ -129,1096 +129,628 @@
       }
     },
     "keyword_info": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "INFO"
-      }
+      "type": "PATTERN",
+      "value": "[iI][nN][fF][oO]"
     },
     "keyword_if": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "IF"
-      }
+      "type": "PATTERN",
+      "value": "[iI][fF]"
     },
     "keyword_throw": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "THROW"
-      }
+      "type": "PATTERN",
+      "value": "[tT][hH][rR][oO][wW]"
     },
     "keyword_exists": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "EXISTS"
-      }
+      "type": "PATTERN",
+      "value": "[eE][xX][iI][sS][tT][sS]"
     },
     "keyword_tokenizers": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "TOKENIZERS"
-      }
+      "type": "PATTERN",
+      "value": "[tT][oO][kK][eE][nN][iI][zZ][eE][rR][sS]"
     },
     "keyword_overwrite": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "OVERWRITE"
-      }
+      "type": "PATTERN",
+      "value": "[oO][vV][eE][rR][wW][rR][iI][tT][eE]"
     },
     "keyword_on": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ON"
-      }
+      "type": "PATTERN",
+      "value": "[oO][nN]"
     },
     "keyword_let": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "LET"
-      }
+      "type": "PATTERN",
+      "value": "[lL][eE][tT]"
     },
     "keyword_return": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "RETURN"
-      }
+      "type": "PATTERN",
+      "value": "[rR][eE][tT][uU][rR][nN]"
     },
     "keyword_else": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ELSE"
-      }
+      "type": "PATTERN",
+      "value": "[eE][lL][sS][eE]"
     },
     "keyword_select": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "SELECT"
-      }
+      "type": "PATTERN",
+      "value": "[sS][eE][lL][eE][cC][tT]"
     },
     "keyword_from": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "FROM"
-      }
+      "type": "PATTERN",
+      "value": "[fF][rR][oO][mM]"
     },
     "keyword_only": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ONLY"
-      }
+      "type": "PATTERN",
+      "value": "[oO][nN][lL][yY]"
     },
     "keyword_value": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "VALUE"
-      }
+      "type": "PATTERN",
+      "value": "[vV][aA][lL][uU][eE]"
     },
     "keyword_as": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "AS"
-      }
+      "type": "PATTERN",
+      "value": "[aA][sS]"
     },
     "keyword_omit": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "OMIT"
-      }
+      "type": "PATTERN",
+      "value": "[oO][mM][iI][tT]"
     },
     "keyword_explain": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "EXPLAIN"
-      }
+      "type": "PATTERN",
+      "value": "[eE][xX][pP][lL][aA][iI][nN]"
     },
     "keyword_full": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "FULL"
-      }
+      "type": "PATTERN",
+      "value": "[fF][uU][lL][lL]"
     },
     "keyword_parallel": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "PARALLEL"
-      }
+      "type": "PATTERN",
+      "value": "[pP][aA][rR][aA][lL][lL][eE][lL]"
     },
     "keyword_timeout": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "TIMEOUT"
-      }
+      "type": "PATTERN",
+      "value": "[tT][iI][mM][eE][oO][uU][tT]"
     },
     "keyword_fetch": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "FETCH"
-      }
+      "type": "PATTERN",
+      "value": "[fF][eE][tT][cC][hH]"
     },
     "keyword_limit": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "LIMIT"
-      }
+      "type": "PATTERN",
+      "value": "[lL][iI][mM][iI][tT]"
     },
     "keyword_by": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "BY"
-      }
+      "type": "PATTERN",
+      "value": "[bB][yY]"
     },
     "keyword_rand": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "RAND"
-      }
+      "type": "PATTERN",
+      "value": "[rR][aA][nN][dD]"
     },
     "keyword_collate": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "COLLATE"
-      }
+      "type": "PATTERN",
+      "value": "[cC][oO][lL][lL][aA][tT][eE]"
     },
     "keyword_numeric": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "NUMERIC"
-      }
+      "type": "PATTERN",
+      "value": "[nN][uU][mM][eE][rR][iI][cC]"
     },
     "keyword_asc": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ASC"
-      }
+      "type": "PATTERN",
+      "value": "[aA][sS][cC]"
     },
     "keyword_desc": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DESC"
-      }
+      "type": "PATTERN",
+      "value": "[dD][eE][sS][cC]"
     },
     "keyword_order": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ORDER"
-      }
+      "type": "PATTERN",
+      "value": "[oO][rR][dD][eE][rR]"
     },
     "keyword_with": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "WITH"
-      }
+      "type": "PATTERN",
+      "value": "[wW][iI][tT][hH]"
     },
     "keyword_index": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "INDEX"
-      }
+      "type": "PATTERN",
+      "value": "[iI][nN][dD][eE][xX]"
     },
     "keyword_no_index": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "NOINDEX"
-      }
+      "type": "PATTERN",
+      "value": "[nN][oO][iI][nN][dD][eE][xX]"
     },
     "keyword_where": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "WHERE"
-      }
+      "type": "PATTERN",
+      "value": "[wW][hH][eE][rR][eE]"
     },
     "keyword_split": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "SPLIT"
-      }
+      "type": "PATTERN",
+      "value": "[sS][pP][lL][iI][tT]"
     },
     "keyword_at": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "AT"
-      }
+      "type": "PATTERN",
+      "value": "[aA][tT]"
     },
     "keyword_group": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "GROUP"
-      }
+      "type": "PATTERN",
+      "value": "[gG][rR][oO][uU][pP]"
     },
     "keyword_true": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "TRUE"
-      }
+      "type": "PATTERN",
+      "value": "[tT][rR][uU][eE]"
     },
     "keyword_false": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "FALSE"
-      }
+      "type": "PATTERN",
+      "value": "[fF][aA][lL][sS][eE]"
     },
     "keyword_begin": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "BEGIN"
-      }
+      "type": "PATTERN",
+      "value": "[bB][eE][gG][iI][nN]"
     },
     "keyword_cancel": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "CANCEL"
-      }
+      "type": "PATTERN",
+      "value": "[cC][aA][nN][cC][eE][lL]"
     },
     "keyword_commit": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "COMMIT"
-      }
+      "type": "PATTERN",
+      "value": "[cC][oO][mM][mM][iI][tT]"
     },
     "keyword_transaction": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "TRANSACTION"
-      }
+      "type": "PATTERN",
+      "value": "[tT][rR][aA][nN][sS][aA][cC][tT][iI][oO][nN]"
     },
     "keyword_none": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "NONE"
-      }
+      "type": "PATTERN",
+      "value": "[nN][oO][nN][eE]"
     },
     "keyword_null": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "NULL"
-      }
+      "type": "PATTERN",
+      "value": "[nN][uU][lL][lL]"
     },
     "keyword_and": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "AND"
-      }
+      "type": "PATTERN",
+      "value": "[aA][nN][dD]"
     },
     "keyword_or": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "OR"
-      }
+      "type": "PATTERN",
+      "value": "[oO][rR]"
     },
     "keyword_is": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "IS"
-      }
+      "type": "PATTERN",
+      "value": "[iI][sS]"
     },
     "keyword_not": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "NOT"
-      }
+      "type": "PATTERN",
+      "value": "[nN][oO][tT]"
     },
     "keyword_contains": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "contains"
-      }
+      "type": "PATTERN",
+      "value": "[cC][oO][nN][tT][aA][iI][nN][sS]"
     },
     "keyword_contains_not": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "CONTAINSNOT"
-      }
+      "type": "PATTERN",
+      "value": "[cC][oO][nN][tT][aA][iI][nN][sS][nN][oO][tT]"
     },
     "keyword_contains_all": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "CONTAINSALL"
-      }
+      "type": "PATTERN",
+      "value": "[cC][oO][nN][tT][aA][iI][nN][sS][aA][lL][lL]"
     },
     "keyword_contains_any": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "CONTAINSANY"
-      }
+      "type": "PATTERN",
+      "value": "[cC][oO][nN][tT][aA][iI][nN][sS][aA][nN][yY]"
     },
     "keyword_contains_none": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "CONTAINSNONE"
-      }
+      "type": "PATTERN",
+      "value": "[cC][oO][nN][tT][aA][iI][nN][sS][nN][oO][nN][eE]"
     },
     "keyword_inside": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "INSIDE"
-      }
+      "type": "PATTERN",
+      "value": "[iI][nN][sS][iI][dD][eE]"
     },
     "keyword_in": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "IN"
-      }
+      "type": "PATTERN",
+      "value": "[iI][nN]"
     },
     "keyword_not_inside": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "NOTINSIDE"
-      }
+      "type": "PATTERN",
+      "value": "[nN][oO][tT][iI][nN][sS][iI][dD][eE]"
     },
     "keyword_all_inside": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ALLINSIDE"
-      }
+      "type": "PATTERN",
+      "value": "[aA][lL][lL][iI][nN][sS][iI][dD][eE]"
     },
     "keyword_any_inside": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ANYINSIDE"
-      }
+      "type": "PATTERN",
+      "value": "[aA][nN][yY][iI][nN][sS][iI][dD][eE]"
     },
     "keyword_none_inside": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "NONEINSIDE"
-      }
+      "type": "PATTERN",
+      "value": "[nN][oO][nN][eE][iI][nN][sS][iI][dD][eE]"
     },
     "keyword_outside": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "OUTSIDE"
-      }
+      "type": "PATTERN",
+      "value": "[oO][uU][tT][sS][iI][dD][eE]"
     },
     "keyword_intersects": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "INTERSECTS"
-      }
+      "type": "PATTERN",
+      "value": "[iI][nN][tT][eE][rR][sS][eE][cC][tT][sS]"
     },
     "keyword_chebyshev": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "CHEBYSHEV"
-      }
+      "type": "PATTERN",
+      "value": "[cC][hH][eE][bB][yY][sS][hH][eE][vV]"
     },
     "keyword_cosine": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "COSINE"
-      }
+      "type": "PATTERN",
+      "value": "[cC][oO][sS][iI][nN][eE]"
     },
     "keyword_euclidean": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "EUCLIDEAN"
-      }
+      "type": "PATTERN",
+      "value": "[eE][uU][cC][lL][iI][dD][eE][aA][nN]"
     },
     "keyword_hamming": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "HAMMING"
-      }
+      "type": "PATTERN",
+      "value": "[hH][aA][mM][mM][iI][nN][gG]"
     },
     "keyword_jaccard": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "JACCARD"
-      }
+      "type": "PATTERN",
+      "value": "[jJ][aA][cC][cC][aA][rR][dD]"
     },
     "keyword_manhattan": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "MANHATTAN"
-      }
+      "type": "PATTERN",
+      "value": "[mM][aA][nN][hH][aA][tT][tT][aA][nN]"
     },
     "keyword_minkowski": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "MINKOWSKI"
-      }
+      "type": "PATTERN",
+      "value": "[mM][iI][nN][kK][oO][wW][sS][kK][iI]"
     },
     "keyword_pearson": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "PEARSON"
-      }
+      "type": "PATTERN",
+      "value": "[pP][eE][aA][rR][sS][oO][nN]"
     },
     "keyword_define": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DEFINE"
-      }
+      "type": "PATTERN",
+      "value": "[dD][eE][fF][iI][nN][eE]"
     },
     "keyword_analyzer": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ANALYZER"
-      }
+      "type": "PATTERN",
+      "value": "[aA][nN][aA][lL][yY][zZ][eE][rR]"
     },
     "keyword_event": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "EVENT"
-      }
+      "type": "PATTERN",
+      "value": "[eE][vV][eE][nN][tT]"
     },
     "keyword_field": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "FIELD"
-      }
+      "type": "PATTERN",
+      "value": "[fF][iI][eE][lL][dD]"
     },
     "keyword_function": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "FUNCTION"
-      }
+      "type": "PATTERN",
+      "value": "[fF][uU][nN][cC][tT][iI][oO][nN]"
     },
     "keyword_namespace": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "NAMESPACE"
-      }
+      "type": "PATTERN",
+      "value": "[nN][aA][mM][eE][sS][pP][aA][cC][eE]"
     },
     "keyword_param": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "PARAM"
-      }
+      "type": "PATTERN",
+      "value": "[pP][aA][rR][aA][mM]"
     },
     "keyword_scope": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "SCOPE"
-      }
+      "type": "PATTERN",
+      "value": "[sS][cC][oO][pP][eE]"
     },
     "keyword_drop": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DROP"
-      }
+      "type": "PATTERN",
+      "value": "[dD][rR][oO][pP]"
     },
     "keyword_schemafull": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "SCHEMAFULL"
-      }
+      "type": "PATTERN",
+      "value": "[sS][cC][hH][eE][mM][aA][fF][uU][lL][lL]"
     },
     "keyword_schemaless": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "SCHEMALESS"
-      }
+      "type": "PATTERN",
+      "value": "[sS][cC][hH][eE][mM][aA][lL][eE][sS][sS]"
     },
     "keyword_live": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "LIVE"
-      }
+      "type": "PATTERN",
+      "value": "[lL][iI][vV][eE]"
     },
     "keyword_diff": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DIFF"
-      }
+      "type": "PATTERN",
+      "value": "[dD][iI][fF][fF]"
     },
     "keyword_flexible": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "FLEXIBLE"
-      }
+      "type": "PATTERN",
+      "value": "[fF][lL][eE][xX][iI][bB][lL][eE]"
     },
     "keyword_readonly": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "READONLY"
-      }
+      "type": "PATTERN",
+      "value": "[rR][eE][aA][dD][oO][nN][lL][yY]"
     },
     "keyword_jwks": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "JWKS"
-      }
+      "type": "PATTERN",
+      "value": "[jJ][wW][kK][sS]"
     },
     "keyword_eddsa": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "EDDSA"
-      }
+      "type": "PATTERN",
+      "value": "[eE][dD][dD][sS][aA]"
     },
     "keyword_es256": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ES256"
-      }
+      "type": "PATTERN",
+      "value": "[eE][sS][22][55][66]"
     },
     "keyword_es384": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ES384"
-      }
+      "type": "PATTERN",
+      "value": "[eE][sS][33][88][44]"
     },
     "keyword_es512": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ES512"
-      }
+      "type": "PATTERN",
+      "value": "[eE][sS][55][11][22]"
     },
     "keyword_ps256": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "PS256"
-      }
+      "type": "PATTERN",
+      "value": "[pP][sS][22][55][66]"
     },
     "keyword_ps384": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "PS384"
-      }
+      "type": "PATTERN",
+      "value": "[pP][sS][33][88][44]"
     },
     "keyword_ps512": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "PS512"
-      }
+      "type": "PATTERN",
+      "value": "[pP][sS][55][11][22]"
     },
     "keyword_rs256": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "RS256"
-      }
+      "type": "PATTERN",
+      "value": "[rR][sS][22][55][66]"
     },
     "keyword_rs384": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "RS384"
-      }
+      "type": "PATTERN",
+      "value": "[rR][sS][33][88][44]"
     },
     "keyword_rs512": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "RS512"
-      }
+      "type": "PATTERN",
+      "value": "[rR][sS][55][11][22]"
     },
     "keyword_bm25": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "BM25"
-      }
+      "type": "PATTERN",
+      "value": "[bB][mM][22][55]"
     },
     "keyword_doc_ids_cache": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DOC_IDS_CACHE"
-      }
+      "type": "PATTERN",
+      "value": "[dD][oO][cC][__][iI][dD][sS][__][cC][aA][cC][hH][eE]"
     },
     "keyword_doc_ids_order": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DOC_IDS_ORDER"
-      }
+      "type": "PATTERN",
+      "value": "[dD][oO][cC][__][iI][dD][sS][__][oO][rR][dD][eE][rR]"
     },
     "keyword_doc_lengths_cache": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DOC_LENGTHS_CACHE"
-      }
+      "type": "PATTERN",
+      "value": "[dD][oO][cC][__][lL][eE][nN][gG][tT][hH][sS][__][cC][aA][cC][hH][eE]"
     },
     "keyword_doc_lengths_order": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DOC_LENGTHS_ORDER"
-      }
+      "type": "PATTERN",
+      "value": "[dD][oO][cC][__][lL][eE][nN][gG][tT][hH][sS][__][oO][rR][dD][eE][rR]"
     },
     "keyword_postings_cache": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "POSTINGS_CACHE"
-      }
+      "type": "PATTERN",
+      "value": "[pP][oO][sS][tT][iI][nN][gG][sS][__][cC][aA][cC][hH][eE]"
     },
     "keyword_postings_order": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "POSTINGS_ORDER"
-      }
+      "type": "PATTERN",
+      "value": "[pP][oO][sS][tT][iI][nN][gG][sS][__][oO][rR][dD][eE][rR]"
     },
     "keyword_terms_cache": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "TERMS_CACHE"
-      }
+      "type": "PATTERN",
+      "value": "[tT][eE][rR][mM][sS][__][cC][aA][cC][hH][eE]"
     },
     "keyword_terms_order": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "TERMS_ORDER"
-      }
+      "type": "PATTERN",
+      "value": "[tT][eE][rR][mM][sS][__][oO][rR][dD][eE][rR]"
     },
     "keyword_highlights": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "HIGHLIGHTS"
-      }
+      "type": "PATTERN",
+      "value": "[hH][iI][gG][hH][lL][iI][gG][hH][tT][sS]"
     },
     "keyword_any": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ANY"
-      }
+      "type": "PATTERN",
+      "value": "[aA][nN][yY]"
     },
     "keyword_normal": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "NORMAL"
-      }
+      "type": "PATTERN",
+      "value": "[nN][oO][rR][mM][aA][lL]"
     },
     "keyword_relation": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "RELATION"
-      }
+      "type": "PATTERN",
+      "value": "[rR][eE][lL][aA][tT][iI][oO][nN]"
     },
     "keyword_out": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "OUT"
-      }
+      "type": "PATTERN",
+      "value": "[oO][uU][tT]"
     },
     "keyword_to": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "TO"
-      }
+      "type": "PATTERN",
+      "value": "[tT][oO]"
     },
     "keyword_changefeed": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "CHANGEFEED"
-      }
+      "type": "PATTERN",
+      "value": "[cC][hH][aA][nN][gG][eE][fF][eE][eE][dD]"
     },
     "keyword_content": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "CONTENT"
-      }
+      "type": "PATTERN",
+      "value": "[cC][oO][nN][tT][eE][nN][tT]"
     },
     "keyword_merge": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "MERGE"
-      }
+      "type": "PATTERN",
+      "value": "[mM][eE][rR][gG][eE]"
     },
     "keyword_patch": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "PATCH"
-      }
+      "type": "PATTERN",
+      "value": "[pP][aA][tT][cC][hH]"
     },
     "keyword_before": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "BEFORE"
-      }
+      "type": "PATTERN",
+      "value": "[bB][eE][fF][oO][rR][eE]"
     },
     "keyword_after": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "AFTER"
-      }
+      "type": "PATTERN",
+      "value": "[aA][fF][tT][eE][rR]"
     },
     "keyword_table": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "TABLE"
-      }
+      "type": "PATTERN",
+      "value": "[tT][aA][bB][lL][eE]"
     },
     "keyword_root": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ROOT"
-      }
+      "type": "PATTERN",
+      "value": "[rR][oO][oO][tT]"
     },
     "keyword_token": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "TOKEN"
-      }
+      "type": "PATTERN",
+      "value": "[tT][oO][kK][eE][nN]"
     },
     "keyword_use": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "USE"
-      }
+      "type": "PATTERN",
+      "value": "[uU][sS][eE]"
     },
     "keyword_ns": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "NS"
-      }
+      "type": "PATTERN",
+      "value": "[nN][sS]"
     },
     "keyword_db": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DB"
-      }
+      "type": "PATTERN",
+      "value": "[dD][bB]"
     },
     "keyword_user": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "USER"
-      }
+      "type": "PATTERN",
+      "value": "[uU][sS][eE][rR]"
     },
     "keyword_roles": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ROLES"
-      }
+      "type": "PATTERN",
+      "value": "[rR][oO][lL][eE][sS]"
     },
     "keyword_remove": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "REMOVE"
-      }
+      "type": "PATTERN",
+      "value": "[rR][eE][mM][oO][vV][eE]"
     },
     "keyword_create": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "CREATE"
-      }
+      "type": "PATTERN",
+      "value": "[cC][rR][eE][aA][tT][eE]"
     },
     "keyword_delete": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DELETE"
-      }
+      "type": "PATTERN",
+      "value": "[dD][eE][lL][eE][tT][eE]"
     },
     "keyword_update": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "UPDATE"
-      }
+      "type": "PATTERN",
+      "value": "[uU][pP][dD][aA][tT][eE]"
     },
     "keyword_insert": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "INSERT"
-      }
+      "type": "PATTERN",
+      "value": "[iI][nN][sS][eE][rR][tT]"
     },
     "keyword_into": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "INTO"
-      }
+      "type": "PATTERN",
+      "value": "[iI][nN][tT][oO]"
     },
     "keyword_filters": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "FILTERS"
-      }
+      "type": "PATTERN",
+      "value": "[fF][iI][lL][tT][eE][rR][sS]"
     },
     "keyword_when": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "WHEN"
-      }
+      "type": "PATTERN",
+      "value": "[wW][hH][eE][nN]"
     },
     "keyword_then": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "THEN"
-      }
+      "type": "PATTERN",
+      "value": "[tT][hH][eE][nN]"
     },
     "keyword_type": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "TYPE"
-      }
+      "type": "PATTERN",
+      "value": "[tT][yY][pP][eE]"
     },
     "keyword_default": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DEFAULT"
-      }
+      "type": "PATTERN",
+      "value": "[dD][eE][fF][aA][uU][lL][tT]"
     },
     "keyword_assert": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ASSERT"
-      }
+      "type": "PATTERN",
+      "value": "[aA][sS][sS][eE][rR][tT]"
     },
     "keyword_permissions": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "PERMISSIONS"
-      }
+      "type": "PATTERN",
+      "value": "[pP][eE][rR][mM][iI][sS][sS][iI][oO][nN][sS]"
     },
     "keyword_relate": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "RELATE"
-      }
+      "type": "PATTERN",
+      "value": "[rR][eE][lL][aA][tT][eE]"
     },
     "keyword_ignore": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "IGNORE"
-      }
+      "type": "PATTERN",
+      "value": "[iI][gG][nN][oO][rR][eE]"
     },
     "keyword_values": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "VALUES"
-      }
+      "type": "PATTERN",
+      "value": "[vV][aA][lL][uU][eE][sS]"
     },
     "keyword_for": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "FOR"
-      }
+      "type": "PATTERN",
+      "value": "[fF][oO][rR]"
     },
     "keyword_comment": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "COMMENT"
-      }
+      "type": "PATTERN",
+      "value": "[cC][oO][mM][mM][eE][nN][tT]"
     },
     "keyword_fields": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "FIELDS"
-      }
+      "type": "PATTERN",
+      "value": "[fF][iI][eE][lL][dD][sS]"
     },
     "keyword_columns": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "COLUMNS"
-      }
+      "type": "PATTERN",
+      "value": "[cC][oO][lL][uU][mM][nN][sS]"
     },
     "keyword_unique": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "UNIQUE"
-      }
+      "type": "PATTERN",
+      "value": "[uU][nN][iI][qQ][uU][eE]"
     },
     "keyword_search": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "SEARCH"
-      }
+      "type": "PATTERN",
+      "value": "[sS][eE][aA][rR][cC][hH]"
     },
     "keyword_session": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "SESSION"
-      }
+      "type": "PATTERN",
+      "value": "[sS][eE][sS][sS][iI][oO][nN]"
     },
     "keyword_signin": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "SIGNIN"
-      }
+      "type": "PATTERN",
+      "value": "[sS][iI][gG][nN][iI][nN]"
     },
     "keyword_signup": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "SIGNUP"
-      }
+      "type": "PATTERN",
+      "value": "[sS][iI][gG][nN][uU][pP]"
     },
     "keyword_database": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "DATABASE"
-      }
+      "type": "PATTERN",
+      "value": "[dD][aA][tT][aA][bB][aA][sS][eE]"
     },
     "keyword_password": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "PASSWORD"
-      }
+      "type": "PATTERN",
+      "value": "[pP][aA][sS][sS][wW][oO][rR][dD]"
     },
     "keyword_password_hash": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "PASSHASH"
-      }
+      "type": "PATTERN",
+      "value": "[pP][aA][sS][sS][hH][aA][sS][hH]"
     },
     "keyword_on_duplicate_key_update": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "ON DUPLICATE KEY UPDATE"
-      }
+      "type": "PATTERN",
+      "value": "[oO][nN][  ][dD][uU][pP][lL][iI][cC][aA][tT][eE][  ][kK][eE][yY][  ][uU][pP][dD][aA][tT][eE]"
     },
     "keyword_count": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "COUNT"
-      }
+      "type": "PATTERN",
+      "value": "[cC][oO][uU][nN][tT]"
     },
     "keyword_unset": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "UNSET"
-      }
+      "type": "PATTERN",
+      "value": "[uU][nN][sS][eE][tT]"
     },
     "keyword_set": {
-      "type": "TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "SET"
-      }
+      "type": "PATTERN",
+      "value": "[sS][eE][tT]"
     },
     "expressions": {
       "type": "SEQ",
