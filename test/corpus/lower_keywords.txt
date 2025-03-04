@@ -1,0 +1,63 @@
+=====================================
+Lower select all fields from a table
+=====================================
+
+select * from person;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (select_statement
+          (select_clause
+            (keyword_select)
+            (inclusive_predicate))
+          (from_clause
+            (keyword_from)
+            (value
+              (base_value
+                (identifier)))))))
+    (semi_colon)))
+
+=====================================
+Lower let and create
+=====================================
+
+-- Define the parameter
+let $name = "tobie";
+-- Use the parameter
+create person set name = $name;
+
+---
+
+(source_file
+  (comment)
+  (expressions
+    (expression
+      (subquery_statement
+        (let_statement
+          (keyword_let)
+          (variable_name)
+          (value
+            (base_value
+              (string))))))
+    (semi_colon)
+    (comment)
+    (expression
+      (subquery_statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (identifier))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (variable_name))))))))
+    (semi_colon)))
+
