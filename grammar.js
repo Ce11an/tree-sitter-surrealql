@@ -951,7 +951,7 @@ module.exports = grammar({
 
     // Value-related rules
     value: $ =>
-      choice($.base_value, $.binary_expression, $.path, $.function_call, $.negated_expression),
+      choice($.base_value, $.cast_expression, $.binary_expression, $.path, $.function_call, $.negated_expression),
 
     function_call: $ =>
       choice(
@@ -982,11 +982,18 @@ module.exports = grammar({
         $.point,
       ),
 
+    cast_expression: $ => prec.left(seq("<", $.type_name, ">", $.value)),
+
     binary_expression: $ => prec.left(seq($.value, $.operator, $.value)),
 
     negated_expression: $ => seq(
       '!',
-      $.function_call,
+      choice(
+        $.variable_name,
+        $.function_call,
+        $.record_id,
+        $.path,
+      )
     ),
 
     path: $ =>
