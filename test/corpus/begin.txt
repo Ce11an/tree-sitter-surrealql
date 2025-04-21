@@ -104,3 +104,194 @@ COMMIT TRANSACTION;
      (keyword_commit)
      (keyword_transaction))))
 (semi_colon)))
+
+==================================
+Returning early from a transaction
+==================================
+
+BEGIN;
+
+CREATE account:one SET balance = 135605.16;
+CREATE account:two SET balance = 91031.31, wants_to_send_money = true;
+
+IF !account:two.wants_to_send_money {
+    THROW "Customer doesn't want to send any money!";
+};
+
+LET $first = UPDATE ONLY account:one SET balance += 300.00;
+LET $second = UPDATE ONLY account:two SET balance -= 300.00;
+
+RETURN "Money sent! Status:\n" + <string>$first + '\n' + <string>$second;
+
+COMMIT;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (primary_statement
+    (begin_statement
+     (keyword_begin))))
+  (semi_colon)
+  (expression
+   (subquery_statement
+    (create_statement
+     (keyword_create)
+     (create_target
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (base_value
+         (number
+          (float)))))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (create_statement
+     (keyword_create)
+     (create_target
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (base_value
+         (number
+          (float)))))
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (base_value
+         (keyword_true))))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (if_statement
+     (keyword_if)
+     (value
+      (negated_expression
+       (path
+        (base_value
+         (record_id
+          (object_key)
+          (record_id_value
+           (record_id_ident))))
+        (path_element
+         (subscript
+          (identifier))))))
+     (block
+      (expressions
+       (expression
+        (primary_statement
+         (throw_statement
+          (keyword_throw)
+          (value
+           (base_value
+            (string))))))
+       (semi_colon))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (let_statement
+     (keyword_let)
+     (variable_name)
+     (subquery_statement
+      (update_statement
+       (keyword_update)
+       (keyword_only)
+       (value
+        (base_value
+         (record_id
+          (object_key)
+          (record_id_value
+           (record_id_ident)))))
+       (set_clause
+        (keyword_set)
+        (field_assignment
+         (identifier)
+         (assignment_operator)
+         (value
+          (base_value
+           (number
+            (float)))))))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (let_statement
+     (keyword_let)
+     (variable_name)
+     (subquery_statement
+      (update_statement
+       (keyword_update)
+       (keyword_only)
+       (value
+        (base_value
+         (record_id
+          (object_key)
+          (record_id_value
+           (record_id_ident)))))
+       (set_clause
+        (keyword_set)
+        (field_assignment
+         (identifier)
+         (assignment_operator)
+         (value
+          (base_value
+           (number
+            (float)))))))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (return_statement
+     (return_clause
+      (keyword_return)
+      (value
+       (binary_expression
+        (value
+         (binary_expression
+          (value
+           (binary_expression
+            (value
+             (base_value
+              (string)))
+            (operator
+             (binary_operator))
+            (value
+             (cast_expression
+              (type_name)
+              (value
+               (base_value
+                (variable_name)))))))
+          (operator
+           (binary_operator))
+          (value
+           (base_value
+            (string)))))
+        (operator
+         (binary_operator))
+        (value
+         (cast_expression
+          (type_name)
+          (value
+           (base_value
+            (variable_name)))))))))))
+(semi_colon)
+  (expression
+   (primary_statement
+    (commit_statement
+     (keyword_commit))))
+(semi_colon)))
