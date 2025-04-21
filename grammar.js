@@ -177,6 +177,7 @@ module.exports = grammar({
     keyword_unset: _ => make_keyword("UNSET"),
     keyword_set: _ => make_keyword("SET"),
     keyword_always: _ => make_keyword("ALWAYS"),
+    keyword_alter: _ => make_keyword("ALTER"),
 
     // Expressions
     expressions: $ =>
@@ -208,6 +209,7 @@ module.exports = grammar({
         $.select_statement,
         $.if_statement,
         $.let_statement,
+        $.alter_statement,
         $.delete_statement,
         $.create_statement,
         $.update_statement,
@@ -282,6 +284,22 @@ module.exports = grammar({
 
     commit_statement: $ =>
       seq($.keyword_commit, optional($.keyword_transaction)),
+
+    alter_statement: $ => seq(
+      $.keyword_alter,
+      $.keyword_table,
+      optional($.if_not_exists_clause),
+      $.identifier,
+      repeat(
+        choice(
+          $.keyword_drop,
+          $.keyword_schemafull,
+          $.keyword_schemaless,
+          $.permissions_for_clause,
+          $.comment_clause,
+        ),
+      ),
+    ),
 
     define_analyzer_statement: $ =>
       seq(

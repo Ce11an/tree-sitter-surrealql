@@ -1,0 +1,69 @@
+=====================
+Alter table statement
+=====================
+
+-- An example of ALTER to modify an existing table
+DEFINE TABLE user SCHEMALESS;
+DEFINE FIELD name ON TABLE user TYPE string;
+CREATE user SET name = "LordofSalty";
+
+-- Now make it schemafull to ensure that no other fields can be used
+ALTER TABLE user SCHEMAFULL;
+
+---
+
+(source_file
+ (comment)
+ (expressions
+  (expression
+   (subquery_statement
+    (define_table_statement
+     (keyword_define)
+     (keyword_table)
+     (identifier)
+     (keyword_schemaless))))
+  (semi_colon)
+  (expression
+   (subquery_statement
+    (define_field_statement
+     (keyword_define)
+     (keyword_field)
+     (inclusive_predicate
+      (predicate
+       (value
+        (base_value
+         (identifier)))))
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (type_clause
+      (keyword_type)
+      (type
+       (type_name))))))
+(semi_colon)
+(expression
+ (subquery_statement
+  (create_statement
+   (keyword_create)
+   (create_target
+    (identifier))
+   (set_clause
+    (keyword_set)
+    (field_assignment
+     (identifier)
+     (assignment_operator)
+     (value
+      (base_value
+       (string))))))))
+(semi_colon)
+(comment)
+(expression
+ (subquery_statement
+  (alter_statement
+   (keyword_alter)
+   (keyword_table)
+   (identifier)
+   (keyword_schemafull))))
+(semi_colon)))
+
