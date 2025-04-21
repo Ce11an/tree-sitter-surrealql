@@ -5286,6 +5286,10 @@
         {
           "type": "SYMBOL",
           "name": "record_id"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "multi_record"
         }
       ]
     },
@@ -5528,6 +5532,31 @@
         {
           "type": "SYMBOL",
           "name": "negated_expression"
+        }
+      ]
+    },
+    "multi_record": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "|"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "int"
+        },
+        {
+          "type": "STRING",
+          "value": "|"
         }
       ]
     },
@@ -6123,10 +6152,6 @@
         }
       ]
     },
-    "type_or_operator": {
-      "type": "STRING",
-      "value": "|"
-    },
     "type_name": {
       "type": "PATTERN",
       "value": "[a-zA-Z_][a-zA-Z0-9_]*"
@@ -6157,8 +6182,8 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "type_or_operator"
+                "type": "STRING",
+                "value": "|"
               },
               {
                 "type": "SYMBOL",
@@ -6219,8 +6244,8 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "type_or_operator"
+                  "type": "STRING",
+                  "value": "|"
                 },
                 {
                   "type": "CHOICE",

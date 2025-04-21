@@ -209,7 +209,7 @@
 ] @punctuation.bracket
 [
  ","
- (type_or_operator)
+ "|"
 ] @punctuation.delimiter
 
 ; Types

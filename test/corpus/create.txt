@@ -336,3 +336,43 @@ LET $person = CREATE person CONTENT {
                         (base_value
                           (variable_name))))))))))))
     (semi_colon)))
+
+==========================================================
+Query attempting to create half a million `person` records
+==========================================================
+
+CREATE |person:500000| SET age = 46, username = "john-smith" TIMEOUT 500ms;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (multi_record
+              (identifier)
+              (int)))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (number
+                    (int)))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string)))))
+          (timeout_clause
+            (keyword_timeout)
+            (duration
+              (duration_part))))))
+    (semi_colon)))
+

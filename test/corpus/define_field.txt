@@ -194,7 +194,6 @@ DEFINE FIELD user_id ON TABLE user TYPE uuid|int;
       (type
        (union_type
         (type_name)
-        (type_or_operator)
         (type_name)))))))
 (semi_colon)))
 
@@ -264,13 +263,10 @@ DEFINE FIELD next_paths ON TABLE block TYPE array<"north" | "east" | "south" | "
          (union_type
           (literal_value
            (string))
-          (type_or_operator)
           (literal_value
            (string))
-          (type_or_operator)
           (literal_value
            (string))
-          (type_or_operator)
           (literal_value
            (string))))
         (literal_value
@@ -586,10 +582,8 @@ DEFINE FIELD id ON TABLE log TYPE [record, "info" | "warn" | "error", datetime];
          (union_type
           (literal_value
            (string))
-          (type_or_operator)
           (literal_value
            (string))
-          (type_or_operator)
           (literal_value
            (string))))
         (type
