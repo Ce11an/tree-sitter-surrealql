@@ -1,0 +1,264 @@
+====================
+Cancel a transaction
+====================
+
+BEGIN TRANSACTION;
+
+-- Setup accounts
+CREATE account:one SET balance = 135605.16;
+CREATE account:two SET balance = 91031.31;
+
+-- Move money
+UPDATE account:one SET balance += 300.00;
+UPDATE account:two SET balance -= 300.00;
+
+-- Rollback all changes
+CANCEL TRANSACTION;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (primary_statement
+    (begin_statement
+     (keyword_begin)
+     (keyword_transaction))))
+  (semi_colon)
+  (comment)
+  (expression
+   (subquery_statement
+    (create_statement
+     (keyword_create)
+     (create_target
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (base_value
+         (number
+          (float)))))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (create_statement
+     (keyword_create)
+     (create_target
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (base_value
+         (number
+          (float)))))))))
+  (semi_colon)
+(comment)
+  (expression
+   (subquery_statement
+    (update_statement
+     (keyword_update)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (base_value
+         (number
+          (float)))))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (update_statement
+     (keyword_update)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (base_value
+         (number
+          (float)))))))))
+  (semi_colon)
+(comment)
+  (expression
+   (primary_statement
+    (cancel_statement
+     (keyword_cancel)
+     (keyword_transaction))))
+(semi_colon)))
+
+===================================
+Cancel a transaction by using throw
+===================================
+
+BEGIN TRANSACTION;
+
+-- Setup accounts
+CREATE account:one SET balance = 135605.16;
+CREATE account:two SET balance = 200.31;
+
+-- Move money
+UPDATE account:one SET balance += 300.00;
+UPDATE account:two SET balance -= 300.00;
+
+IF account:two.balance < 0 {
+    THROW "Not enough funds";
+};
+
+COMMIT TRANSACTION;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (primary_statement
+    (begin_statement
+     (keyword_begin)
+     (keyword_transaction))))
+  (semi_colon)
+  (comment)
+  (expression
+   (subquery_statement
+    (create_statement
+     (keyword_create)
+     (create_target
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (base_value
+         (number
+          (float)))))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (create_statement
+     (keyword_create)
+     (create_target
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (base_value
+         (number
+          (float)))))))))
+  (semi_colon)
+(comment)
+  (expression
+   (subquery_statement
+    (update_statement
+     (keyword_update)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (base_value
+         (number
+          (float)))))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (update_statement
+     (keyword_update)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (base_value
+         (number
+          (float)))))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (if_statement
+     (keyword_if)
+     (value
+      (binary_expression
+       (value
+        (path
+         (base_value
+          (record_id
+           (object_key)
+           (record_id_value
+            (record_id_ident))))
+         (path_element
+          (subscript
+           (identifier)))))
+       (operator)
+       (value
+        (base_value
+         (number
+          (int))))))
+     (block
+      (expressions
+       (expression
+        (primary_statement
+         (throw_statement
+          (keyword_throw)
+          (value
+           (base_value
+            (string))))))
+       (semi_colon))))))
+(semi_colon)
+  (expression
+   (primary_statement
+    (commit_statement
+     (keyword_commit)
+     (keyword_transaction))))
+(semi_colon)))
+
