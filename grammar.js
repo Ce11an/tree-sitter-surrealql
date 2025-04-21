@@ -176,6 +176,7 @@ module.exports = grammar({
     keyword_count: _ => make_keyword("COUNT"),
     keyword_unset: _ => make_keyword("UNSET"),
     keyword_set: _ => make_keyword("SET"),
+    keyword_always: _ => make_keyword("ALWAYS"),
 
     // Expressions
     expressions: $ =>
@@ -321,8 +322,8 @@ module.exports = grammar({
       seq(
         $.keyword_define,
         $.keyword_field,
-        optional($.if_not_exists_clause),
-        $.identifier,
+        optional(choice($.if_not_exists_clause, $.keyword_overwrite)),
+        commaSeparated($.inclusive_predicate),
         $.on_table_clause,
         repeat(
           choice(
@@ -732,9 +733,15 @@ module.exports = grammar({
         commaSeparated(choice($.sub_query, $.block)),
       ),
 
+    type_object_property: $ => seq($.object_key, ":", $.type),
+
+    type_object_content: $ => commaSeparated($.type_object_property),
+
+    type_object: $ => seq("{", $.type_object_content, "}"),
+
     type_clause: $ => seq(optional($.keyword_flexible), $.keyword_type, $.type),
 
-    default_clause: $ => seq($.keyword_default, $.value),
+    default_clause: $ => seq($.keyword_default, optional($.keyword_always), $.value),
 
     readonly_clause: $ => $.keyword_readonly,
 
@@ -1006,10 +1013,51 @@ module.exports = grammar({
     argument_list_count: $ =>
       seq("(", optional(choice(commaSeparated($.value), $.primary_statement)), ")"),
 
-    type: $ => choice($.type_name, $.parameterized_type),
+    type_or_operator: $ => "|",
 
     type_name: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
-    parameterized_type: $ => seq($.type, "<", choice($.type, $.int), ">"),
+
+    literal_value: $ => choice($.int, $.string),
+
+    type_or_separated: $ => seq($.type_name, repeat(seq($.type_or_operator, $.type_name))),
+
+    type: $ => choice(
+      $.union_type,
+      $.parameterized_type,
+      $.composite_type,
+      $.type_name,
+      $.type_object
+    ),
+
+    union_type: $ => prec.right(1, seq(
+      choice($.type_name, $.literal_value),
+      repeat1(seq($.type_or_operator, choice($.type_name, $.literal_value)))
+    )),
+
+    composite_type: $ => seq(
+      "[",
+      commaSeparated($.type),
+      "]"
+    ),
+
+    parameterized_type: $ => seq(
+      $.type_name,
+      "<",
+      commaSeparated(choice($.type, $.literal_value)),
+      ">"
+    ),
+
+    type_object: $ => seq(
+      "{",
+      commaSeparated($.type_object_property),
+      "}"
+    ),
+
+    type_object_property: $ => seq(
+      $.object_key,
+      ":",
+      $.type
+    ),
 
     analyzer_tokenizers: _ => choice("blank", "camel", "class", "punct"),
 
@@ -1147,6 +1195,11 @@ module.exports = grammar({
 function commaSeparated(rule) {
   return seq(rule, repeat(seq(",", rule)));
 }
+
+function orSeparated(rule) {
+  return seq(rule, repeat(seq("|", rule)));
+}
+
 
 function make_keyword(word) {
   return new RegExp([...word].map(c => `[${c.toLowerCase()}${c.toUpperCase()}]`).join(''));
