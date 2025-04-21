@@ -195,6 +195,18 @@ module.exports = grammar({
     keyword_viewer: _ => make_keyword("VIEWER"),
     keyword_duration: _ => make_keyword("DURATION"),
     keyword_enforced: _ => make_keyword("ENFORCED"),
+    keyword_algorithm: _ => make_keyword("ALGORITHM"),
+    keyword_key: _ => make_keyword("KEY"),
+    keyword_url: _ => make_keyword("URL"),
+    keyword_jwt: _ => make_keyword("JWT"),
+    keyword_signup: _ => make_keyword("SIGNUP"),
+    keyword_issuer: _ => make_keyword("ISSUER"),
+    keyword_refresh: _ => make_keyword("REFRESH"),
+    keyword_record: _ => make_keyword("RECORD"),
+    keyword_bearer: _ => make_keyword("BEARER"),
+    keyword_authenticate: _ => make_keyword("AUTHENTICATE"),
+    keyword_grant: _ => make_keyword("GRANT"),
+    keyword_access: _ => make_keyword("ACCESS"),
 
     // Expressions
     expressions: $ =>
@@ -248,6 +260,7 @@ module.exports = grammar({
         $.define_namespace_statement,
         $.define_param_statement,
         $.define_scope_statement,
+        $.define_access_statement,
         $.define_table_statement,
         $.define_token_statement,
         $.define_user_statement,
@@ -479,6 +492,51 @@ module.exports = grammar({
           ),
         ),
       ),
+
+    duration_clause: $ =>
+      seq(
+        $.keyword_duration,
+        commaSeparated(
+          choice(
+            seq($.keyword_for, $.keyword_grant, $.duration),
+            seq($.keyword_for, $.keyword_token, $.duration),
+            seq($.keyword_for, $.keyword_session, $.duration),
+          )
+        )
+      ),
+
+    define_access_statement: $ => seq(
+      $.keyword_define,
+      $.keyword_access,
+      optional($.if_not_exists_clause),
+      $.identifier,
+      $.keyword_on,
+      choice($.keyword_root, $.keyword_namespace, $.keyword_scope, $.keyword_database),
+      $.keyword_type,
+      choice(
+        seq($.keyword_jwt,
+          choice(
+            seq($.keyword_algorithm, $.identifier, $.keyword_key, $.string),
+            seq($.keyword_url, $.string)
+          )
+        ),
+        seq($.keyword_record,
+          optional(seq($.keyword_signup, "(", $.create_statement, ")")),
+          optional(seq($.keyword_signin, "(", $.select_statement, ")")),
+          optional(seq($.keyword_with, $.keyword_jwt,
+            choice(
+              seq($.keyword_algorithm, $.identifier, $.keyword_key, $.string),
+              seq($.keyword_url, $.string)
+            ),
+            optional(seq($.keyword_with, $.keyword_issuer, $.keyword_key, $.string))
+          )),
+          optional(seq($.keyword_with, $.keyword_refresh))
+        ),
+        seq($.keyword_bearer, $.keyword_for, choice($.keyword_user, $.keyword_record))
+      ),
+      optional(seq($.keyword_authenticate, $.block)),
+      optional($.duration_clause)
+    ),
 
     define_table_statement: $ =>
       seq(

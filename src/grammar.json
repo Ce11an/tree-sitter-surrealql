@@ -828,6 +828,50 @@
       "type": "PATTERN",
       "value": "[eE][nN][fF][oO][rR][cC][eE][dD]"
     },
+    "keyword_algorithm": {
+      "type": "PATTERN",
+      "value": "[aA][lL][gG][oO][rR][iI][tT][hH][mM]"
+    },
+    "keyword_key": {
+      "type": "PATTERN",
+      "value": "[kK][eE][yY]"
+    },
+    "keyword_url": {
+      "type": "PATTERN",
+      "value": "[uU][rR][lL]"
+    },
+    "keyword_jwt": {
+      "type": "PATTERN",
+      "value": "[jJ][wW][tT]"
+    },
+    "keyword_issuer": {
+      "type": "PATTERN",
+      "value": "[iI][sS][sS][uU][eE][rR]"
+    },
+    "keyword_refresh": {
+      "type": "PATTERN",
+      "value": "[rR][eE][fF][rR][eE][sS][hH]"
+    },
+    "keyword_record": {
+      "type": "PATTERN",
+      "value": "[rR][eE][cC][oO][rR][dD]"
+    },
+    "keyword_bearer": {
+      "type": "PATTERN",
+      "value": "[bB][eE][aA][rR][eE][rR]"
+    },
+    "keyword_authenticate": {
+      "type": "PATTERN",
+      "value": "[aA][uU][tT][hH][eE][nN][tT][iI][cC][aA][tT][eE]"
+    },
+    "keyword_grant": {
+      "type": "PATTERN",
+      "value": "[gG][rR][aA][nN][tT]"
+    },
+    "keyword_access": {
+      "type": "PATTERN",
+      "value": "[aA][cC][cC][eE][sS][sS]"
+    },
     "expressions": {
       "type": "SEQ",
       "members": [
@@ -1017,6 +1061,10 @@
         {
           "type": "SYMBOL",
           "name": "define_scope_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "define_access_statement"
         },
         {
           "type": "SYMBOL",
@@ -2003,6 +2051,491 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "duration_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_duration"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_for"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_grant"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "duration"
+                    }
+                  ]
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_for"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_token"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "duration"
+                    }
+                  ]
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_for"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_session"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "duration"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_for"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_grant"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "duration"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_for"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_token"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "duration"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_for"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_session"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "duration"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "define_access_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_define"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_access"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "if_not_exists_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_on"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_root"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_namespace"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_scope"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_database"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_type"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_jwt"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_algorithm"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_key"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "string"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_url"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "string"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_record"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_signup"
+                        },
+                        {
+                          "type": "STRING",
+                          "value": "("
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "create_statement"
+                        },
+                        {
+                          "type": "STRING",
+                          "value": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_signin"
+                        },
+                        {
+                          "type": "STRING",
+                          "value": "("
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "select_statement"
+                        },
+                        {
+                          "type": "STRING",
+                          "value": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_with"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_jwt"
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SEQ",
+                              "members": [
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "keyword_algorithm"
+                                },
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "identifier"
+                                },
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "keyword_key"
+                                },
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "string"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "SEQ",
+                              "members": [
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "keyword_url"
+                                },
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "string"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SEQ",
+                              "members": [
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "keyword_with"
+                                },
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "keyword_issuer"
+                                },
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "keyword_key"
+                                },
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "string"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "BLANK"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_with"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_refresh"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_bearer"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_for"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_user"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_record"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_authenticate"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "block"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "duration_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
