@@ -179,6 +179,7 @@ module.exports = grammar({
     keyword_always: _ => make_keyword("ALWAYS"),
     keyword_alter: _ => make_keyword("ALTER"),
     keyword_break: _ => make_keyword("BREAK"),
+    keyword_continue: _ => make_keyword("CONTINUE"),
 
     // Expressions
     expressions: $ =>
@@ -203,6 +204,7 @@ module.exports = grammar({
         $.info_statement,
         $.throw_statement,
         $.break_statement,
+        $.continue_statement
       ),
 
     // Statements that can be stand alone or nested
@@ -235,6 +237,8 @@ module.exports = grammar({
       ),
 
     break_statement: $ => seq($.keyword_break, $.semi_colon),
+
+    continue_statement: $ => seq($.keyword_continue, $.semi_colon),
 
     for_statement: $ =>
       seq(
