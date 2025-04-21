@@ -292,6 +292,25 @@
     }
   },
   {
+    "type": "break_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_break",
+          "named": true
+        },
+        {
+          "type": "semi_colon",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "cancel_statement",
     "named": true,
     "fields": {},
@@ -415,6 +434,10 @@
         },
         {
           "type": "object",
+          "named": true
+        },
+        {
+          "type": "variable_name",
           "named": true
         }
       ]
@@ -1508,6 +1531,37 @@
         },
         {
           "type": "keyword_filters",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "for_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "keyword_for",
+          "named": true
+        },
+        {
+          "type": "keyword_in",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        },
+        {
+          "type": "variable_name",
           "named": true
         }
       ]
@@ -2704,6 +2758,10 @@
           "named": true
         },
         {
+          "type": "break_statement",
+          "named": true
+        },
+        {
           "type": "cancel_statement",
           "named": true
         },
@@ -3357,6 +3415,10 @@
         },
         {
           "type": "delete_statement",
+          "named": true
+        },
+        {
+          "type": "for_statement",
           "named": true
         },
         {
@@ -4343,6 +4405,10 @@
   },
   {
     "type": "keyword_bm25",
+    "named": true
+  },
+  {
+    "type": "keyword_break",
     "named": true
   },
   {

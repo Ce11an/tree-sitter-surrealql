@@ -178,6 +178,7 @@ module.exports = grammar({
     keyword_set: _ => make_keyword("SET"),
     keyword_always: _ => make_keyword("ALWAYS"),
     keyword_alter: _ => make_keyword("ALTER"),
+    keyword_break: _ => make_keyword("BREAK"),
 
     // Expressions
     expressions: $ =>
@@ -201,6 +202,7 @@ module.exports = grammar({
         $.use_statement,
         $.info_statement,
         $.throw_statement,
+        $.break_statement,
       ),
 
     // Statements that can be stand alone or nested
@@ -217,6 +219,7 @@ module.exports = grammar({
         $.return_statement,
         $.insert_statement,
         $.relate_statement,
+        $.for_statement,
         $.define_analyzer_statement,
         $.define_database,
         $.define_event_statement,
@@ -229,6 +232,17 @@ module.exports = grammar({
         $.define_table_statement,
         $.define_token_statement,
         $.define_user_statement,
+      ),
+
+    break_statement: $ => seq($.keyword_break, $.semi_colon),
+
+    for_statement: $ =>
+      seq(
+        $.keyword_for,
+        $.variable_name,
+        $.keyword_in,
+        $.value,
+        $.block
       ),
 
     return_statement: $ => $.return_clause,
@@ -916,7 +930,7 @@ module.exports = grammar({
     create_target: $ =>
       choice(commaSeparated($.identifier), $.variable_name, $.function_call, $.record_id),
 
-    content_clause: $ => seq($.keyword_content, $.object),
+    content_clause: $ => seq($.keyword_content, choice($.object, $.variable_name)),
 
     set_clause: $ => seq($.keyword_set, commaSeparated($.field_assignment)),
 
