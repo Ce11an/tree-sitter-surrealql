@@ -1,0 +1,259 @@
+==============
+Throw an error
+==============
+
+THROW "some error message";
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (primary_statement
+        (throw_statement
+          (keyword_throw)
+          (value
+            (base_value
+              (string))))))
+    (semi_colon)))
+
+=====================================
+Throw a value from a select statement
+=====================================
+
+CREATE foo SET time = time::now();
+THROW (SELECT * FROM foo);
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (identifier))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (function_call
+                  (function_name)
+                  (argument_list))))))))
+    (semi_colon)
+    (expression
+      (primary_statement
+        (throw_statement
+          (keyword_throw)
+          (value
+            (base_value
+              (sub_query
+                (expression
+                  (subquery_statement
+                    (select_statement
+                      (select_clause
+                        (keyword_select)
+                        (inclusive_predicate))
+                      (from_clause
+                        (keyword_from)
+                        (value
+                          (base_value
+                            (identifier)))))))))))))
+    (semi_colon)))
+
+======================
+Throw in a transaction
+======================
+
+BEGIN TRANSACTION;
+
+LET $transfer_amount = 150;
+
+CREATE account:one SET dollars =  100;
+CREATE account:two SET dollars =  100;
+
+UPDATE account:one SET dollars -= $transfer_amount;
+UPDATE account:two SET dollars += $transfer_amount;
+
+IF account:one.dollars < 0 {
+    THROW "Insufficient funds, would have $" + <string>account:one.dollars + " after transfer"
+};
+
+COMMIT TRANSACTION;
+
+SELECT * FROM account;
+
+---
+
+
+
+(source_file
+  (expressions
+    (expression
+      (primary_statement
+        (begin_statement
+          (keyword_begin)
+          (keyword_transaction))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (let_statement
+          (keyword_let)
+          (variable_name)
+          (value
+            (base_value
+              (number
+                (int)))))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (record_id
+              (object_key)
+              (record_id_value
+                (record_id_ident))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (number
+                    (int)))))))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (record_id
+              (object_key)
+              (record_id_value
+                (record_id_ident))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (number
+                    (int)))))))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (variable_name))))))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (variable_name))))))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (if_statement
+          (keyword_if)
+          (value
+            (binary_expression
+              (value
+                (path
+                  (base_value
+                    (record_id
+                      (object_key)
+                      (record_id_value
+                        (record_id_ident))))
+                  (path_element
+                    (subscript
+                      (identifier)))))
+              (operator)
+              (value
+                (base_value
+                  (number
+                    (int))))))
+          (block
+            (expressions
+              (expression
+                (primary_statement
+                  (throw_statement
+                    (keyword_throw)
+                    (value
+                      (binary_expression
+                        (value
+                          (binary_expression
+                            (value
+                              (base_value
+                                (string)))
+                            (operator
+                              (binary_operator))
+                            (value
+                              (cast_expression
+                                (type_name)
+                                (value
+                                  (path
+                                    (base_value
+                                      (record_id
+                                        (object_key)
+                                        (record_id_value
+                                          (record_id_ident))))
+                                    (path_element
+                                      (subscript
+                                        (identifier)))))))))
+                        (operator
+                          (binary_operator))
+                        (value
+                          (base_value
+                            (string)))))))))))))
+    (semi_colon)
+    (expression
+      (primary_statement
+        (commit_statement
+          (keyword_commit)
+          (keyword_transaction))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (select_statement
+          (select_clause
+            (keyword_select)
+            (inclusive_predicate))
+          (from_clause
+            (keyword_from)
+            (value
+              (base_value
+                (identifier)))))))
+    (semi_colon)))
