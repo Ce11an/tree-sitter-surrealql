@@ -297,11 +297,8 @@
       "value": "[tT][rR][aA][nN][sS][aA][cC][tT][iI][oO][nN]"
     },
     "keyword_none": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[nN][oO][nN][eE]"
-      }
+      "type": "PATTERN",
+      "value": "[nN][oO][nN][eE]"
     },
     "keyword_null": {
       "type": "PATTERN",
@@ -767,6 +764,10 @@
       "type": "PATTERN",
       "value": "[bB][rR][eE][aA][kK]"
     },
+    "keyword_continue": {
+      "type": "PATTERN",
+      "value": "[cC][oO][nN][tT][iI][nN][uU][eE]"
+    },
     "expressions": {
       "type": "SEQ",
       "members": [
@@ -855,6 +856,10 @@
         {
           "type": "SYMBOL",
           "name": "break_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "continue_statement"
         }
       ]
     },
@@ -965,6 +970,19 @@
         {
           "type": "SYMBOL",
           "name": "keyword_break"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "semi_colon"
+        }
+      ]
+    },
+    "continue_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_continue"
         },
         {
           "type": "SYMBOL",

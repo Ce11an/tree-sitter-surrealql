@@ -444,6 +444,25 @@
     }
   },
   {
+    "type": "continue_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_continue",
+          "named": true
+        },
+        {
+          "type": "semi_colon",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "create_statement",
     "named": true,
     "fields": {},
@@ -2770,6 +2789,10 @@
           "named": true
         },
         {
+          "type": "continue_statement",
+          "named": true
+        },
+        {
           "type": "info_statement",
           "named": true
         },
@@ -4465,6 +4488,10 @@
   },
   {
     "type": "keyword_content",
+    "named": true
+  },
+  {
+    "type": "keyword_continue",
     "named": true
   },
   {
