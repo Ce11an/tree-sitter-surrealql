@@ -297,8 +297,11 @@
       "value": "[tT][rR][aA][nN][sS][aA][cC][tT][iI][oO][nN]"
     },
     "keyword_none": {
-      "type": "PATTERN",
-      "value": "[nN][oO][nN][eE]"
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[nN][oO][nN][eE]"
+      }
     },
     "keyword_null": {
       "type": "PATTERN",
@@ -760,6 +763,10 @@
       "type": "PATTERN",
       "value": "[aA][lL][tT][eE][rR]"
     },
+    "keyword_break": {
+      "type": "PATTERN",
+      "value": "[bB][rR][eE][aA][kK]"
+    },
     "expressions": {
       "type": "SEQ",
       "members": [
@@ -844,6 +851,10 @@
         {
           "type": "SYMBOL",
           "name": "throw_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "break_statement"
         }
       ]
     },
@@ -896,6 +907,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "for_statement"
+        },
+        {
+          "type": "SYMBOL",
           "name": "define_analyzer_statement"
         },
         {
@@ -941,6 +956,44 @@
         {
           "type": "SYMBOL",
           "name": "define_user_statement"
+        }
+      ]
+    },
+    "break_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_break"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "semi_colon"
+        }
+      ]
+    },
+    "for_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "variable_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_in"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block"
         }
       ]
     },
@@ -5226,8 +5279,17 @@
           "name": "keyword_content"
         },
         {
-          "type": "SYMBOL",
-          "name": "object"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "object"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "variable_name"
+            }
+          ]
         }
       ]
     },

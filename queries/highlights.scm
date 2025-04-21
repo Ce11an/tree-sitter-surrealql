@@ -155,6 +155,7 @@
   (keyword_unset)
   (keyword_always)
   (keyword_alter)
+  (keyword_break)
 ] @keyword
 
 ; Operators
