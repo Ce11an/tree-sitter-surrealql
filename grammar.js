@@ -932,7 +932,7 @@ module.exports = grammar({
     if_exists_clause: $ => seq($.keyword_if, $.keyword_exists),
 
     create_target: $ =>
-      choice(commaSeparated($.identifier), $.variable_name, $.function_call, $.record_id),
+      choice(commaSeparated($.identifier), $.variable_name, $.function_call, $.record_id, $.multi_record),
 
     content_clause: $ => seq($.keyword_content, choice($.object, $.variable_name)),
 
@@ -970,6 +970,8 @@ module.exports = grammar({
     // Value-related rules
     value: $ =>
       choice($.base_value, $.cast_expression, $.binary_expression, $.path, $.function_call, $.negated_expression),
+
+    multi_record: $ => seq("|", $.identifier, ":", $.int, "|"),
 
     function_call: $ =>
       choice(
@@ -1056,13 +1058,11 @@ module.exports = grammar({
     argument_list_count: $ =>
       seq("(", optional(choice(commaSeparated($.value), $.primary_statement)), ")"),
 
-    type_or_operator: $ => "|",
-
     type_name: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
     literal_value: $ => choice($.int, $.string),
 
-    type_or_separated: $ => seq($.type_name, repeat(seq($.type_or_operator, $.type_name))),
+    type_or_separated: $ => seq($.type_name, repeat(seq("|", $.type_name))),
 
     type: $ => choice(
       $.union_type,
@@ -1074,7 +1074,7 @@ module.exports = grammar({
 
     union_type: $ => prec.right(1, seq(
       choice($.type_name, $.literal_value),
-      repeat1(seq($.type_or_operator, choice($.type_name, $.literal_value)))
+      repeat1(seq("|", choice($.type_name, $.literal_value)))
     )),
 
     composite_type: $ => seq(

@@ -518,6 +518,10 @@
           "named": true
         },
         {
+          "type": "multi_record",
+          "named": true
+        },
+        {
           "type": "record_id",
           "named": true
         },
@@ -2099,6 +2103,25 @@
         },
         {
           "type": "object",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "multi_record",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "int",
           "named": true
         }
       ]
@@ -3869,10 +3892,6 @@
         {
           "type": "type_name",
           "named": true
-        },
-        {
-          "type": "type_or_operator",
-          "named": true
         }
       ]
     }
@@ -5043,10 +5062,6 @@
     "named": true
   },
   {
-    "type": "type_or_operator",
-    "named": true
-  },
-  {
     "type": "uppercase",
     "named": false
   },
@@ -5060,6 +5075,10 @@
   },
   {
     "type": "{",
+    "named": false
+  },
+  {
+    "type": "|",
     "named": false
   },
   {
