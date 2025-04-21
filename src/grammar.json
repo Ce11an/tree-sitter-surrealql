@@ -756,6 +756,10 @@
       "type": "PATTERN",
       "value": "[aA][lL][wW][aA][yY][sS]"
     },
+    "keyword_alter": {
+      "type": "PATTERN",
+      "value": "[aA][lL][tT][eE][rR]"
+    },
     "expressions": {
       "type": "SEQ",
       "members": [
@@ -857,6 +861,10 @@
         {
           "type": "SYMBOL",
           "name": "let_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "alter_statement"
         },
         {
           "type": "SYMBOL",
@@ -1190,6 +1198,63 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "alter_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_alter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_table"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "if_not_exists_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "keyword_drop"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_schemafull"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_schemaless"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "permissions_for_clause"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "comment_clause"
+              }
+            ]
+          }
         }
       ]
     },

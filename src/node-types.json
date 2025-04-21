@@ -1,5 +1,52 @@
 [
   {
+    "type": "alter_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comment_clause",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_not_exists_clause",
+          "named": true
+        },
+        {
+          "type": "keyword_alter",
+          "named": true
+        },
+        {
+          "type": "keyword_drop",
+          "named": true
+        },
+        {
+          "type": "keyword_schemafull",
+          "named": true
+        },
+        {
+          "type": "keyword_schemaless",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        },
+        {
+          "type": "permissions_for_clause",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "analyzer_filters",
     "named": true,
     "fields": {},
@@ -3222,6 +3269,10 @@
       "required": true,
       "types": [
         {
+          "type": "alter_statement",
+          "named": true
+        },
+        {
           "type": "create_statement",
           "named": true
         },
@@ -4205,6 +4256,10 @@
   },
   {
     "type": "keyword_all_inside",
+    "named": true
+  },
+  {
+    "type": "keyword_alter",
     "named": true
   },
   {
