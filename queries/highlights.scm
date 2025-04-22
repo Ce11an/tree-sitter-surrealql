@@ -157,6 +157,7 @@
   (keyword_alter)
   (keyword_break)
   (keyword_continue)
+  (keyword_sleep)
 ] @keyword
 
 ; Operators

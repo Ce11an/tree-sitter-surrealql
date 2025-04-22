@@ -180,6 +180,7 @@ module.exports = grammar({
     keyword_alter: _ => make_keyword("ALTER"),
     keyword_break: _ => make_keyword("BREAK"),
     keyword_continue: _ => make_keyword("CONTINUE"),
+    keyword_sleep: _ => make_keyword("SLEEP"),
 
     // Expressions
     expressions: $ =>
@@ -204,7 +205,8 @@ module.exports = grammar({
         $.info_statement,
         $.throw_statement,
         $.break_statement,
-        $.continue_statement
+        $.continue_statement,
+        $.sleep_statement,
       ),
 
     // Statements that can be stand alone or nested
@@ -235,6 +237,9 @@ module.exports = grammar({
         $.define_token_statement,
         $.define_user_statement,
       ),
+
+
+    sleep_statement: $ => seq($.keyword_sleep, $.duration, $.semi_colon),
 
     break_statement: $ => seq($.keyword_break, $.semi_colon),
 

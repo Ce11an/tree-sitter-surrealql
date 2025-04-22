@@ -2824,6 +2824,10 @@
           "named": true
         },
         {
+          "type": "sleep_statement",
+          "named": true
+        },
+        {
           "type": "throw_statement",
           "named": true
         },
@@ -3332,6 +3336,29 @@
         },
         {
           "type": "sub_query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sleep_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "duration",
+          "named": true
+        },
+        {
+          "type": "keyword_sleep",
+          "named": true
+        },
+        {
+          "type": "semi_colon",
           "named": true
         }
       ]
@@ -4935,6 +4962,10 @@
   },
   {
     "type": "keyword_signup",
+    "named": true
+  },
+  {
+    "type": "keyword_sleep",
     "named": true
   },
   {
