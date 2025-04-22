@@ -1983,6 +1983,29 @@
     }
   },
   {
+    "type": "kill_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_kill",
+          "named": true
+        },
+        {
+          "type": "semi_colon",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "let_statement",
     "named": true,
     "fields": {},
@@ -2071,6 +2094,41 @@
     }
   },
   {
+    "type": "live_select_diff_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "fetch_clause",
+          "named": true
+        },
+        {
+          "type": "keyword_diff",
+          "named": true
+        },
+        {
+          "type": "keyword_from",
+          "named": true
+        },
+        {
+          "type": "keyword_select",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        },
+        {
+          "type": "where_clause",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "live_select_statement",
     "named": true,
     "fields": {},
@@ -2080,6 +2138,10 @@
       "types": [
         {
           "type": "keyword_live",
+          "named": true
+        },
+        {
+          "type": "live_select_diff_statement",
           "named": true
         },
         {
@@ -2817,6 +2879,10 @@
         },
         {
           "type": "info_statement",
+          "named": true
+        },
+        {
+          "type": "kill_statement",
           "named": true
         },
         {
@@ -4734,6 +4800,10 @@
   },
   {
     "type": "keyword_jwks",
+    "named": true
+  },
+  {
+    "type": "keyword_kill",
     "named": true
   },
   {
