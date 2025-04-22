@@ -1,0 +1,279 @@
+=======================
+Basic remove statements
+=======================
+
+REMOVE NAMESPACE surrealdb;
+
+REMOVE DATABASE blog;
+
+REMOVE USER writer ON NAMESPACE;
+
+REMOVE USER writer ON DATABASE;
+
+REMOVE EVENT new_post ON TABLE article;
+
+-- Only works for Schemafull tables (i.e. tables with a schema)
+REMOVE FIELD tags ON TABLE article;
+
+REMOVE INDEX authors ON TABLE article;
+
+REMOVE ANALYZER example_ascii;
+
+REMOVE FUNCTION fn::update_author;
+
+REMOVE PARAM $author;
+
+REMOVE TABLE article;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_namespace)
+          (identifier))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_database)
+          (identifier))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_user)
+          (identifier)
+          (keyword_on)
+          (keyword_namespace))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_user)
+          (identifier)
+          (keyword_on)
+          (keyword_database))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_event)
+          (identifier)
+          (keyword_on)
+          (keyword_table)
+          (identifier))))
+    (semi_colon)
+    (comment)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_field)
+          (identifier)
+          (keyword_on)
+          (keyword_table)
+          (identifier))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_index)
+          (identifier)
+          (keyword_on)
+          (keyword_table)
+          (identifier))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_analyzer)
+          (identifier))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_function)
+          (custom_function_name))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_param)
+          (variable_name))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_table)
+          (identifier))))
+    (semi_colon)))
+
+============================
+Remove with if exists clause
+============================
+
+REMOVE NAMESPACE IF EXISTS surrealdb;
+
+REMOVE DATABASE IF EXISTS blog;
+
+REMOVE USER IF EXISTS writer ON NAMESPACE;
+
+REMOVE USER IF EXISTS writer ON DATABASE;
+
+REMOVE EVENT IF EXISTS new_post ON TABLE article;
+
+-- Only works for Schemaful tables (i.e. tables with a schema)
+REMOVE FIELD IF EXISTS tags ON TABLE article;
+
+REMOVE INDEX IF EXISTS authors ON TABLE article;
+
+REMOVE ANALYZER IF EXISTS example_ascii;
+
+REMOVE FUNCTION IF EXISTS fn::update_author;
+
+REMOVE PARAM IF EXISTS $author;
+
+REMOVE TABLE IF EXISTS article;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_namespace)
+          (if_exists_clause
+            (keyword_if)
+            (keyword_exists))
+          (identifier))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_database)
+          (if_exists_clause
+            (keyword_if)
+            (keyword_exists))
+          (identifier))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_user)
+          (if_exists_clause
+            (keyword_if)
+            (keyword_exists))
+          (identifier)
+          (keyword_on)
+          (keyword_namespace))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_user)
+          (if_exists_clause
+            (keyword_if)
+            (keyword_exists))
+          (identifier)
+          (keyword_on)
+          (keyword_database))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_event)
+          (if_exists_clause
+            (keyword_if)
+            (keyword_exists))
+          (identifier)
+          (keyword_on)
+          (keyword_table)
+          (identifier))))
+    (semi_colon)
+    (comment)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_field)
+          (if_exists_clause
+            (keyword_if)
+            (keyword_exists))
+          (identifier)
+          (keyword_on)
+          (keyword_table)
+          (identifier))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_index)
+          (if_exists_clause
+            (keyword_if)
+            (keyword_exists))
+          (identifier)
+          (keyword_on)
+          (keyword_table)
+          (identifier))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_analyzer)
+          (if_exists_clause
+            (keyword_if)
+            (keyword_exists))
+          (identifier))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_function)
+          (if_exists_clause
+            (keyword_if)
+            (keyword_exists))
+          (custom_function_name))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_param)
+          (if_exists_clause
+            (keyword_if)
+            (keyword_exists))
+          (variable_name))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (remove_statement
+          (keyword_remove)
+          (keyword_table)
+          (if_exists_clause
+            (keyword_if)
+            (keyword_exists))
+          (identifier))))
+    (semi_colon)))
+
