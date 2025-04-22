@@ -768,6 +768,10 @@
       "type": "PATTERN",
       "value": "[cC][oO][nN][tT][iI][nN][uU][eE]"
     },
+    "keyword_sleep": {
+      "type": "PATTERN",
+      "value": "[sS][lL][eE][eE][pP]"
+    },
     "expressions": {
       "type": "SEQ",
       "members": [
@@ -860,6 +864,10 @@
         {
           "type": "SYMBOL",
           "name": "continue_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sleep_statement"
         }
       ]
     },
@@ -961,6 +969,23 @@
         {
           "type": "SYMBOL",
           "name": "define_user_statement"
+        }
+      ]
+    },
+    "sleep_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_sleep"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "duration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "semi_colon"
         }
       ]
     },
