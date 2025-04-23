@@ -772,6 +772,10 @@
       "type": "PATTERN",
       "value": "[sS][lL][eE][eE][pP]"
     },
+    "keyword_kill": {
+      "type": "PATTERN",
+      "value": "[kK][iI][lL][lL]"
+    },
     "expressions": {
       "type": "SEQ",
       "members": [
@@ -868,6 +872,10 @@
         {
           "type": "SYMBOL",
           "name": "sleep_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "kill_statement"
         }
       ]
     },
@@ -969,6 +977,23 @@
         {
           "type": "SYMBOL",
           "name": "define_user_statement"
+        }
+      ]
+    },
+    "kill_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_kill"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "semi_colon"
         }
       ]
     },
@@ -3271,6 +3296,72 @@
         }
       ]
     },
+    "live_select_diff_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_select"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_diff"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_from"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "value"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "value"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "where_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "fetch_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
     "live_select_statement": {
       "type": "SEQ",
       "members": [
@@ -3279,8 +3370,17 @@
           "name": "keyword_live"
         },
         {
-          "type": "SYMBOL",
-          "name": "select_statement"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "select_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "live_select_diff_statement"
+            }
+          ]
         }
       ]
     },

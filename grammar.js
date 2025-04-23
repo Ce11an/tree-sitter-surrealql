@@ -181,6 +181,7 @@ module.exports = grammar({
     keyword_break: _ => make_keyword("BREAK"),
     keyword_continue: _ => make_keyword("CONTINUE"),
     keyword_sleep: _ => make_keyword("SLEEP"),
+    keyword_kill: _ => make_keyword("KILL"),
 
     // Expressions
     expressions: $ =>
@@ -207,6 +208,7 @@ module.exports = grammar({
         $.break_statement,
         $.continue_statement,
         $.sleep_statement,
+        $.kill_statement,
       ),
 
     // Statements that can be stand alone or nested
@@ -238,6 +240,7 @@ module.exports = grammar({
         $.define_user_statement,
       ),
 
+    kill_statement: $ => seq($.keyword_kill, $.value, $.semi_colon),
 
     sleep_statement: $ => seq($.keyword_sleep, $.duration, $.semi_colon),
 
@@ -648,7 +651,17 @@ module.exports = grammar({
     select_statement: $ =>
       seq($.select_clause, optional($.omit_clause), $.from_clause),
 
-    live_select_statement: $ => seq($.keyword_live, $.select_statement),
+    live_select_diff_statement: $ =>
+      seq(
+        $.keyword_select,
+        $.keyword_diff,
+        $.keyword_from,
+        commaSeparated($.value),
+        optional($.where_clause),
+        optional($.fetch_clause),
+      ),
+
+    live_select_statement: $ => seq($.keyword_live, choice($.select_statement, $.live_select_diff_statement)),
 
     // Clauses
 

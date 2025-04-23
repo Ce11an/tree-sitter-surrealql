@@ -1,0 +1,64 @@
+============
+Basic usage
+============
+
+LIVE SELECT DIFF FROM person;
+
+KILL u"0189d6e3-8eac-703a-9a48-d9faa78b44b9";
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (primary_statement
+        (live_select_statement
+          (keyword_live)
+          (live_select_diff_statement
+            (keyword_select)
+            (keyword_diff)
+            (keyword_from)
+            (value
+              (base_value
+                (identifier)))))))
+    (semi_colon)
+    (expression
+      (primary_statement
+        (kill_statement
+          (keyword_kill)
+          (value
+            (base_value
+              (prefixed_string)))
+          (semi_colon))))))
+
+====================
+Define the parameter
+====================
+
+LET $live_query_id = u"0189d6e3-8eac-703a-9a48-d9faa78b44b9";
+-- Use the parameter
+KILL $live_query_id;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (let_statement
+          (keyword_let)
+          (variable_name)
+          (value
+            (base_value
+              (prefixed_string))))))
+    (semi_colon)
+    (comment)
+    (expression
+      (primary_statement
+        (kill_statement
+          (keyword_kill)
+          (value
+            (base_value
+              (variable_name)))
+          (semi_colon))))))
+
