@@ -1,0 +1,743 @@
+===============
+-- Basic relate
+===============
+
+RELATE person:aristotle->wrote->article:on_sleep_and_sleeplessness;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (relate_statement
+     (keyword_relate)
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (relate_subject
+      (identifier))
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident)))))))
+  (semi_colon)))
+
+===========================
+Select using relate records
+===========================
+
+SELECT id, ->wrote->article FROM person:aristotle;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (select_statement
+     (select_clause
+      (keyword_select)
+      (inclusive_predicate
+       (predicate
+        (value
+         (base_value
+          (identifier)))))
+      (inclusive_predicate
+       (predicate
+        (value
+         (path
+          (graph_path
+           (identifier))
+          (path_element
+           (graph_path
+            (identifier))))))))
+     (from_clause
+      (keyword_from)
+      (value
+       (base_value
+        (record_id
+         (object_key)
+         (record_id_value
+          (record_id_ident)))))))))
+(semi_colon)))
+
+===========================
+Return using relate records
+===========================
+
+RETURN person:aristotle->wrote->article;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (return_statement
+     (return_clause
+      (keyword_return)
+      (value
+       (path
+        (base_value
+         (record_id
+          (object_key)
+          (record_id_value
+           (record_id_ident))))
+        (path_element
+         (graph_path
+          (identifier)))
+        (path_element
+         (graph_path
+          (identifier)))))))))
+  (semi_colon)))
+
+========================
+Relate multiple records
+========================
+
+RELATE [cat:mr_meow, cat:mrs_meow]->parent_of->cat:kitten;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (relate_statement
+     (keyword_relate)
+     (relate_subject
+      (array
+       (value
+        (base_value
+         (record_id
+          (object_key)
+          (record_id_value
+           (record_id_ident)))))
+       (value
+        (base_value
+         (record_id
+          (object_key)
+          (record_id_value
+           (record_id_ident)))))))
+     (relate_subject
+      (identifier))
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident)))))))
+(semi_colon)))
+
+============================
+Relate a record with content
+============================
+
+LET $time = time::now();
+RELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm
+    CONTENT {
+        time: {
+            written: $time
+        }
+    };
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (let_statement
+     (keyword_let)
+     (variable_name)
+     (value
+      (function_call
+       (function_name)
+       (argument_list))))))
+  (semi_colon)
+  (expression
+   (subquery_statement
+    (relate_statement
+     (keyword_relate)
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (relate_subject
+      (identifier))
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (content_clause
+      (keyword_content)
+      (object
+       (object_content
+        (object_property
+         (object_key)
+         (value
+          (base_value
+           (object
+            (object_content
+             (object_property
+              (object_key)
+              (value
+               (base_value
+                (variable_name)))))))))))))))
+(semi_colon)))
+
+======================
+Relate a single record
+======================
+
+RELATE ONLY person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (relate_statement
+     (keyword_relate)
+     (keyword_only)
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (relate_subject
+      (identifier))
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident)))))))
+  (semi_colon)))
+
+==========================================
+Using let statements in a relate statement
+==========================================
+
+-- These two statements store the result of the subquery in a parameter
+-- The subquery returns an array of IDs
+LET $person =  (SELECT VALUE id FROM person);
+LET $article = (SELECT VALUE id FROM article);
+
+-- This statement creates a relationship record for every combination of Record IDs
+-- Such that if we have 10 records each in the person and article table
+-- We get 100 records in the wrote edge table (10*10 = 100)
+-- In this case it would mean that each article would have 10 authors
+RELATE $person->wrote->$article SET time = time::now();
+
+---
+
+(source_file
+ (comment)
+ (comment)
+ (expressions
+  (expression
+   (subquery_statement
+    (let_statement
+     (keyword_let)
+     (variable_name)
+     (value
+      (base_value
+       (sub_query
+        (expression
+         (subquery_statement
+          (select_statement
+           (select_clause
+            (keyword_select)
+            (keyword_value)
+            (predicate
+             (value
+              (base_value
+               (identifier)))))
+           (from_clause
+            (keyword_from)
+            (value
+             (base_value
+              (identifier)))))))))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (let_statement
+     (keyword_let)
+     (variable_name)
+     (value
+      (base_value
+       (sub_query
+        (expression
+         (subquery_statement
+          (select_statement
+           (select_clause
+            (keyword_select)
+            (keyword_value)
+            (predicate
+             (value
+              (base_value
+               (identifier)))))
+           (from_clause
+            (keyword_from)
+            (value
+             (base_value
+              (identifier)))))))))))))
+  (semi_colon)
+  (comment)
+  (comment)
+  (comment)
+(comment)
+  (expression
+   (subquery_statement
+    (relate_statement
+     (keyword_relate)
+     (relate_subject
+      (variable_name))
+     (relate_subject
+      (identifier))
+     (relate_subject
+      (variable_name))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (function_call
+         (function_name)
+         (argument_list))))))))
+(semi_colon)))
+
+=========================
+Modify output with return
+=========================
+
+-- Don't return any result
+RELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm
+    SET time_written = time::now()
+    RETURN NONE;
+
+-- Return the changeset diff
+RELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm
+    SET time_written = time::now()
+    RETURN DIFF;
+
+-- Return the record before changes were applied
+RELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm
+    SET time_written = time::now()
+    RETURN BEFORE;
+
+-- Return the record after changes were applied (the default)
+RELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm
+    SET time_written = time::now()
+    RETURN AFTER;
+
+-- Return a specific field only from the updated records
+RELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm
+    SET time_written = time::now()
+    RETURN time_written;
+
+-- Return only the value of a specific field without the field name
+RELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm
+    SET time_written = time::now()
+    RETURN VALUE time_written;
+
+---
+
+  (source_file
+   (comment)
+   (expressions
+    (expression
+     (subquery_statement
+      (relate_statement
+       (keyword_relate)
+       (relate_subject
+        (record_id
+         (object_key)
+         (record_id_value
+          (record_id_ident))))
+       (relate_subject
+        (identifier))
+       (relate_subject
+        (record_id
+         (object_key)
+         (record_id_value
+          (record_id_ident))))
+       (set_clause
+        (keyword_set)
+        (field_assignment
+         (identifier)
+         (assignment_operator)
+         (value
+          (function_call
+           (function_name)
+           (argument_list)))))
+  (return_clause
+   (keyword_return)
+   (value
+    (base_value
+     (keyword_none)))))))
+  (semi_colon)
+(comment)
+  (expression
+   (subquery_statement
+    (relate_statement
+     (keyword_relate)
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (relate_subject
+      (identifier))
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (function_call
+         (function_name)
+         (argument_list)))))
+  (return_clause
+   (keyword_return)
+   (keyword_diff)))))
+  (semi_colon)
+(comment)
+  (expression
+   (subquery_statement
+    (relate_statement
+     (keyword_relate)
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (relate_subject
+      (identifier))
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (function_call
+         (function_name)
+         (argument_list)))))
+  (return_clause
+   (keyword_return)
+   (keyword_before)))))
+  (semi_colon)
+(comment)
+  (expression
+   (subquery_statement
+    (relate_statement
+     (keyword_relate)
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (relate_subject
+      (identifier))
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (function_call
+         (function_name)
+         (argument_list)))))
+  (return_clause
+   (keyword_return)
+   (keyword_after)))))
+  (semi_colon)
+(comment)
+  (expression
+   (subquery_statement
+    (relate_statement
+     (keyword_relate)
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (relate_subject
+      (identifier))
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (function_call
+         (function_name)
+         (argument_list)))))
+  (return_clause
+   (keyword_return)
+   (value
+    (base_value
+     (identifier)))))))
+  (semi_colon)
+(comment)
+  (expression
+   (subquery_statement
+    (relate_statement
+     (keyword_relate)
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (relate_subject
+      (identifier))
+     (relate_subject
+      (record_id
+       (object_key)
+       (record_id_value
+        (record_id_ident))))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (function_call
+         (function_name)
+         (argument_list)))))
+  (return_clause
+   (keyword_return)
+   (keyword_value)
+   (value
+    (base_value
+     (identifier)))))))
+(semi_colon)))
+
+========================
+Using the timeout clause
+========================
+
+-- Cancel this conditional filtering based on graph edge properties
+-- if not finished within 5 seconds
+SELECT * FROM person WHERE ->knows->person->(knows WHERE influencer = true) TIMEOUT 5s;
+
+---
+
+  (source_file
+   (comment)
+   (comment)
+   (expressions
+    (expression
+     (subquery_statement
+      (select_statement
+       (select_clause
+        (keyword_select)
+        (inclusive_predicate))
+       (from_clause
+        (keyword_from)
+        (value
+         (base_value
+          (identifier)))
+        (where_clause
+         (keyword_where)
+         (value
+          (path
+           (graph_path
+            (identifier))
+           (path_element
+            (graph_path
+             (identifier)))
+           (path_element
+            (graph_path
+             (graph_predicate
+              (value
+               (base_value
+                (identifier)))
+              (where_clause
+               (keyword_where)
+               (value
+                (binary_expression
+                 (value
+                  (base_value
+                   (identifier)))
+                 (operator)
+                 (value
+                  (base_value
+                   (keyword_true))))))))))))
+  (timeout_clause
+   (keyword_timeout)
+   (duration
+    (duration_part)))))))
+(semi_colon)))
+
+=========================
+Using the parallel clause
+=========================
+
+-- Fetch and process the person, purchased and product targets in parallel
+-- Select every product that was purchased by a person that purchased a product that person tobie also purchased
+SELECT ->purchased->product<-purchased<-person->purchased->product FROM person:tobie PARALLEL;
+
+---
+
+(source_file
+  (comment)
+  (comment)
+  (expressions
+    (expression
+      (subquery_statement
+        (select_statement
+          (select_clause
+            (keyword_select)
+            (inclusive_predicate
+              (predicate
+                (value
+                  (path
+                    (graph_path
+                      (identifier))
+                    (path_element
+                      (graph_path
+                        (identifier)))
+                    (path_element
+                      (graph_path
+                        (identifier)))
+                    (path_element
+                      (graph_path
+                        (identifier)))
+                    (path_element
+                      (graph_path
+                        (identifier)))
+                    (path_element
+                      (graph_path
+                        (identifier))))))))
+          (from_clause
+            (keyword_from)
+            (value
+              (base_value
+                (record_id
+                  (object_key)
+                  (record_id_value
+                    (record_id_ident)))))
+            (parallel_clause
+              (keyword_parallel))))))
+    (semi_colon)))
+
+====================
+Deleting graph edges
+====================
+
+DELETE person:tobie->bought WHERE out=product:iphone RETURN BEFORE;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (delete_statement
+          (keyword_delete)
+          (value
+            (path
+              (base_value
+                (record_id
+                  (object_key)
+                  (record_id_value
+                    (record_id_ident))))
+              (path_element
+                (graph_path
+                  (identifier)))))
+          (where_clause
+            (keyword_where)
+            (value
+              (binary_expression
+                (value
+                  (base_value
+                    (identifier)))
+                (operator)
+                (value
+                  (base_value
+                    (record_id
+                      (object_key)
+                      (record_id_value
+                        (record_id_ident))))))))
+          (return_clause
+            (keyword_return)
+            (keyword_before)))))
+    (semi_colon)))
+
+=============================================
+Using parentheses to refine graph query logic
+=============================================
+
+SELECT
+	->purchased->(?)
+	<-purchased<-person
+	->purchased->(?)
+FROM person:tobie;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (select_statement
+          (select_clause
+            (keyword_select)
+            (inclusive_predicate
+              (predicate
+                (value
+                  (path
+                    (graph_path
+                      (identifier))
+                    (path_element
+                      (graph_path
+                        (graph_predicate)))
+                    (path_element
+                      (graph_path
+                        (identifier)))
+                    (path_element
+                      (graph_path
+                        (identifier)))
+                    (path_element
+                      (graph_path
+                        (identifier)))
+                    (path_element
+                      (graph_path
+                        (graph_predicate))))))))
+          (from_clause
+            (keyword_from)
+            (value
+              (base_value
+                (record_id
+                  (object_key)
+                  (record_id_value
+                    (record_id_ident)))))))))
+    (semi_colon)))
