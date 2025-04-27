@@ -182,6 +182,7 @@ module.exports = grammar({
     keyword_continue: _ => make_keyword("CONTINUE"),
     keyword_sleep: _ => make_keyword("SLEEP"),
     keyword_kill: _ => make_keyword("KILL"),
+    keyword_rebuild: _ => make_keyword("REBUILD"),
 
     // Expressions
     expressions: $ =>
@@ -238,6 +239,7 @@ module.exports = grammar({
         $.define_table_statement,
         $.define_token_statement,
         $.define_user_statement,
+        $.rebuild_index_statement,
       ),
 
     kill_statement: $ => seq($.keyword_kill, $.value, $.semi_colon),
@@ -507,6 +509,16 @@ module.exports = grammar({
         $.keyword_roles,
         commaSeparated($.identifier),
       ),
+
+    rebuild_index_statement: $ =>
+      seq(
+        $.keyword_rebuild,
+        $.keyword_index,
+        optional($.if_exists_clause),
+        $.identifier,
+        $.on_table_clause,
+      ),
+
 
     remove_statement: $ =>
       seq(
