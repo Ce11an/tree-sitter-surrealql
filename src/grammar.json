@@ -776,6 +776,10 @@
       "type": "PATTERN",
       "value": "[kK][iI][lL][lL]"
     },
+    "keyword_rebuild": {
+      "type": "PATTERN",
+      "value": "[rR][eE][bB][uU][iI][lL][dD]"
+    },
     "expressions": {
       "type": "SEQ",
       "members": [
@@ -977,6 +981,10 @@
         {
           "type": "SYMBOL",
           "name": "define_user_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "rebuild_index_statement"
         }
       ]
     },
@@ -2180,6 +2188,39 @@
               }
             }
           ]
+        }
+      ]
+    },
+    "rebuild_index_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_rebuild"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_index"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "if_exists_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "on_table_clause"
         }
       ]
     },

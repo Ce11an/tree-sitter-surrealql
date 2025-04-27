@@ -1,0 +1,61 @@
+===========================
+Define index and rebuild it
+===========================
+
+DEFINE INDEX uniq_isbn ON book FIELDS isbn UNIQUE;
+REBUILD INDEX idx_author ON book;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_index_statement
+          (keyword_define)
+          (keyword_index)
+          (identifier)
+          (on_table_clause
+            (keyword_on)
+            (identifier))
+          (fields_columns_clause
+            (keyword_fields)
+            (identifier))
+          (unique_clause
+            (keyword_unique)))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (rebuild_index_statement
+          (keyword_rebuild)
+          (keyword_index)
+          (identifier)
+          (on_table_clause
+            (keyword_on)
+            (identifier)))))
+    (semi_colon)))
+
+
+=================
+Rebuild if exists
+=================
+
+REBUILD INDEX IF EXISTS idx_author ON book;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (rebuild_index_statement
+          (keyword_rebuild)
+          (keyword_index)
+          (if_exists_clause
+            (keyword_if)
+            (keyword_exists))
+          (identifier)
+          (on_table_clause
+            (keyword_on)
+            (identifier)))))
+    (semi_colon)))

@@ -2920,6 +2920,37 @@
     }
   },
   {
+    "type": "rebuild_index_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_exists_clause",
+          "named": true
+        },
+        {
+          "type": "keyword_index",
+          "named": true
+        },
+        {
+          "type": "keyword_rebuild",
+          "named": true
+        },
+        {
+          "type": "on_table_clause",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "record_id",
     "named": true,
     "fields": {},
@@ -3574,6 +3605,10 @@
         },
         {
           "type": "let_statement",
+          "named": true
+        },
+        {
+          "type": "rebuild_index_statement",
           "named": true
         },
         {
@@ -4964,6 +4999,10 @@
   },
   {
     "type": "keyword_readonly",
+    "named": true
+  },
+  {
+    "type": "keyword_rebuild",
     "named": true
   },
   {
