@@ -965,7 +965,7 @@ module.exports = grammar({
           $.keyword_before,
           $.keyword_after,
           $.keyword_diff,
-          commaSeparated($.value),
+          seq(optional($.keyword_value), commaSeparated($.value)),
           $.if_statement
         ),
       ),

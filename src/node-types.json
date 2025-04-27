@@ -3174,6 +3174,10 @@
           "named": true
         },
         {
+          "type": "keyword_value",
+          "named": true
+        },
+        {
           "type": "value",
           "named": true
         }
