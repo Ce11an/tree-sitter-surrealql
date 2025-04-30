@@ -5,20 +5,8 @@
 (block) @fold
 
 ; Fold multi-line DEFINE statements (schema definitions, etc.)
-(define_table) @fold
-(define_field) @fold
-(define_index) @fold
-(define_access) @fold
+(define_table_statement) @fold
+(define_field_statement) @fold
+(define_index_statement) @fold
 
-; Fold function body (the block is already handled, so this is optional)
-; The following ensures the function's internal statements can be folded
-(define_function 
-  "{" (_)* "}") @fold
-
-; Fold conditional bodies if present (e.g., IF/ELSE blocks)
-(if_statement 
-  "{" (_)* "}") @fold
-
-; Fold transaction or multi-statement blocks if applicable (BEGIN...COMMIT)
-(transaction_block) @fold
-
+;TODO: Add folding blocks for if-statements
