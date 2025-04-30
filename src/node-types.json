@@ -872,6 +872,10 @@
           "named": true
         },
         {
+          "type": "hnsw_dimension_clause",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -885,6 +889,10 @@
         },
         {
           "type": "keyword_index",
+          "named": true
+        },
+        {
+          "type": "mtree_dimension_clause",
           "named": true
         },
         {
@@ -1253,6 +1261,57 @@
         },
         {
           "type": "where_clause",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "distance_values",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "keyword_chebyshev",
+          "named": true
+        },
+        {
+          "type": "keyword_cosine",
+          "named": true
+        },
+        {
+          "type": "keyword_euclidean",
+          "named": true
+        },
+        {
+          "type": "keyword_hamming",
+          "named": true
+        },
+        {
+          "type": "keyword_jaccard",
+          "named": true
+        },
+        {
+          "type": "keyword_manhattan",
+          "named": true
+        },
+        {
+          "type": "keyword_minkowski",
+          "named": true
+        },
+        {
+          "type": "keyword_pearson",
+          "named": true
+        },
+        {
+          "type": "number",
           "named": true
         }
       ]
@@ -1789,6 +1848,49 @@
     }
   },
   {
+    "type": "hnsw_dimension_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_dimension",
+          "named": true
+        },
+        {
+          "type": "keyword_dist",
+          "named": true
+        },
+        {
+          "type": "keyword_efc",
+          "named": true
+        },
+        {
+          "type": "keyword_hnsw",
+          "named": true
+        },
+        {
+          "type": "keyword_m",
+          "named": true
+        },
+        {
+          "type": "keyword_type",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "identifier",
     "named": true,
     "fields": {}
@@ -2171,6 +2273,49 @@
     }
   },
   {
+    "type": "mtree_dimension_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "distance_values",
+          "named": true
+        },
+        {
+          "type": "keyword_capacity",
+          "named": true
+        },
+        {
+          "type": "keyword_dimension",
+          "named": true
+        },
+        {
+          "type": "keyword_dist",
+          "named": true
+        },
+        {
+          "type": "keyword_mtree",
+          "named": true
+        },
+        {
+          "type": "keyword_type",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "multi_record",
     "named": true,
     "fields": {},
@@ -2409,6 +2554,10 @@
           "named": true
         },
         {
+          "type": "distance_values",
+          "named": true
+        },
+        {
           "type": "int",
           "named": true
         },
@@ -2422,10 +2571,6 @@
         },
         {
           "type": "keyword_any_inside",
-          "named": true
-        },
-        {
-          "type": "keyword_chebyshev",
           "named": true
         },
         {
@@ -2449,18 +2594,6 @@
           "named": true
         },
         {
-          "type": "keyword_cosine",
-          "named": true
-        },
-        {
-          "type": "keyword_euclidean",
-          "named": true
-        },
-        {
-          "type": "keyword_hamming",
-          "named": true
-        },
-        {
           "type": "keyword_in",
           "named": true
         },
@@ -2474,18 +2607,6 @@
         },
         {
           "type": "keyword_is",
-          "named": true
-        },
-        {
-          "type": "keyword_jaccard",
-          "named": true
-        },
-        {
-          "type": "keyword_manhattan",
-          "named": true
-        },
-        {
-          "type": "keyword_minkowski",
           "named": true
         },
         {
@@ -2506,14 +2627,6 @@
         },
         {
           "type": "keyword_outside",
-          "named": true
-        },
-        {
-          "type": "keyword_pearson",
-          "named": true
-        },
-        {
-          "type": "number",
           "named": true
         }
       ]
@@ -4594,6 +4707,10 @@
     "named": true
   },
   {
+    "type": "keyword_capacity",
+    "named": true
+  },
+  {
     "type": "keyword_changefeed",
     "named": true
   },
@@ -4686,6 +4803,14 @@
     "named": true
   },
   {
+    "type": "keyword_dimension",
+    "named": true
+  },
+  {
+    "type": "keyword_dist",
+    "named": true
+  },
+  {
     "type": "keyword_doc_ids_cache",
     "named": true
   },
@@ -4707,6 +4832,10 @@
   },
   {
     "type": "keyword_eddsa",
+    "named": true
+  },
+  {
+    "type": "keyword_efc",
     "named": true
   },
   {
@@ -4794,6 +4923,10 @@
     "named": true
   },
   {
+    "type": "keyword_hnsw",
+    "named": true
+  },
+  {
     "type": "keyword_if",
     "named": true
   },
@@ -4858,6 +4991,10 @@
     "named": true
   },
   {
+    "type": "keyword_m",
+    "named": true
+  },
+  {
     "type": "keyword_manhattan",
     "named": true
   },
@@ -4867,6 +5004,10 @@
   },
   {
     "type": "keyword_minkowski",
+    "named": true
+  },
+  {
+    "type": "keyword_mtree",
     "named": true
   },
   {

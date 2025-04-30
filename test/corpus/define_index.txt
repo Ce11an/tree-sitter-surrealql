@@ -1,0 +1,195 @@
+======================
+Define an unique index
+======================
+
+DEFINE INDEX userEmailIndex ON TABLE user COLUMNS email UNIQUE;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_index_statement
+     (keyword_define)
+     (keyword_index)
+     (identifier)
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (fields_columns_clause
+      (keyword_columns)
+      (identifier))
+     (unique_clause
+      (keyword_unique)))))
+  (semi_colon)))
+
+
+=========================
+Define a non-unique index
+=========================
+
+DEFINE INDEX userAgeIndex ON TABLE user COLUMNS age;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_index_statement
+     (keyword_define)
+     (keyword_index)
+     (identifier)
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (fields_columns_clause
+      (keyword_columns)
+      (identifier)))))
+  (semi_colon)))
+
+========================
+Define a composite index
+========================
+
+DEFINE INDEX test ON user FIELDS account, email;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_index_statement
+     (keyword_define)
+     (keyword_index)
+     (identifier)
+     (on_table_clause
+      (keyword_on)
+      (identifier))
+     (fields_columns_clause
+      (keyword_fields)
+      (identifier)
+      (identifier)))))
+  (semi_colon)))
+
+======================
+Full-text search index
+======================
+
+DEFINE INDEX userNameIndex ON TABLE user COLUMNS name SEARCH ANALYZER example_ascii BM25 HIGHLIGHTS;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_index_statement
+     (keyword_define)
+     (keyword_index)
+     (identifier)
+     (on_table_clause
+      (keyword_on)
+      (keyword_table)
+      (identifier))
+     (fields_columns_clause
+      (keyword_columns)
+      (identifier))
+     (search_analyzer_clause
+      (keyword_search)
+      (keyword_analyzer)
+      (identifier)
+      (bm25_clause
+       (keyword_bm25))
+      (keyword_highlights)))))
+(semi_colon)))
+
+===================
+Vector-search index
+===================
+
+DEFINE INDEX idx_mtree_embedding ON Document FIELDS embeddings MTREE DIMENSION 4 TYPE I64;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_index_statement
+     (keyword_define)
+     (keyword_index)
+     (identifier)
+     (on_table_clause
+      (keyword_on)
+      (identifier))
+     (fields_columns_clause
+      (keyword_fields)
+      (identifier))
+     (mtree_dimension_clause
+      (keyword_mtree)
+      (keyword_dimension)
+      (number
+       (int))
+      (keyword_type)
+      (type
+       (type_name))))))
+(semi_colon)))
+
+===================
+Define M-Tree index
+===================
+
+DEFINE INDEX idx_mtree_embedding_manhattan ON Document FIELDS embedding MTREE DIMENSION 4 DIST MANHATTAN;
+DEFINE INDEX idx_mtree_embedding_cosine ON Document FIELDS embedding MTREE DIMENSION 4 DIST COSINE;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_index_statement
+     (keyword_define)
+     (keyword_index)
+     (identifier)
+     (on_table_clause
+      (keyword_on)
+      (identifier))
+     (fields_columns_clause
+      (keyword_fields)
+      (identifier))
+     (mtree_dimension_clause
+      (keyword_mtree)
+      (keyword_dimension)
+      (number
+       (int))
+      (keyword_dist)
+      (distance_values
+       (keyword_manhattan))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (define_index_statement
+     (keyword_define)
+     (keyword_index)
+     (identifier)
+     (on_table_clause
+      (keyword_on)
+      (identifier))
+     (fields_columns_clause
+      (keyword_fields)
+      (identifier))
+     (mtree_dimension_clause
+      (keyword_mtree)
+      (keyword_dimension)
+      (number
+       (int))
+      (keyword_dist)
+      (distance_values
+       (keyword_cosine))))))
+(semi_colon)))
