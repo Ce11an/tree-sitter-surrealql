@@ -1173,6 +1173,10 @@
       "required": true,
       "types": [
         {
+          "type": "duration",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -1189,11 +1193,31 @@
           "named": true
         },
         {
+          "type": "keyword_duration",
+          "named": true
+        },
+        {
+          "type": "keyword_editor",
+          "named": true
+        },
+        {
+          "type": "keyword_for",
+          "named": true
+        },
+        {
           "type": "keyword_namespace",
           "named": true
         },
         {
           "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_overwrite",
+          "named": true
+        },
+        {
+          "type": "keyword_owner",
           "named": true
         },
         {
@@ -1213,7 +1237,19 @@
           "named": true
         },
         {
+          "type": "keyword_session",
+          "named": true
+        },
+        {
+          "type": "keyword_token",
+          "named": true
+        },
+        {
           "type": "keyword_user",
+          "named": true
+        },
+        {
+          "type": "keyword_viewer",
           "named": true
         },
         {
@@ -4831,7 +4867,15 @@
     "named": true
   },
   {
+    "type": "keyword_duration",
+    "named": true
+  },
+  {
     "type": "keyword_eddsa",
+    "named": true
+  },
+  {
+    "type": "keyword_editor",
     "named": true
   },
   {
@@ -5087,6 +5131,10 @@
     "named": true
   },
   {
+    "type": "keyword_owner",
+    "named": true
+  },
+  {
     "type": "keyword_parallel",
     "named": true
   },
@@ -5300,6 +5348,10 @@
   },
   {
     "type": "keyword_values",
+    "named": true
+  },
+  {
+    "type": "keyword_viewer",
     "named": true
   },
   {

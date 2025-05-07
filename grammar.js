@@ -190,6 +190,10 @@ module.exports = grammar({
     keyword_m: _ => make_keyword("M"),
     keyword_capacity: _ => make_keyword("CAPACITY"),
     keyword_hnsw: _ => make_keyword("HNSW"),
+    keyword_owner: _ => make_keyword("OWNER"),
+    keyword_editor: _ => make_keyword("EDITOR"),
+    keyword_viewer: _ => make_keyword("VIEWER"),
+    keyword_duration: _ => make_keyword("DURATION"),
 
     // Expressions
     expressions: $ =>
@@ -513,6 +517,7 @@ module.exports = grammar({
         $.keyword_define,
         $.keyword_user,
         optional($.if_not_exists_clause),
+        optional($.keyword_overwrite),
         $.identifier,
         $.keyword_on,
         choice($.keyword_root, $.keyword_namespace, $.keyword_database),
@@ -521,7 +526,19 @@ module.exports = grammar({
           seq($.keyword_password_hash, $.string),
         ),
         $.keyword_roles,
-        commaSeparated($.identifier),
+        choice($.keyword_owner, $.keyword_editor, $.keyword_viewer),
+        optional(
+          seq(
+            $.keyword_duration,
+            $.keyword_for,
+            $.keyword_session,
+            $.duration,
+            ",",
+            $.keyword_for,
+            $.keyword_token,
+            $.duration,
+          ),
+        )
       ),
 
     rebuild_index_statement: $ =>
