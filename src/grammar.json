@@ -780,6 +780,34 @@
       "type": "PATTERN",
       "value": "[rR][eE][bB][uU][iI][lL][dD]"
     },
+    "keyword_mtree": {
+      "type": "PATTERN",
+      "value": "[mM][tT][rR][eE][eE]"
+    },
+    "keyword_dimension": {
+      "type": "PATTERN",
+      "value": "[dD][iI][mM][eE][nN][sS][iI][oO][nN]"
+    },
+    "keyword_dist": {
+      "type": "PATTERN",
+      "value": "[dD][iI][sS][tT]"
+    },
+    "keyword_efc": {
+      "type": "PATTERN",
+      "value": "[eE][fF][cC]"
+    },
+    "keyword_m": {
+      "type": "PATTERN",
+      "value": "[mM]"
+    },
+    "keyword_capacity": {
+      "type": "PATTERN",
+      "value": "[cC][aA][pP][aA][cC][iI][tT][yY]"
+    },
+    "keyword_hnsw": {
+      "type": "PATTERN",
+      "value": "[hH][nN][sS][wW]"
+    },
     "expressions": {
       "type": "SEQ",
       "members": [
@@ -1788,6 +1816,14 @@
               {
                 "type": "SYMBOL",
                 "name": "search_analyzer_clause"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "mtree_dimension_clause"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "hnsw_dimension_clause"
               }
             ]
           }
@@ -4820,6 +4856,187 @@
       "type": "SYMBOL",
       "name": "keyword_unique"
     },
+    "mtree_dimension_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_mtree"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_dimension"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_type"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "type"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_dist"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "distance_values"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_capacity"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "number"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "hnsw_dimension_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_hnsw"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_dimension"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_type"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "type"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_dist"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "number"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_efc"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "number"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_m"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "number"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
     "search_analyzer_clause": {
       "type": "SEQ",
       "members": [
@@ -6568,6 +6785,56 @@
         }
       ]
     },
+    "distance_values": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "int"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_chebyshev"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_cosine"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_euclidean"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_hamming"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_jaccard"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_manhattan"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_minkowski"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "number"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_pearson"
+        }
+      ]
+    },
     "analyzer_filters": {
       "type": "CHOICE",
       "members": [
@@ -7182,54 +7449,8 @@
                       "value": ","
                     },
                     {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "int"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "keyword_chebyshev"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "keyword_cosine"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "keyword_euclidean"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "keyword_hamming"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "keyword_jaccard"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "keyword_manhattan"
-                        },
-                        {
-                          "type": "SEQ",
-                          "members": [
-                            {
-                              "type": "SYMBOL",
-                              "name": "keyword_minkowski"
-                            },
-                            {
-                              "type": "SYMBOL",
-                              "name": "number"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "keyword_pearson"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "distance_values"
                     }
                   ]
                 },

@@ -160,6 +160,13 @@
   (keyword_sleep)
   (keyword_kill)
   (keyword_rebuild)
+  (keyword_mtree)
+  (keyword_dimension)
+  (keyword_dist)
+  (keyword_efc)
+  (keyword_m)
+  (keyword_capacity)
+  (keyword_hnsw)
 ] @keyword
 
 ; Operators

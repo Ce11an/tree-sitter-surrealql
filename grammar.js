@@ -183,6 +183,13 @@ module.exports = grammar({
     keyword_sleep: _ => make_keyword("SLEEP"),
     keyword_kill: _ => make_keyword("KILL"),
     keyword_rebuild: _ => make_keyword("REBUILD"),
+    keyword_mtree: _ => make_keyword("MTREE"),
+    keyword_dimension: _ => make_keyword("DIMENSION"),
+    keyword_dist: _ => make_keyword("DIST"),
+    keyword_efc: _ => make_keyword("EFC"),
+    keyword_m: _ => make_keyword("M"),
+    keyword_capacity: _ => make_keyword("CAPACITY"),
+    keyword_hnsw: _ => make_keyword("HNSW"),
 
     // Expressions
     expressions: $ =>
@@ -414,7 +421,14 @@ module.exports = grammar({
         $.identifier,
         $.on_table_clause,
         $.fields_columns_clause,
-        repeat(choice($.unique_clause, $.search_analyzer_clause)),
+        repeat(
+          choice(
+            $.unique_clause,
+            $.search_analyzer_clause,
+            $.mtree_dimension_clause,
+            $.hnsw_dimension_clause,
+          ),
+        ),
       ),
 
     define_namespace_statement: $ =>
@@ -863,6 +877,21 @@ module.exports = grammar({
 
     unique_clause: $ => $.keyword_unique,
 
+    mtree_dimension_clause: $ =>
+      seq($.keyword_mtree, $.keyword_dimension, $.number,
+        optional(seq($.keyword_type, $.type)),
+        optional(seq($.keyword_dist, $.distance_values)),
+        optional(seq($.keyword_capacity, $.number))
+      ),
+
+    hnsw_dimension_clause: $ =>
+      seq($.keyword_hnsw, $.keyword_dimension, $.number,
+        optional(seq($.keyword_type, $.type)),
+        optional(seq($.keyword_dist, $.number)),
+        optional(seq($.keyword_efc, $.number)),
+        optional(seq($.keyword_m, $.number))
+      ),
+
     search_analyzer_clause: $ =>
       seq(
         $.keyword_search,
@@ -1134,6 +1163,21 @@ module.exports = grammar({
 
     analyzer_tokenizers: _ => choice("blank", "camel", "class", "punct"),
 
+    distance_values: $ =>
+      choice(
+        $.int,
+        $.keyword_chebyshev,
+        $.keyword_cosine,
+        $.keyword_euclidean,
+        $.keyword_hamming,
+        $.keyword_jaccard,
+        $.keyword_manhattan,
+        seq($.keyword_minkowski, $.number),
+        $.keyword_pearson,
+      ),
+
+
+
     analyzer_filters: $ =>
       choice(
         "ascii",
@@ -1217,17 +1261,7 @@ module.exports = grammar({
           optional(
             seq(
               ",",
-              choice(
-                $.int,
-                $.keyword_chebyshev,
-                $.keyword_cosine,
-                $.keyword_euclidean,
-                $.keyword_hamming,
-                $.keyword_jaccard,
-                $.keyword_manhattan,
-                seq($.keyword_minkowski, $.number),
-                $.keyword_pearson,
-              ),
+              $.distance_values,
             ),
           ),
           "|>",
