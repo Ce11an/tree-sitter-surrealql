@@ -1,0 +1,151 @@
+===================
+Define user on root
+===================
+
+DEFINE USER username ON ROOT PASSWORD '123456' ROLES OWNER DURATION FOR SESSION 15m, FOR TOKEN 5s;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_user_statement
+     (keyword_define)
+     (keyword_user)
+     (identifier)
+     (keyword_on)
+     (keyword_root)
+     (keyword_password)
+     (string)
+     (keyword_roles)
+     (keyword_owner)
+     (keyword_duration)
+     (keyword_for)
+     (keyword_session)
+     (duration
+      (duration_part))
+     (keyword_for)
+     (keyword_token)
+     (duration
+      (duration_part)))))
+(semi_colon)))
+
+========================
+Define user on namespace
+========================
+
+DEFINE USER username ON NAMESPACE PASSWORD '123456' ROLES EDITOR DURATION FOR SESSION 12h, FOR TOKEN 1m;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_user_statement
+     (keyword_define)
+     (keyword_user)
+     (identifier)
+     (keyword_on)
+     (keyword_namespace)
+     (keyword_password)
+     (string)
+     (keyword_roles)
+     (keyword_editor)
+     (keyword_duration)
+     (keyword_for)
+     (keyword_session)
+     (duration
+      (duration_part))
+     (keyword_for)
+     (keyword_token)
+     (duration
+      (duration_part)))))
+(semi_colon)))
+
+=======================
+Define user on database
+=======================
+
+DEFINE USER username ON DATABASE PASSWORD '123456' ROLES VIEWER DURATION FOR SESSION 5d, FOR TOKEN 2h;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_user_statement
+     (keyword_define)
+     (keyword_user)
+     (identifier)
+     (keyword_on)
+     (keyword_database)
+     (keyword_password)
+     (string)
+     (keyword_roles)
+     (keyword_viewer)
+     (keyword_duration)
+     (keyword_for)
+     (keyword_session)
+     (duration
+      (duration_part))
+     (keyword_for)
+     (keyword_token)
+     (duration
+      (duration_part)))))
+(semi_colon)))
+
+==========================================
+Create a user if it does not already exist
+==========================================
+
+DEFINE USER IF NOT EXISTS example ON ROOT PASSWORD "example" ROLES OWNER;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_user_statement
+     (keyword_define)
+     (keyword_user)
+     (if_not_exists_clause
+      (keyword_if)
+      (keyword_not)
+      (keyword_exists))
+     (identifier)
+     (keyword_on)
+     (keyword_root)
+     (keyword_password)
+     (string)
+     (keyword_roles)
+     (keyword_owner))))
+  (semi_colon)))
+
+=================================================
+Create an user and overwrite if it already exists
+=================================================
+
+DEFINE USER OVERWRITE example ON ROOT PASSWORD "example" ROLES OWNER;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_user_statement
+     (keyword_define)
+     (keyword_user)
+     (keyword_overwrite)
+     (identifier)
+     (keyword_on)
+     (keyword_root)
+     (keyword_password)
+     (string)
+     (keyword_roles)
+     (keyword_owner))))
+  (semi_colon)))

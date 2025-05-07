@@ -167,6 +167,10 @@
   (keyword_m)
   (keyword_capacity)
   (keyword_hnsw)
+  (keyword_owner)
+  (keyword_editor)
+  (keyword_viewer)
+  (keyword_duration)
 ] @keyword
 
 ; Operators

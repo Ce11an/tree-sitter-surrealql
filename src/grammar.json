@@ -808,6 +808,22 @@
       "type": "PATTERN",
       "value": "[hH][nN][sS][wW]"
     },
+    "keyword_owner": {
+      "type": "PATTERN",
+      "value": "[oO][wW][nN][eE][rR]"
+    },
+    "keyword_editor": {
+      "type": "PATTERN",
+      "value": "[eE][dD][iI][tT][oO][rR]"
+    },
+    "keyword_viewer": {
+      "type": "PATTERN",
+      "value": "[vV][iI][eE][wW][eE][rR]"
+    },
+    "keyword_duration": {
+      "type": "PATTERN",
+      "value": "[dD][uU][rR][aA][tT][iI][oO][nN]"
+    },
     "expressions": {
       "type": "SEQ",
       "members": [
@@ -2141,6 +2157,18 @@
           ]
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_overwrite"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "identifier"
         },
@@ -2201,27 +2229,64 @@
           "name": "keyword_roles"
         },
         {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "identifier"
+              "name": "keyword_owner"
             },
             {
-              "type": "REPEAT",
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": ","
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  }
-                ]
-              }
+              "type": "SYMBOL",
+              "name": "keyword_editor"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_viewer"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_duration"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_for"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_session"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "duration"
+                },
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_for"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_token"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "duration"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
             }
           ]
         }
