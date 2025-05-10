@@ -1318,11 +1318,6 @@ function commaSeparated(rule) {
   return seq(rule, repeat(seq(",", rule)));
 }
 
-function orSeparated(rule) {
-  return seq(rule, repeat(seq("|", rule)));
-}
-
-
 function make_keyword(word) {
   return new RegExp([...word].map(c => `[${c.toLowerCase()}${c.toUpperCase()}]`).join(''));
 }
