@@ -48,7 +48,7 @@ jobs:
         uses: tree-sitter/parse-action@v4
         with:
           files: |
-            examples/**/*.py
+            examples/**/*.surql
   fuzz:
     name: Fuzz parser
     runs-on: ubuntu-latest
