@@ -7,29 +7,30 @@ DEFINE USER username ON ROOT PASSWORD '123456' ROLES OWNER DURATION FOR SESSION 
 ---
 
 (source_file
- (expressions
-  (expression
-   (subquery_statement
-    (define_user_statement
-     (keyword_define)
-     (keyword_user)
-     (identifier)
-     (keyword_on)
-     (keyword_root)
-     (keyword_password)
-     (string)
-     (keyword_roles)
-     (keyword_owner)
-     (keyword_duration)
-     (keyword_for)
-     (keyword_session)
-     (duration
-      (duration_part))
-     (keyword_for)
-     (keyword_token)
-     (duration
-      (duration_part)))))
-(semi_colon)))
+  (expressions
+    (expression
+      (subquery_statement
+        (define_user_statement
+          (keyword_define)
+          (keyword_user)
+          (identifier)
+          (keyword_on)
+          (keyword_root)
+          (keyword_password)
+          (string)
+          (keyword_roles)
+          (keyword_owner)
+          (duration_clause
+            (keyword_duration)
+            (keyword_for)
+            (keyword_session)
+            (duration
+              (duration_part))
+            (keyword_for)
+            (keyword_token)
+            (duration
+              (duration_part))))))
+    (semi_colon)))
 
 ========================
 Define user on namespace
@@ -40,29 +41,31 @@ DEFINE USER username ON NAMESPACE PASSWORD '123456' ROLES EDITOR DURATION FOR SE
 ---
 
 (source_file
- (expressions
-  (expression
-   (subquery_statement
-    (define_user_statement
-     (keyword_define)
-     (keyword_user)
-     (identifier)
-     (keyword_on)
-     (keyword_namespace)
-     (keyword_password)
-     (string)
-     (keyword_roles)
-     (keyword_editor)
-     (keyword_duration)
-     (keyword_for)
-     (keyword_session)
-     (duration
-      (duration_part))
-     (keyword_for)
-     (keyword_token)
-     (duration
-      (duration_part)))))
-(semi_colon)))
+  (expressions
+    (expression
+      (subquery_statement
+        (define_user_statement
+          (keyword_define)
+          (keyword_user)
+          (identifier)
+          (keyword_on)
+          (keyword_namespace)
+          (keyword_password)
+          (string)
+          (keyword_roles)
+          (keyword_editor)
+          (duration_clause
+            (keyword_duration)
+            (keyword_for)
+            (keyword_session)
+            (duration
+              (duration_part))
+            (keyword_for)
+            (keyword_token)
+            (duration
+              (duration_part))))))
+    (semi_colon)))
+
 
 =======================
 Define user on database
@@ -73,29 +76,30 @@ DEFINE USER username ON DATABASE PASSWORD '123456' ROLES VIEWER DURATION FOR SES
 ---
 
 (source_file
- (expressions
-  (expression
-   (subquery_statement
-    (define_user_statement
-     (keyword_define)
-     (keyword_user)
-     (identifier)
-     (keyword_on)
-     (keyword_database)
-     (keyword_password)
-     (string)
-     (keyword_roles)
-     (keyword_viewer)
-     (keyword_duration)
-     (keyword_for)
-     (keyword_session)
-     (duration
-      (duration_part))
-     (keyword_for)
-     (keyword_token)
-     (duration
-      (duration_part)))))
-(semi_colon)))
+  (expressions
+    (expression
+      (subquery_statement
+        (define_user_statement
+          (keyword_define)
+          (keyword_user)
+          (identifier)
+          (keyword_on)
+          (keyword_database)
+          (keyword_password)
+          (string)
+          (keyword_roles)
+          (keyword_viewer)
+          (duration_clause
+            (keyword_duration)
+            (keyword_for)
+            (keyword_session)
+            (duration
+              (duration_part))
+            (keyword_for)
+            (keyword_token)
+            (duration
+              (duration_part))))))
+    (semi_colon)))
 
 ==========================================
 Create a user if it does not already exist

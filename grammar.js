@@ -493,18 +493,6 @@ module.exports = grammar({
         ),
       ),
 
-    duration_clause: $ =>
-      seq(
-        $.keyword_duration,
-        commaSeparated(
-          choice(
-            seq($.keyword_for, $.keyword_grant, $.duration),
-            seq($.keyword_for, $.keyword_token, $.duration),
-            seq($.keyword_for, $.keyword_session, $.duration),
-          )
-        )
-      ),
-
     define_access_statement: $ => seq(
       $.keyword_define,
       $.keyword_access,
@@ -581,18 +569,7 @@ module.exports = grammar({
         ),
         $.keyword_roles,
         choice($.keyword_owner, $.keyword_editor, $.keyword_viewer),
-        optional(
-          seq(
-            $.keyword_duration,
-            $.keyword_for,
-            $.keyword_session,
-            $.duration,
-            ",",
-            $.keyword_for,
-            $.keyword_token,
-            $.duration,
-          ),
-        )
+        optional($.duration_clause),
       ),
 
     rebuild_index_statement: $ =>
@@ -780,6 +757,18 @@ module.exports = grammar({
 
     ns_clause: $ => seq($.keyword_ns, $.identifier),
     db_clause: $ => seq($.keyword_db, $.identifier),
+
+    duration_clause: $ =>
+      seq(
+        $.keyword_duration,
+        commaSeparated(
+          choice(
+            seq($.keyword_for, $.keyword_grant, $.duration),
+            seq($.keyword_for, $.keyword_token, $.duration),
+            seq($.keyword_for, $.keyword_session, $.duration),
+          )
+        )
+      ),
 
     select_clause: $ =>
       seq(
