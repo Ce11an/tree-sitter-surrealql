@@ -14,6 +14,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+     pull-requests: read
+    outputs:
+      grammarjs: ${{ steps.filter.outputs.grammarjs }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@1441771bbfdd59dcd748680ee64ebd8faab1a242
+        id: filter
+        with:
+          filters: |
+            grammarjs:
+              - 'grammar.js'
   test:
     name: Test parser
     runs-on: ${{matrix.os}}
@@ -54,3 +68,23 @@ jobs:
       - name: Fuzz parser
         uses: tree-sitter/fuzz-action@v4
         if: steps.scanner-changes.outputs.changed == 'true'
+  format:
+    needs: changes
+    name: Format check
+    runs-on: ubuntu-latest
+    if: needs.changes.outputs.grammarjs == 'true'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run format check
+        run: npm run format:check
+

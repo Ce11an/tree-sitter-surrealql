@@ -5,12 +5,8 @@
       "camelcase": "Surrealql",
       "scope": "source.surrealql",
       "path": ".",
-      "file-types": [
-        "surql"
-      ],
-      "highlights": [
-        "queries/highlights.scm"
-      ]
+      "file-types": ["surql"],
+      "highlights": ["queries/highlights.scm"]
     }
   ],
   "metadata": {
