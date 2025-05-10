@@ -2054,144 +2054,6 @@
         }
       ]
     },
-    "duration_clause": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_duration"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_for"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_grant"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "duration"
-                    }
-                  ]
-                },
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_for"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_token"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "duration"
-                    }
-                  ]
-                },
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_for"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_session"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "duration"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": ","
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "keyword_for"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "keyword_grant"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "duration"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "keyword_for"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "keyword_token"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "duration"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "keyword_for"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "keyword_session"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "duration"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      ]
-    },
     "define_access_statement": {
       "type": "SEQ",
       "members": [
@@ -4213,6 +4075,144 @@
         {
           "type": "SYMBOL",
           "name": "identifier"
+        }
+      ]
+    },
+    "duration_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_duration"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_for"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_grant"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "duration"
+                    }
+                  ]
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_for"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_token"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "duration"
+                    }
+                  ]
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_for"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_session"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "duration"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_for"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_grant"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "duration"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_for"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_token"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "duration"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_for"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_session"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "duration"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
         }
       ]
     },

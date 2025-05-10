@@ -172,7 +172,8 @@ module.exports = grammar({
     keyword_namespace: _ => make_keyword("NAMESPACE"),
     keyword_password: _ => make_keyword("PASSWORD"),
     keyword_password_hash: _ => make_keyword("PASSHASH"),
-    keyword_on_duplicate_key_update: _ => make_keyword("ON DUPLICATE KEY UPDATE"),
+    keyword_on_duplicate_key_update: _ =>
+      make_keyword("ON DUPLICATE KEY UPDATE"),
     keyword_count: _ => make_keyword("COUNT"),
     keyword_unset: _ => make_keyword("UNSET"),
     keyword_set: _ => make_keyword("SET"),
@@ -276,42 +277,32 @@ module.exports = grammar({
     continue_statement: $ => seq($.keyword_continue, $.semi_colon),
 
     for_statement: $ =>
-      seq(
-        $.keyword_for,
-        $.variable_name,
-        $.keyword_in,
-        $.value,
-        $.block
-      ),
+      seq($.keyword_for, $.variable_name, $.keyword_in, $.value, $.block),
 
     return_statement: $ => $.return_clause,
 
-    throw_statement: $ => seq(
-      $.keyword_throw,
-      $.value
-    ),
+    throw_statement: $ => seq($.keyword_throw, $.value),
 
-    if_statement: $ => seq(
-      $.keyword_if,
-      $.value,
-      $.block,
-      repeat($.else_if_clause),
-      optional($.else_clause),
-    ),
+    if_statement: $ =>
+      seq(
+        $.keyword_if,
+        $.value,
+        $.block,
+        repeat($.else_if_clause),
+        optional($.else_clause),
+      ),
 
-    else_if_clause: $ => seq(
-      $.keyword_else,
-      $.keyword_if,
-      $.value,
-      $.block
-    ),
+    else_if_clause: $ => seq($.keyword_else, $.keyword_if, $.value, $.block),
 
-    else_clause: $ => seq(
-      $.keyword_else,
-      $.block
-    ),
+    else_clause: $ => seq($.keyword_else, $.block),
 
-    let_statement: $ => seq($.keyword_let, $.variable_name, "=", choice($.value, $.subquery_statement)),
+    let_statement: $ =>
+      seq(
+        $.keyword_let,
+        $.variable_name,
+        "=",
+        choice($.value, $.subquery_statement),
+      ),
 
     info_statement: $ => seq($.keyword_info, $.keyword_for, $.info_target),
 
@@ -338,21 +329,22 @@ module.exports = grammar({
     commit_statement: $ =>
       seq($.keyword_commit, optional($.keyword_transaction)),
 
-    alter_statement: $ => seq(
-      $.keyword_alter,
-      $.keyword_table,
-      optional($.if_not_exists_clause),
-      $.identifier,
-      repeat(
-        choice(
-          $.keyword_drop,
-          $.keyword_schemafull,
-          $.keyword_schemaless,
-          $.permissions_for_clause,
-          $.comment_clause,
+    alter_statement: $ =>
+      seq(
+        $.keyword_alter,
+        $.keyword_table,
+        optional($.if_not_exists_clause),
+        $.identifier,
+        repeat(
+          choice(
+            $.keyword_drop,
+            $.keyword_schemafull,
+            $.keyword_schemaless,
+            $.permissions_for_clause,
+            $.comment_clause,
+          ),
         ),
       ),
-    ),
 
     define_analyzer_statement: $ =>
       seq(
@@ -493,38 +485,66 @@ module.exports = grammar({
         ),
       ),
 
-    define_access_statement: $ => seq(
-      $.keyword_define,
-      $.keyword_access,
-      optional($.if_not_exists_clause),
-      $.identifier,
-      $.keyword_on,
-      choice($.keyword_root, $.keyword_namespace, $.keyword_scope, $.keyword_database),
-      $.keyword_type,
-      choice(
-        seq($.keyword_jwt,
-          choice(
-            seq($.keyword_algorithm, $.identifier, $.keyword_key, $.string),
-            seq($.keyword_url, $.string)
-          )
+    define_access_statement: $ =>
+      seq(
+        $.keyword_define,
+        $.keyword_access,
+        optional($.if_not_exists_clause),
+        $.identifier,
+        $.keyword_on,
+        choice(
+          $.keyword_root,
+          $.keyword_namespace,
+          $.keyword_scope,
+          $.keyword_database,
         ),
-        seq($.keyword_record,
-          optional(seq($.keyword_signup, "(", $.create_statement, ")")),
-          optional(seq($.keyword_signin, "(", $.select_statement, ")")),
-          optional(seq($.keyword_with, $.keyword_jwt,
+        $.keyword_type,
+        choice(
+          seq(
+            $.keyword_jwt,
             choice(
               seq($.keyword_algorithm, $.identifier, $.keyword_key, $.string),
-              seq($.keyword_url, $.string)
+              seq($.keyword_url, $.string),
             ),
-            optional(seq($.keyword_with, $.keyword_issuer, $.keyword_key, $.string))
-          )),
-          optional(seq($.keyword_with, $.keyword_refresh))
+          ),
+          seq(
+            $.keyword_record,
+            optional(seq($.keyword_signup, "(", $.create_statement, ")")),
+            optional(seq($.keyword_signin, "(", $.select_statement, ")")),
+            optional(
+              seq(
+                $.keyword_with,
+                $.keyword_jwt,
+                choice(
+                  seq(
+                    $.keyword_algorithm,
+                    $.identifier,
+                    $.keyword_key,
+                    $.string,
+                  ),
+                  seq($.keyword_url, $.string),
+                ),
+                optional(
+                  seq(
+                    $.keyword_with,
+                    $.keyword_issuer,
+                    $.keyword_key,
+                    $.string,
+                  ),
+                ),
+              ),
+            ),
+            optional(seq($.keyword_with, $.keyword_refresh)),
+          ),
+          seq(
+            $.keyword_bearer,
+            $.keyword_for,
+            choice($.keyword_user, $.keyword_record),
+          ),
         ),
-        seq($.keyword_bearer, $.keyword_for, choice($.keyword_user, $.keyword_record))
+        optional(seq($.keyword_authenticate, $.block)),
+        optional($.duration_clause),
       ),
-      optional(seq($.keyword_authenticate, $.block)),
-      optional($.duration_clause)
-    ),
 
     define_table_statement: $ =>
       seq(
@@ -580,7 +600,6 @@ module.exports = grammar({
         $.identifier,
         $.on_table_clause,
       ),
-
 
     remove_statement: $ =>
       seq(
@@ -735,7 +754,11 @@ module.exports = grammar({
         optional($.fetch_clause),
       ),
 
-    live_select_statement: $ => seq($.keyword_live, choice($.select_statement, $.live_select_diff_statement)),
+    live_select_statement: $ =>
+      seq(
+        $.keyword_live,
+        choice($.select_statement, $.live_select_diff_statement),
+      ),
 
     // Clauses
 
@@ -766,8 +789,8 @@ module.exports = grammar({
             seq($.keyword_for, $.keyword_grant, $.duration),
             seq($.keyword_for, $.keyword_token, $.duration),
             seq($.keyword_for, $.keyword_session, $.duration),
-          )
-        )
+          ),
+        ),
       ),
 
     select_clause: $ =>
@@ -881,7 +904,8 @@ module.exports = grammar({
 
     type_clause: $ => seq(optional($.keyword_flexible), $.keyword_type, $.type),
 
-    default_clause: $ => seq($.keyword_default, optional($.keyword_always), $.value),
+    default_clause: $ =>
+      seq($.keyword_default, optional($.keyword_always), $.value),
 
     readonly_clause: $ => $.keyword_readonly,
 
@@ -938,18 +962,24 @@ module.exports = grammar({
     unique_clause: $ => $.keyword_unique,
 
     mtree_dimension_clause: $ =>
-      seq($.keyword_mtree, $.keyword_dimension, $.number,
+      seq(
+        $.keyword_mtree,
+        $.keyword_dimension,
+        $.number,
         optional(seq($.keyword_type, $.type)),
         optional(seq($.keyword_dist, $.distance_values)),
-        optional(seq($.keyword_capacity, $.number))
+        optional(seq($.keyword_capacity, $.number)),
       ),
 
     hnsw_dimension_clause: $ =>
-      seq($.keyword_hnsw, $.keyword_dimension, $.number,
+      seq(
+        $.keyword_hnsw,
+        $.keyword_dimension,
+        $.number,
         optional(seq($.keyword_type, $.type)),
         optional(seq($.keyword_dist, $.number)),
         optional(seq($.keyword_efc, $.number)),
-        optional(seq($.keyword_m, $.number))
+        optional(seq($.keyword_m, $.number)),
       ),
 
     search_analyzer_clause: $ =>
@@ -1011,7 +1041,7 @@ module.exports = grammar({
                 commaSeparated($.record_or_separated),
               ),
             ),
-            optional($.keyword_enforced)
+            optional($.keyword_enforced),
           ),
         ),
       ),
@@ -1052,9 +1082,16 @@ module.exports = grammar({
     if_exists_clause: $ => seq($.keyword_if, $.keyword_exists),
 
     create_target: $ =>
-      choice(commaSeparated($.identifier), $.variable_name, $.function_call, $.record_id, $.multi_record),
+      choice(
+        commaSeparated($.identifier),
+        $.variable_name,
+        $.function_call,
+        $.record_id,
+        $.multi_record,
+      ),
 
-    content_clause: $ => seq($.keyword_content, choice($.object, $.variable_name)),
+    content_clause: $ =>
+      seq($.keyword_content, choice($.object, $.variable_name)),
 
     set_clause: $ => seq($.keyword_set, commaSeparated($.field_assignment)),
 
@@ -1068,7 +1105,7 @@ module.exports = grammar({
           $.keyword_after,
           $.keyword_diff,
           seq(optional($.keyword_value), commaSeparated($.value)),
-          $.if_statement
+          $.if_statement,
         ),
       ),
 
@@ -1089,7 +1126,14 @@ module.exports = grammar({
 
     // Value-related rules
     value: $ =>
-      choice($.base_value, $.cast_expression, $.binary_expression, $.path, $.function_call, $.negated_expression),
+      choice(
+        $.base_value,
+        $.cast_expression,
+        $.binary_expression,
+        $.path,
+        $.function_call,
+        $.negated_expression,
+      ),
 
     multi_record: $ => seq("|", $.identifier, ":", $.int, "|"),
 
@@ -1097,7 +1141,12 @@ module.exports = grammar({
       choice(
         seq($.keyword_count, $.argument_list_count),
         seq(
-          choice($.function_name, $.custom_function_name, $.keyword_rand, seq($.identifier, repeat1(seq('::', $.identifier)))),
+          choice(
+            $.function_name,
+            $.custom_function_name,
+            $.keyword_rand,
+            seq($.identifier, repeat1(seq("::", $.identifier))),
+          ),
           optional($.version),
           $.argument_list,
         ),
@@ -1126,15 +1175,8 @@ module.exports = grammar({
 
     binary_expression: $ => prec.left(seq($.value, $.operator, $.value)),
 
-    negated_expression: $ => seq(
-      '!',
-      choice(
-        $.variable_name,
-        $.function_call,
-        $.record_id,
-        $.path,
-      )
-    ),
+    negated_expression: $ =>
+      seq("!", choice($.variable_name, $.function_call, $.record_id, $.path)),
 
     path: $ =>
       choice(
@@ -1176,52 +1218,52 @@ module.exports = grammar({
     argument_list: $ => seq("(", optional(commaSeparated($.value)), ")"),
 
     argument_list_count: $ =>
-      seq("(", optional(choice(commaSeparated($.value), $.primary_statement)), ")"),
+      seq(
+        "(",
+        optional(choice(commaSeparated($.value), $.primary_statement)),
+        ")",
+      ),
 
     type_name: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
     literal_value: $ => choice($.int, $.string),
 
-    type_or_separated: $ => prec(1, seq($.type_name, repeat(seq("|", $.type_name)))),
-    record_or_separated: $ => prec(2, seq($.identifier, repeat(seq("|", $.identifier)))),
+    type_or_separated: $ =>
+      prec(1, seq($.type_name, repeat(seq("|", $.type_name)))),
+    record_or_separated: $ =>
+      prec(2, seq($.identifier, repeat(seq("|", $.identifier)))),
 
-    type: $ => choice(
-      $.union_type,
-      $.parameterized_type,
-      $.composite_type,
-      $.type_name,
-      $.type_object
-    ),
+    type: $ =>
+      choice(
+        $.union_type,
+        $.parameterized_type,
+        $.composite_type,
+        $.type_name,
+        $.type_object,
+      ),
 
-    union_type: $ => prec.right(1, seq(
-      choice($.type_name, $.literal_value),
-      repeat1(seq("|", choice($.type_name, $.literal_value)))
-    )),
+    union_type: $ =>
+      prec.right(
+        1,
+        seq(
+          choice($.type_name, $.literal_value),
+          repeat1(seq("|", choice($.type_name, $.literal_value))),
+        ),
+      ),
 
-    composite_type: $ => seq(
-      "[",
-      commaSeparated($.type),
-      "]"
-    ),
+    composite_type: $ => seq("[", commaSeparated($.type), "]"),
 
-    parameterized_type: $ => seq(
-      $.type_name,
-      "<",
-      commaSeparated(choice($.type, $.literal_value)),
-      ">"
-    ),
+    parameterized_type: $ =>
+      seq(
+        $.type_name,
+        "<",
+        commaSeparated(choice($.type, $.literal_value)),
+        ">",
+      ),
 
-    type_object: $ => seq(
-      "{",
-      commaSeparated($.type_object_property),
-      "}"
-    ),
+    type_object: $ => seq("{", commaSeparated($.type_object_property), "}"),
 
-    type_object_property: $ => seq(
-      $.object_key,
-      ":",
-      $.type
-    ),
+    type_object_property: $ => seq($.object_key, ":", $.type),
 
     analyzer_tokenizers: _ => choice("blank", "camel", "class", "punct"),
 
@@ -1237,8 +1279,6 @@ module.exports = grammar({
         seq($.keyword_minkowski, $.number),
         $.keyword_pearson,
       ),
-
-
 
     analyzer_filters: $ =>
       choice(
@@ -1317,17 +1357,7 @@ module.exports = grammar({
         $.keyword_outside,
         $.keyword_intersects,
         seq("@", $.int, "@"),
-        seq(
-          "<|",
-          $.int,
-          optional(
-            seq(
-              ",",
-              $.distance_values,
-            ),
-          ),
-          "|>",
-        ),
+        seq("<|", $.int, optional(seq(",", $.distance_values)), "|>"),
       ),
 
     binary_operator: _ =>
@@ -1366,5 +1396,7 @@ function commaSeparated(rule) {
 }
 
 function make_keyword(word) {
-  return new RegExp([...word].map(c => `[${c.toLowerCase()}${c.toUpperCase()}]`).join(''));
+  return new RegExp(
+    [...word].map(c => `[${c.toLowerCase()}${c.toUpperCase()}]`).join(""),
+  );
 }

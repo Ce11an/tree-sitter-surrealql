@@ -9,7 +9,8 @@
     "generate": "tree-sitter generate",
     "highlight": "tree-sitter highlight",
     "parse": "tree-sitter parse",
-    "prettier": "prettier --write .",
+    "format:check": "prettier --check ./grammar.js",
+    "format:fix": "prettier --write ./grammar.js",
     "install": "node-gyp-build",
     "prebuildify": "prebuildify --napi --strip"
   },
