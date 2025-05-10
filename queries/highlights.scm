@@ -171,6 +171,7 @@
   (keyword_editor)
   (keyword_viewer)
   (keyword_duration)
+  (keyword_enforced)
 ] @keyword
 
 ; Operators

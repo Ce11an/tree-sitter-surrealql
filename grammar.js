@@ -194,6 +194,7 @@ module.exports = grammar({
     keyword_editor: _ => make_keyword("EDITOR"),
     keyword_viewer: _ => make_keyword("VIEWER"),
     keyword_duration: _ => make_keyword("DURATION"),
+    keyword_enforced: _ => make_keyword("ENFORCED"),
 
     // Expressions
     expressions: $ =>
@@ -483,20 +484,15 @@ module.exports = grammar({
       seq(
         $.keyword_define,
         $.keyword_table,
-        optional($.if_not_exists_clause),
+        optional(choice($.keyword_overwrite, $.if_not_exists_clause)),
         $.identifier,
-        repeat(
-          choice(
-            $.keyword_drop,
-            $.keyword_schemafull,
-            $.keyword_schemaless,
-            $.table_type_clause,
-            $.table_view_clause,
-            $.changefeed_clause,
-            $.permissions_for_clause,
-            $.comment_clause,
-          ),
-        ),
+        optional($.keyword_drop),
+        optional(choice($.keyword_schemafull, $.keyword_schemaless)),
+        optional($.table_type_clause),
+        optional($.table_view_clause),
+        optional($.changefeed_clause),
+        optional($.permissions_for_clause),
+        optional($.comment_clause),
       ),
 
     define_token_statement: $ =>
@@ -959,15 +955,16 @@ module.exports = grammar({
             optional(
               seq(
                 choice($.keyword_in, $.keyword_from),
-                commaSeparated($.identifier),
+                commaSeparated($.record_or_separated),
               ),
             ),
             optional(
               seq(
                 choice($.keyword_out, $.keyword_to),
-                commaSeparated($.identifier),
+                commaSeparated($.record_or_separated),
               ),
             ),
+            optional($.keyword_enforced)
           ),
         ),
       ),
@@ -1138,7 +1135,8 @@ module.exports = grammar({
 
     literal_value: $ => choice($.int, $.string),
 
-    type_or_separated: $ => seq($.type_name, repeat(seq("|", $.type_name))),
+    type_or_separated: $ => prec(1, seq($.type_name, repeat(seq("|", $.type_name)))),
+    record_or_separated: $ => prec(2, seq($.identifier, repeat(seq("|", $.identifier)))),
 
     type: $ => choice(
       $.union_type,
