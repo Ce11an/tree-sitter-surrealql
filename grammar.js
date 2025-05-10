@@ -7,6 +7,7 @@ module.exports = grammar({
     source_file: $ => choice($.expressions, $.where_clause),
 
     // Tokens
+    // foo
     comment: _ =>
       token(
         choice(
