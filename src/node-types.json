@@ -1083,6 +1083,10 @@
           "named": true
         },
         {
+          "type": "keyword_overwrite",
+          "named": true
+        },
+        {
           "type": "keyword_schemafull",
           "named": true
         },
@@ -3165,6 +3169,21 @@
     }
   },
   {
+    "type": "record_or_separated",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "relate_statement",
     "named": true,
     "fields": {},
@@ -3834,11 +3853,11 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "keyword_any",
           "named": true
         },
         {
-          "type": "keyword_any",
+          "type": "keyword_enforced",
           "named": true
         },
         {
@@ -3867,6 +3886,10 @@
         },
         {
           "type": "keyword_type",
+          "named": true
+        },
+        {
+          "type": "record_or_separated",
           "named": true
         }
       ]
@@ -4884,6 +4907,10 @@
   },
   {
     "type": "keyword_else",
+    "named": true
+  },
+  {
+    "type": "keyword_enforced",
     "named": true
   },
   {

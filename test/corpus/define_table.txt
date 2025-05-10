@@ -1,0 +1,539 @@
+============================
+Declare the name of a table
+============================
+DEFINE TABLE reading;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier))))
+    (semi_colon)))
+
+========================
+Define a table with drop
+========================
+
+DEFINE TABLE reading DROP;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier)
+          (keyword_drop))))
+    (semi_colon)))
+
+============================
+Create schemafull user table
+============================
+
+DEFINE TABLE user SCHEMAFULL;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier)
+          (keyword_schemafull))))
+    (semi_colon)))
+
+============================
+Create schemaless user table
+============================
+
+DEFINE TABLE user SCHEMALESS;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier)
+          (keyword_schemaless))))
+    (semi_colon)))
+
+========================
+Define a table as a view
+========================
+
+DEFINE TABLE avg_product_review TYPE NORMAL AS
+SELECT
+	count() AS number_of_reviews,
+	math::mean(<float> rating) AS avg_review,
+	->product.id AS product_id,
+	->product.name AS product_name
+FROM review
+GROUP BY product_id, product_name;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier)
+          (table_type_clause
+            (keyword_type)
+            (keyword_normal))
+          (table_view_clause
+            (keyword_as)
+            (keyword_select)
+            (inclusive_predicate
+              (predicate
+                (value
+                  (function_call
+                    (keyword_count)
+                    (argument_list_count)))
+                (keyword_as)
+                (identifier)))
+            (inclusive_predicate
+              (predicate
+                (value
+                  (function_call
+                    (function_name)
+                    (argument_list
+                      (value
+                        (cast_expression
+                          (type_name)
+                          (value
+                            (base_value
+                              (identifier))))))))
+                (keyword_as)
+                (identifier)))
+            (inclusive_predicate
+              (predicate
+                (value
+                  (path
+                    (graph_path
+                      (identifier))
+                    (path_element
+                      (subscript
+                        (identifier)))))
+                (keyword_as)
+                (identifier)))
+            (inclusive_predicate
+              (predicate
+                (value
+                  (path
+                    (graph_path
+                      (identifier))
+                    (path_element
+                      (subscript
+                        (identifier)))))
+                (keyword_as)
+                (identifier)))
+            (keyword_from)
+            (value
+              (base_value
+                (identifier)))
+            (group_clause
+              (keyword_group)
+              (keyword_by)
+              (identifier)
+              (identifier))))))
+    (semi_colon)))
+
+===============================================
+Specify access permissions for the 'post' table
+===============================================
+
+DEFINE TABLE post SCHEMALESS
+    PERMISSIONS
+	FOR select
+	    -- Published posts can be selected
+	    WHERE published = true
+	    -- A user can select all their own posts
+	    OR user = $auth.id
+	FOR create, update
+	    -- A user can create or update their own posts
+	    WHERE user = $auth.id
+	FOR delete
+	    -- A user can delete their own posts
+	    WHERE user = $auth.id
+	    -- Or an admin can delete any posts
+	    OR $auth.admin = true;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier)
+          (keyword_schemaless)
+          (permissions_for_clause
+            (keyword_permissions)
+            (keyword_for)
+            (keyword_select)
+            (comment)
+            (where_clause
+              (keyword_where)
+              (value
+                (binary_expression
+                  (value
+                    (binary_expression
+                      (value
+                        (binary_expression
+                          (value
+                            (base_value
+                              (identifier)))
+                          (operator)
+                          (value
+                            (base_value
+                              (keyword_true)))))
+                      (comment)
+                      (operator
+                        (keyword_or))
+                      (value
+                        (base_value
+                          (identifier)))))
+                  (operator)
+                  (value
+                    (path
+                      (base_value
+                        (variable_name))
+                      (path_element
+                        (subscript
+                          (identifier))))))))
+            (keyword_for)
+            (keyword_create)
+            (keyword_update)
+            (comment)
+            (where_clause
+              (keyword_where)
+              (value
+                (binary_expression
+                  (value
+                    (base_value
+                      (identifier)))
+                  (operator)
+                  (value
+                    (path
+                      (base_value
+                        (variable_name))
+                      (path_element
+                        (subscript
+                          (identifier))))))))
+            (keyword_for)
+            (keyword_delete)
+            (comment)
+            (where_clause
+              (keyword_where)
+              (value
+                (binary_expression
+                  (value
+                    (binary_expression
+                      (value
+                        (binary_expression
+                          (value
+                            (base_value
+                              (identifier)))
+                          (operator)
+                          (value
+                            (path
+                              (base_value
+                                (variable_name))
+                              (path_element
+                                (subscript
+                                  (identifier)))))))
+                      (comment)
+                      (operator
+                        (keyword_or))
+                      (value
+                        (path
+                          (base_value
+                            (variable_name))
+                          (path_element
+                            (subscript
+                              (identifier)))))))
+                  (operator)
+                  (value
+                    (base_value
+                      (keyword_true))))))))))
+    (semi_colon)))
+
+===========================================
+Create a TABLE if it does not already exist
+===========================================
+
+DEFINE TABLE IF NOT EXISTS reading
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (if_not_exists_clause
+            (keyword_if)
+            (keyword_not)
+            (keyword_exists))
+          (identifier))))))
+
+==================================================
+Create an TABLE and overwrite if it already exists
+==================================================
+
+DEFINE TABLE OVERWRITE example;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (keyword_overwrite)
+          (identifier))))
+    (semi_colon)))
+
+=====================
+Using the type clause
+=====================
+
+DEFINE TABLE person TYPE ANY;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier)
+          (table_type_clause
+            (keyword_type)
+            (keyword_any)))))
+    (semi_colon)))
+
+===========================
+Define table with relations
+===========================
+
+DEFINE TABLE likes TYPE RELATION;
+
+-- Define a relation table, and constrain the type of relation which can be stored
+DEFINE TABLE likes TYPE RELATION FROM user TO post;
+-- OR use IN and OUT alternatively to FROM and TO
+DEFINE TABLE likes TYPE RELATION IN user OUT post;
+-- To allow a link to one of a possible set of record types, use the | operator
+DEFINE TABLE likes TYPE RELATION FROM user TO post|video;
+DEFINE TABLE likes TYPE RELATION IN user OUT post|video;
+
+-- Define a relation table, and constrain the type of relation which can be stored
+DEFINE TABLE assigned_to SCHEMAFULL TYPE RELATION IN tag OUT sticky
+    PERMISSIONS
+        FOR create, select, update, delete
+            WHERE in.owner == $auth.id AND out.author == $auth.id;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier)
+          (table_type_clause
+            (keyword_type)
+            (keyword_relation)))))
+    (semi_colon)
+    (comment)
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier)
+          (table_type_clause
+            (keyword_type)
+            (keyword_relation)
+            (keyword_from)
+            (record_or_separated
+              (identifier))
+            (keyword_to)
+            (record_or_separated
+              (identifier))))))
+    (semi_colon)
+    (comment)
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier)
+          (table_type_clause
+            (keyword_type)
+            (keyword_relation)
+            (keyword_in)
+            (record_or_separated
+              (identifier))
+            (keyword_out)
+            (record_or_separated
+              (identifier))))))
+    (semi_colon)
+    (comment)
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier)
+          (table_type_clause
+            (keyword_type)
+            (keyword_relation)
+            (keyword_from)
+            (record_or_separated
+              (identifier))
+            (keyword_to)
+            (record_or_separated
+              (identifier)
+              (identifier))))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier)
+          (table_type_clause
+            (keyword_type)
+            (keyword_relation)
+            (keyword_in)
+            (record_or_separated
+              (identifier))
+            (keyword_out)
+            (record_or_separated
+              (identifier)
+              (identifier))))))
+    (semi_colon)
+    (comment)
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier)
+          (keyword_schemafull)
+          (table_type_clause
+            (keyword_type)
+            (keyword_relation)
+            (keyword_in)
+            (record_or_separated
+              (identifier))
+            (keyword_out)
+            (record_or_separated
+              (identifier)))
+          (permissions_for_clause
+            (keyword_permissions)
+            (keyword_for)
+            (keyword_create)
+            (keyword_select)
+            (keyword_update)
+            (keyword_delete)
+            (where_clause
+              (keyword_where)
+              (value
+                (binary_expression
+                  (value
+                    (binary_expression
+                      (value
+                        (binary_expression
+                          (value
+                            (path
+                              (base_value
+                                (identifier))
+                              (path_element
+                                (subscript
+                                  (identifier)))))
+                          (operator
+                            (binary_operator))
+                          (value
+                            (path
+                              (base_value
+                                (variable_name))
+                              (path_element
+                                (subscript
+                                  (identifier)))))))
+                      (operator
+                        (keyword_and))
+                      (value
+                        (path
+                          (base_value
+                            (identifier))
+                          (path_element
+                            (subscript
+                              (identifier)))))))
+                  (operator
+                    (binary_operator))
+                  (value
+                    (path
+                      (base_value
+                        (variable_name))
+                      (path_element
+                        (subscript
+                          (identifier))))))))))))
+    (semi_colon)))
+
+===================================
+Define table with enforced relation
+===================================
+
+DEFINE TABLE road_to TYPE RELATION IN city OUT city ENFORCED;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_table_statement
+          (keyword_define)
+          (keyword_table)
+          (identifier)
+          (table_type_clause
+            (keyword_type)
+            (keyword_relation)
+            (keyword_in)
+            (record_or_separated
+              (identifier))
+            (keyword_out)
+            (record_or_separated
+              (identifier))
+            (keyword_enforced)))))
+    (semi_colon)))
