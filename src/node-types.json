@@ -1304,7 +1304,7 @@
       "required": true,
       "types": [
         {
-          "type": "duration",
+          "type": "duration_clause",
           "named": true
         },
         {
@@ -1324,15 +1324,7 @@
           "named": true
         },
         {
-          "type": "keyword_duration",
-          "named": true
-        },
-        {
           "type": "keyword_editor",
-          "named": true
-        },
-        {
-          "type": "keyword_for",
           "named": true
         },
         {
@@ -1365,14 +1357,6 @@
         },
         {
           "type": "keyword_root",
-          "named": true
-        },
-        {
-          "type": "keyword_session",
-          "named": true
-        },
-        {
-          "type": "keyword_token",
           "named": true
         },
         {

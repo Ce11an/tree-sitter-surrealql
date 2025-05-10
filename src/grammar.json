@@ -2848,41 +2848,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "keyword_duration"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "keyword_for"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "keyword_session"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "duration"
-                },
-                {
-                  "type": "STRING",
-                  "value": ","
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "keyword_for"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "keyword_token"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "duration"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "duration_clause"
             },
             {
               "type": "BLANK"
