@@ -13,7 +13,9 @@ CREATE person;
         (create_statement
           (keyword_create)
           (create_target
-            (identifier)))))
+            (value
+              (base_value
+                (identifier)))))))
     (semi_colon)))
 
 =====================================
@@ -31,12 +33,13 @@ CREATE person:one;
         (create_statement
           (keyword_create)
           (create_target
-            (record_id
-              (object_key)
-              (record_id_value
-                (record_id_ident)))))))
+            (value
+              (base_value
+                (record_id
+                  (object_key)
+                  (record_id_value
+                    (record_id_ident)))))))))
     (semi_colon)))
-
 
 =====================================
 type::thing() function
@@ -53,15 +56,16 @@ CREATE type::thing("person", "one");
         (create_statement
           (keyword_create)
           (create_target
-            (function_call
-              (function_name)
-              (argument_list
-                (value
-                  (base_value
-                    (string)))
-                (value
-                  (base_value
-                    (string)))))))))
+            (value
+              (function_call
+                (function_name)
+                (argument_list
+                  (value
+                    (base_value
+                      (string)))
+                  (value
+                    (base_value
+                      (string))))))))))
     (semi_colon)))
 
 =====================================
@@ -82,10 +86,12 @@ CREATE person:tobie SET
         (create_statement
           (keyword_create)
           (create_target
-            (record_id
-              (object_key)
-              (record_id_value
-                (record_id_ident))))
+            (value
+              (base_value
+                (record_id
+                  (object_key)
+                  (record_id_value
+                    (record_id_ident))))))
           (set_clause
             (keyword_set)
             (field_assignment
@@ -117,7 +123,6 @@ CREATE person:tobie SET
                         (string)))))))))))
     (semi_colon)))
 
-
 =====================================
 Multiple records
 =====================================
@@ -135,9 +140,15 @@ CREATE townsperson, cat, dog SET
         (create_statement
           (keyword_create)
           (create_target
-            (identifier)
-            (identifier)
-            (identifier))
+            (value
+              (base_value
+                (identifier)))
+            (value
+              (base_value
+                (identifier)))
+            (value
+              (base_value
+                (identifier))))
           (set_clause
             (keyword_set)
             (field_assignment
@@ -166,7 +177,6 @@ CREATE townsperson, cat, dog SET
                             (identifier)))))))))))))
     (semi_colon)))
 
-
 =====================================
 Create a single record
 =====================================
@@ -186,10 +196,12 @@ CREATE ONLY person:tobie SET
           (keyword_create)
           (keyword_only)
           (create_target
-            (record_id
-              (object_key)
-              (record_id_value
-                (record_id_ident))))
+            (value
+              (base_value
+                (record_id
+                  (object_key)
+                  (record_id_value
+                    (record_id_ident))))))
           (set_clause
             (keyword_set)
             (field_assignment
@@ -236,7 +248,9 @@ CREATE person SET age = 46, username = "john-smith" RETURN DIFF;
         (create_statement
           (keyword_create)
           (create_target
-            (identifier))
+            (value
+              (base_value
+                (identifier))))
           (set_clause
             (keyword_set)
             (field_assignment
@@ -272,10 +286,12 @@ CREATE person:john SET age = 46, username = "john-smith" TIMEOUT 500ms;
         (create_statement
           (keyword_create)
           (create_target
-            (record_id
-              (object_key)
-              (record_id_value
-                (record_id_ident))))
+            (value
+              (base_value
+                (record_id
+                  (object_key)
+                  (record_id_value
+                    (record_id_ident))))))
           (set_clause
             (keyword_set)
             (field_assignment
@@ -320,7 +336,9 @@ LET $person = CREATE person CONTENT {
             (create_statement
               (keyword_create)
               (create_target
-                (identifier))
+                (value
+                  (base_value
+                    (identifier))))
               (content_clause
                 (keyword_content)
                 (object

@@ -11,49 +11,50 @@ FOR $name IN ['Tobie', 'Jaime'] {
 ---
 
 (source_file
- (expressions
-  (expression
-   (subquery_statement
-    (for_statement
-     (keyword_for)
-     (variable_name)
-     (keyword_in)
-     (value
-      (base_value
-       (array
-        (value
-         (base_value
-          (string)))
-        (value
-         (base_value
-          (string))))))
-     (block
-      (expressions
-       (expression
-        (subquery_statement
-         (create_statement
-          (keyword_create)
-          (create_target
-           (function_call
-            (function_name)
-            (argument_list
-             (value
-              (base_value
-               (string)))
-             (value
-              (base_value
-               (variable_name))))))
-          (content_clause
-           (keyword_content)
-           (object
-            (object_content
-             (object_property
-              (object_key)
-              (value
-               (base_value
-                (variable_name))))))))))
-  (semi_colon))))))
-(semi_colon)))
+  (expressions
+    (expression
+      (subquery_statement
+        (for_statement
+          (keyword_for)
+          (variable_name)
+          (keyword_in)
+          (value
+            (base_value
+              (array
+                (value
+                  (base_value
+                    (string)))
+                (value
+                  (base_value
+                    (string))))))
+          (block
+            (expressions
+              (expression
+                (subquery_statement
+                  (create_statement
+                    (keyword_create)
+                    (create_target
+                      (value
+                        (function_call
+                          (function_name)
+                          (argument_list
+                            (value
+                              (base_value
+                                (string)))
+                            (value
+                              (base_value
+                                (variable_name)))))))
+                    (content_clause
+                      (keyword_content)
+                      (object
+                        (object_content
+                          (object_property
+                            (object_key)
+                            (value
+                              (base_value
+                                (variable_name))))))))))
+              (semi_colon))))))
+    (semi_colon)))
 
 ========================================================
 Set can_vote to true for every person over 18 years old
@@ -64,7 +65,7 @@ FOR $person IN (SELECT VALUE id FROM person WHERE age >= 18) {
 };
 
 =======================================================================================
-Creating a person for everyone in the array where the number is less than or equal to 5
+Create a person for everyone in the array where the number is less than or equal to 5
 =======================================================================================
 
 LET $numbers = [1,2,3,4,5,6,7,8,9];
@@ -85,335 +86,134 @@ FOR $num IN $numbers {
 ---
 
 (source_file
- (expressions
-  (expression
-   (subquery_statement
-    (let_statement
-     (keyword_let)
-     (variable_name)
-     (value
-      (base_value
-       (array
-        (value
-         (base_value
-          (number
-           (int))))
-        (value
-         (base_value
-          (number
-           (int))))
-        (value
-         (base_value
-          (number
-           (int))))
-        (value
-         (base_value
-          (number
-           (int))))
-        (value
-         (base_value
-          (number
-           (int))))
-        (value
-         (base_value
-          (number
-           (int))))
-        (value
-         (base_value
-          (number
-           (int))))
-        (value
-         (base_value
-          (number
-           (int))))
-        (value
-         (base_value
-          (number
-           (int))))))))))
-(semi_colon)
-  (expression
-   (subquery_statement
-    (for_statement
-     (keyword_for)
-     (variable_name)
-     (keyword_in)
-     (value
-      (base_value
-       (variable_name)))
-     (block
-      (expressions
-       (expression
-        (subquery_statement
-         (if_statement
-          (keyword_if)
-          (value
-           (binary_expression
-            (value
-             (base_value
-              (variable_name)))
-            (operator)
-            (value
-             (base_value
-              (number
-               (int))))))
-          (block
-           (expressions
-            (expression
-             (primary_statement
-              (break_statement
-               (keyword_break)
-               (semi_colon))))))
-          (else_if_clause
-           (keyword_else)
-           (keyword_if)
-           (value
-            (binary_expression
-             (value
-              (base_value
-               (variable_name)))
-             (operator)
-             (value
-              (base_value
-               (number
-                (int))))))
-           (block
-            (expressions
-             (expression
-              (subquery_statement
-               (create_statement
-                (keyword_create)
-                (create_target
-                 (function_call
-                  (function_name)
-                  (argument_list
-                   (value
-                    (base_value
-                     (string)))
-                   (value
-                    (base_value
-                     (variable_name))))))
-                (content_clause
-                 (keyword_content)
-                 (object
-                  (object_content
-                   (object_property
-                    (object_key)
-                    (value
-                     (binary_expression
-                      (value
-                       (base_value
-                        (string)))
-                      (operator
-                       (binary_operator))
-                      (value
-                       (cast_expression
-                        (type_name)
-                        (value
-                         (base_value
-                          (variable_name))))))))))))))
-  (semi_colon)))))))
-  (semi_colon))))))
-(semi_colon)))
-
-=================================
-Break when unwanted data is found
-=================================
-
--- Data retrieved from somewhere which contains many NONE values
-LET $weather = [
-	{
-		city: 'London',
-		temperature: 22.2,
-		timestamp: 1722565566389
-	},
-	NONE,
-	{
-		city: 'London',
-		temperature: 20.1,
-		timestamp: 1722652002699
-	},
-    {
-        city: 'Phoenix',
-        temperature: 45.1,
-        timestamp: 1722565642160
-    },
-    NONE,
-    NONE,
-    {
-        city: 'Phoenix',
-        temperature: 45.1,
-        timestamp: 1722652070372
-    }
-];
-
--- Sort the data to move the NONE values to the end
--- and break once the first NONE is reached
-FOR $data IN array::sort::desc($weather) {
-    IF $data IS NONE {
-        BREAK;
-    } ELSE {
-        CREATE weather CONTENT $data;
-    };
-};
-
----
-
-(source_file
- (comment)
- (expressions
-  (expression
-   (subquery_statement
-    (let_statement
-     (keyword_let)
-     (variable_name)
-     (value
-      (base_value
-       (array
-        (value
-         (base_value
-          (object
-           (object_content
-            (object_property
-             (object_key)
-             (value
-              (base_value
-               (string))))
-            (object_property
-             (object_key)
-             (value
-              (base_value
-               (number
-                (float)))))
-            (object_property
-             (object_key)
-             (value
-              (base_value
-               (number
-                (int)))))))))
-        (value
-         (base_value
-          (keyword_none)))
-        (value
-         (base_value
-          (object
-           (object_content
-            (object_property
-             (object_key)
-             (value
-              (base_value
-               (string))))
-            (object_property
-             (object_key)
-             (value
-              (base_value
-               (number
-                (float)))))
-            (object_property
-             (object_key)
-             (value
-              (base_value
-               (number
-                (int)))))))))
-        (value
-         (base_value
-          (object
-           (object_content
-            (object_property
-             (object_key)
-             (value
-              (base_value
-               (string))))
-            (object_property
-             (object_key)
-             (value
-              (base_value
-               (number
-                (float)))))
-            (object_property
-             (object_key)
-             (value
-              (base_value
-               (number
-                (int)))))))))
-        (value
-         (base_value
-          (keyword_none)))
-        (value
-         (base_value
-          (keyword_none)))
-        (value
-         (base_value
-          (object
-           (object_content
-            (object_property
-             (object_key)
-             (value
-              (base_value
-               (string))))
-            (object_property
-             (object_key)
-             (value
-              (base_value
-               (number
-                (float)))))
-            (object_property
-             (object_key)
-             (value
-              (base_value
-               (number
-                (int)))))))))))))))
-(semi_colon)
-(comment)
-(comment)
-(expression
- (subquery_statement
-  (for_statement
-   (keyword_for)
-   (variable_name)
-   (keyword_in)
-   (value
-    (function_call
-     (function_name)
-     (argument_list
-      (value
-       (base_value
-        (variable_name))))))
-   (block
-    (expressions
-     (expression
+  (expressions
+    (expression
       (subquery_statement
-       (if_statement
-        (keyword_if)
-        (value
-         (binary_expression
+        (let_statement
+          (keyword_let)
+          (variable_name)
           (value
-           (base_value
-            (variable_name)))
-          (operator
-           (keyword_is))
+            (base_value
+              (array
+                (value
+                  (base_value
+                    (number
+                      (int))))
+                (value
+                  (base_value
+                    (number
+                      (int))))
+                (value
+                  (base_value
+                    (number
+                      (int))))
+                (value
+                  (base_value
+                    (number
+                      (int))))
+                (value
+                  (base_value
+                    (number
+                      (int))))
+                (value
+                  (base_value
+                    (number
+                      (int))))
+                (value
+                  (base_value
+                    (number
+                      (int))))
+                (value
+                  (base_value
+                    (number
+                      (int))))
+                (value
+                  (base_value
+                    (number
+                      (int))))))))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (for_statement
+          (keyword_for)
+          (variable_name)
+          (keyword_in)
           (value
-           (base_value
-            (keyword_none)))))
-        (block
-         (expressions
-          (expression
-           (primary_statement
-            (break_statement
-             (keyword_break)
-             (semi_colon))))))
-        (else_clause
-         (keyword_else)
-         (block
-          (expressions
-           (expression
-            (subquery_statement
-             (create_statement
-              (keyword_create)
-              (create_target
-               (identifier))
-              (content_clause
-               (keyword_content)
-               (variable_name)))))
-           (semi_colon)))))))
-(semi_colon))))))
-(semi_colon)))
+            (base_value
+              (variable_name)))
+          (block
+            (expressions
+              (expression
+                (subquery_statement
+                  (if_statement
+                    (keyword_if)
+                    (value
+                      (binary_expression
+                        (value
+                          (base_value
+                            (variable_name)))
+                        (operator)
+                        (value
+                          (base_value
+                            (number
+                              (int))))))
+                    (block
+                      (expressions
+                        (expression
+                          (primary_statement
+                            (break_statement
+                              (keyword_break))))
+                        (semi_colon)))
+                    (else_if_clause
+                      (keyword_else)
+                      (keyword_if)
+                      (value
+                        (binary_expression
+                          (value
+                            (base_value
+                              (variable_name)))
+                          (operator)
+                          (value
+                            (base_value
+                              (number
+                                (int))))))
+                      (block
+                        (expressions
+                          (expression
+                            (subquery_statement
+                              (create_statement
+                                (keyword_create)
+                                (create_target
+                                  (value
+                                    (function_call
+                                      (function_name)
+                                      (argument_list
+                                        (value
+                                          (base_value
+                                            (string)))
+                                        (value
+                                          (base_value
+                                            (variable_name)))))))
+                                (content_clause
+                                  (keyword_content)
+                                  (object
+                                    (object_content
+                                      (object_property
+                                        (object_key)
+                                        (value
+                                          (binary_expression
+                                            (value
+                                              (base_value
+                                                (string)))
+                                            (operator
+                                              (binary_operator))
+                                            (value
+                                              (cast_expression
+                                                (type_name)
+                                                (value
+                                                  (base_value
+                                                    (variable_name))))))))))))))
+                          (semi_colon)))))))
+              (semi_colon))))))
+    (semi_colon)))
+

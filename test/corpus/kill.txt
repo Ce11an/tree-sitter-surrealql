@@ -28,8 +28,8 @@ KILL u"0189d6e3-8eac-703a-9a48-d9faa78b44b9";
           (keyword_kill)
           (value
             (base_value
-              (prefixed_string)))
-          (semi_colon))))))
+              (prefixed_string))))))
+    (semi_colon)))
 
 ====================
 Define the parameter
@@ -59,6 +59,5 @@ KILL $live_query_id;
           (keyword_kill)
           (value
             (base_value
-              (variable_name)))
-          (semi_colon))))))
-
+              (variable_name))))))
+    (semi_colon)))

@@ -7,12 +7,6 @@ DEFINE ACCESS account ON DATABASE TYPE RECORD
 	SIGNIN ( SELECT * FROM user WHERE email = $email AND crypto::argon2::compare(pass, $pass) )
 	DURATION FOR TOKEN 15m, FOR SESSION 12h;
 
--- Create an ACCESS if it does not already exist
-DEFINE ACCESS IF NOT EXISTS example ON NAMESPACE foo;
-
--- Create an ACCESS and overwrite if it already exists
-DEFINE ACCESS OVERWRITE example ON NAMESPACE foo;
-
 -- Define bearer access method to generate API keys for system users
 DEFINE ACCESS api ON DATABASE TYPE BEARER FOR USER DURATION FOR GRANT 10d;
 
@@ -28,8 +22,7 @@ DEFINE ACCESS token_name
   -- Specify the cryptographic signature algorithm used to verify the token
   ALGORITHM HS512
   -- Specify the symmetric key used to sign and verify the authenticity of the token
-  KEY "sNSYneezcr8kqphfOC6NwwraUHJCVAt0XjsRSNmssBaBRh3WyMa9TRfq8ST7fsU2H2kGiOpU4GbAF1bCiXmM1b3JGgleBzz7rsrz6VvYEM4q3CLkcO8CMBIlhwhzWmy8"
-;
+  KEY "sNSYneezcr8kqphfOC6NwwraUHJCVAt0XjsRSNmssBaBRh3WyMa9TRfq8ST7fsU2H2kGiOpU4GbAF1bCiXmM1b3JGgleBzz7rsrz6VvYEM4q3CLkcO8CMBIlhwhzWmy8";
 
 -- Define access with authentication clause
 DEFINE ACCESS user ON DATABASE TYPE JWT

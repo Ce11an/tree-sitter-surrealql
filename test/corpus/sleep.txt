@@ -13,8 +13,8 @@ SLEEP 5s;
         (sleep_statement
           (keyword_sleep)
           (duration
-            (duration_part))
-          (semi_colon))))))
+            (duration_part)))))
+    (semi_colon)))
 
 ===================
 Sleep in a for loop
@@ -27,29 +27,29 @@ FOR $person IN ["Tobie", "Jaime"] {
 ---
 
 (source_file
- (expressions
-  (expression
-   (subquery_statement
-    (for_statement
-     (keyword_for)
-     (variable_name)
-     (keyword_in)
-     (value
-      (base_value
-       (array
-        (value
-         (base_value
-          (string)))
-        (value
-         (base_value
-          (string))))))
-     (block
-      (expressions
-       (expression
-        (primary_statement
-         (sleep_statement
-          (keyword_sleep)
-          (duration
-           (duration_part))
-          (semi_colon)))))))))
-(semi_colon)))
+  (expressions
+    (expression
+      (subquery_statement
+        (for_statement
+          (keyword_for)
+          (variable_name)
+          (keyword_in)
+          (value
+            (base_value
+              (array
+                (value
+                  (base_value
+                    (string)))
+                (value
+                  (base_value
+                    (string))))))
+          (block
+            (expressions
+              (expression
+                (primary_statement
+                  (sleep_statement
+                    (keyword_sleep)
+                    (duration
+                      (duration_part)))))
+              (semi_colon))))))
+    (semi_colon)))

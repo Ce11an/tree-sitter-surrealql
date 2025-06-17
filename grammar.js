@@ -268,13 +268,13 @@ module.exports = grammar({
         $.rebuild_index_statement,
       ),
 
-    kill_statement: $ => seq($.keyword_kill, $.value, $.semi_colon),
+    kill_statement: $ => seq($.keyword_kill, $.value),
 
-    sleep_statement: $ => seq($.keyword_sleep, $.duration, $.semi_colon),
+    sleep_statement: $ => seq($.keyword_sleep, $.duration),
 
-    break_statement: $ => seq($.keyword_break, $.semi_colon),
+    break_statement: $ => seq($.keyword_break),
 
-    continue_statement: $ => seq($.keyword_continue, $.semi_colon),
+    continue_statement: $ => seq($.keyword_continue),
 
     for_statement: $ =>
       seq($.keyword_for, $.variable_name, $.keyword_in, $.value, $.block),
@@ -333,7 +333,7 @@ module.exports = grammar({
       seq(
         $.keyword_alter,
         $.keyword_table,
-        optional($.if_not_exists_clause),
+        optional($.if_exists_clause),
         $.identifier,
         repeat(
           choice(
@@ -402,17 +402,6 @@ module.exports = grammar({
       ),
 
     define_function_statement: $ =>
-      seq(
-        $.keyword_define,
-        $.define_function,
-        optional($.if_not_exists_clause),
-        $.custom_function_name,
-        $.param_list,
-        $.block,
-        repeat(choice($.permissions_basic_clause, $.comment_clause)),
-      ),
-
-    define_function: $ =>
       seq(
         $.keyword_define,
         $.keyword_function,
@@ -489,7 +478,7 @@ module.exports = grammar({
       seq(
         $.keyword_define,
         $.keyword_access,
-        optional($.if_not_exists_clause),
+        optional(choice($.if_not_exists_clause, $.keyword_overwrite)),
         $.identifier,
         $.keyword_on,
         choice(
@@ -672,19 +661,23 @@ module.exports = grammar({
           $.primary_statement,
           seq(
             commaSeparated($.value),
-            optional(
-              choice(
-                $.content_clause,
-                $.merge_clause,
-                $.patch_clause,
-                $.set_clause,
-                $.unset_clause,
+            choice(
+              $.patch_clause,
+              seq(
+                optional(
+                  choice(
+                    $.content_clause,
+                    $.merge_clause,
+                    $.set_clause,
+                    $.unset_clause,
+                  ),
+                ),
+                optional($.where_clause),
+                optional($.return_clause),
+                optional($.timeout_clause),
+                optional($.parallel_clause),
               ),
             ),
-            optional($.where_clause),
-            optional($.return_clause),
-            optional($.timeout_clause),
-            optional($.parallel_clause),
           ),
         ),
       ),
@@ -1081,14 +1074,7 @@ module.exports = grammar({
       seq($.keyword_if, $.keyword_not, $.keyword_exists),
     if_exists_clause: $ => seq($.keyword_if, $.keyword_exists),
 
-    create_target: $ =>
-      choice(
-        commaSeparated($.identifier),
-        $.variable_name,
-        $.function_call,
-        $.record_id,
-        $.multi_record,
-      ),
+    create_target: $ => choice(commaSeparated($.value), $.multi_record),
 
     content_clause: $ =>
       seq($.keyword_content, choice($.object, $.variable_name)),
@@ -1104,7 +1090,10 @@ module.exports = grammar({
           $.keyword_before,
           $.keyword_after,
           $.keyword_diff,
-          seq(optional($.keyword_value), commaSeparated($.value)),
+          choice(
+            seq(optional($.keyword_value), commaSeparated($.value)),
+            commaSeparated($.value),
+          ),
           $.if_statement,
         ),
       ),
@@ -1133,6 +1122,7 @@ module.exports = grammar({
         $.path,
         $.function_call,
         $.negated_expression,
+        $.range,
       ),
 
     multi_record: $ => seq("|", $.identifier, ":", $.int, "|"),
@@ -1318,7 +1308,8 @@ module.exports = grammar({
     record_id_value: $ => choice($.record_id_ident, $.int, $.array, $.object),
     record_id_ident: _ => /[a-zA-Z0-9_]+/,
     record_id_range: $ =>
-      prec.left(
+      prec.right(
+        3,
         seq(
           optional(seq($.record_id_value, optional(">"))),
           "..",
@@ -1329,6 +1320,7 @@ module.exports = grammar({
     duration: $ => repeat1($.duration_part),
     duration_part: _ => /[0-9]+\s*(ns|us|µs|ms|s|m|h|d|w|y)/,
     point: $ => seq("(", $.decimal, ",", $.decimal, ")"),
+    range: $ => seq($.int, "..", optional("="), $.int),
 
     operator: $ =>
       choice(
