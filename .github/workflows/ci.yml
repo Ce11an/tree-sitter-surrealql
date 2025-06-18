@@ -8,6 +8,7 @@ on:
       - test/**
       - bindings/**
       - binding.gyp
+      - tree-sitter.json
 
 concurrency:
   group: ${{github.workflow}}-${{github.ref}}
@@ -34,23 +35,29 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-14]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Set up the repo
-        uses: tree-sitter/setup-action/cli@v1
-      - name: Run tests
+      - name: Set up tree-sitter
+        uses: tree-sitter/setup-action/cli@v2
+      - name: Run parser and binding tests
         uses: tree-sitter/parser-test-action@v2
         with:
-          test-rust: ${{runner.os == 'Linux'}}
-      - name: Parse examples
+          test-rust: true
+      - name: Parse sample files
         uses: tree-sitter/parse-action@v4
+        id: parse-files
         with:
-          files: |
-            examples/**/*.surql
+          files: examples/**
+      - name: Upload failures artifact
+        uses: actions/upload-artifact@v4
+        if: "!cancelled() && steps.parse-files.outcome == 'failure'"
+        with:
+          name: failures-${{runner.os}}
+          path: ${{steps.parse-files.outputs.failures}}
   fuzz:
-    name: Fuzz parser
+    name: Fuzz scanner
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -58,16 +65,16 @@ jobs:
         with:
           fetch-depth: 2
       - name: Check for scanner changes
-        id: scanner-changes
+        id: scanner-check
         run: |-
           if git diff --quiet HEAD^ -- src/scanner.c; then
             printf 'changed=false\n' >> "$GITHUB_OUTPUT"
           else
             printf 'changed=true\n' >> "$GITHUB_OUTPUT"
           fi
-      - name: Fuzz parser
+      - name: Run the fuzzer
         uses: tree-sitter/fuzz-action@v4
-        if: steps.scanner-changes.outputs.changed == 'true'
+        if: steps.scanner-check.outputs.changed == 'true'
   format:
     needs: changes
     name: Format check
