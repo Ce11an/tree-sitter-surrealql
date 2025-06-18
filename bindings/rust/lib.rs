@@ -6,7 +6,7 @@
 //! ```
 //! let code = "";
 //! let mut parser = tree_sitter::Parser::new();
-//! parser.set_language(tree_sitter_surrealql::language()).expect("Error loading surrealql grammar");
+//! parser.set_language(&tree_sitter_surrealql::language()).expect("Error loading surrealql grammar");
 //! let tree = parser.parse(code, None).unwrap();
 //! ```
 //!
@@ -33,12 +33,11 @@ pub fn language() -> Language {
 /// [`node-types.json`]: https://tree-sitter.github.io/tree-sitter/using-parsers#static-node-types
 pub const NODE_TYPES: &'static str = include_str!("../../src/node-types.json");
 
-// Uncomment these to include any queries that this grammar contains
+// Query files for this grammar
 
-// pub const HIGHLIGHTS_QUERY: &'static str = include_str!("../../queries/highlights.scm");
-// pub const INJECTIONS_QUERY: &'static str = include_str!("../../queries/injections.scm");
-// pub const LOCALS_QUERY: &'static str = include_str!("../../queries/locals.scm");
-// pub const TAGS_QUERY: &'static str = include_str!("../../queries/tags.scm");
+pub const HIGHLIGHTS_QUERY: &'static str = include_str!("../../queries/highlights.scm");
+pub const FOLDS_QUERY: &'static str = include_str!("../../queries/folds.scm");
+pub const INDENTS_QUERY: &'static str = include_str!("../../queries/indents.scm");
 
 #[cfg(test)]
 mod tests {
@@ -46,7 +45,7 @@ mod tests {
     fn test_can_load_grammar() {
         let mut parser = tree_sitter::Parser::new();
         parser
-            .set_language(super::language())
-            .expect("Error loading surrealql language");
+            .set_language(&super::language())
+            .expect(&"Error loading surrealql language");
     }
 }
