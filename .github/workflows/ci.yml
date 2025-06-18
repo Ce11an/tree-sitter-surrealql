@@ -14,8 +14,13 @@ concurrency:
   group: ${{github.workflow}}-${{github.ref}}
   cancel-in-progress: true
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   changes:
+    name: Find changes
     runs-on: ubuntu-latest
     permissions:
      pull-requests: read
@@ -92,4 +97,6 @@ jobs:
 
       - name: Run format check
         run: npm run format:check
-
+  regenerate:
+    uses: tree-sitter/workflows/.github/workflows/regenerate.yml@main
+    if: github.actor == 'dependabot[bot]'
