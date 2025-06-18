@@ -23,7 +23,9 @@ CREATE person SET name = $name;
         (create_statement
           (keyword_create)
           (create_target
-            (identifier))
+            (value
+              (base_value
+                (identifier))))
           (set_clause
             (keyword_set)
             (field_assignment

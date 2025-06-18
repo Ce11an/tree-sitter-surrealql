@@ -6,7 +6,7 @@ RETURN {
 };
 
 -- Return the result of a query
-RETURN SELECT * FROM person;
+RETURN (SELECT * FROM person);
 RETURN (CREATE person).id;
 
 // RETURN statements can set the result of any transaction. This includes transactions, blocks and functions.
@@ -30,18 +30,14 @@ RETURN $person.id;
 
 COMMIT TRANSACTION;
 
--- Early return
+-- function
 DEFINE FUNCTION fn::person::create($firstname: string, $lastname: string) {
 	LET $person = CREATE person CONTENT {
 		firstname: $firstname,
 		lastname: $lastname
 	};
 
-	-- The RETURN statement will set the return value of the custom function, and further queries will not be executed.
 	RETURN $person.id;
-
-    -- This query will never be executed
-    CREATE person SET firstname = "Stephen", lastname = "Strange";
 };
 
 fn::person::create("Thanos", "Johnson");

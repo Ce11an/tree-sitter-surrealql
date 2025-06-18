@@ -16,7 +16,7 @@
           "named": true
         },
         {
-          "type": "if_not_exists_clause",
+          "type": "if_exists_clause",
           "named": true
         },
         {
@@ -296,15 +296,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "keyword_break",
-          "named": true
-        },
-        {
-          "type": "semi_colon",
           "named": true
         }
       ]
@@ -448,15 +444,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "keyword_continue",
-          "named": true
-        },
-        {
-          "type": "semi_colon",
           "named": true
         }
       ]
@@ -510,23 +502,11 @@
       "required": true,
       "types": [
         {
-          "type": "function_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "multi_record",
           "named": true
         },
         {
-          "type": "record_id",
-          "named": true
-        },
-        {
-          "type": "variable_name",
+          "type": "value",
           "named": true
         }
       ]
@@ -667,6 +647,10 @@
         },
         {
           "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_overwrite",
           "named": true
         },
         {
@@ -901,7 +885,7 @@
     }
   },
   {
-    "type": "define_function",
+    "type": "define_function_statement",
     "named": true,
     "fields": {},
     "children": {
@@ -930,49 +914,6 @@
         },
         {
           "type": "keyword_function",
-          "named": true
-        },
-        {
-          "type": "param_list",
-          "named": true
-        },
-        {
-          "type": "permissions_basic_clause",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "define_function_statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "comment_clause",
-          "named": true
-        },
-        {
-          "type": "custom_function_name",
-          "named": true
-        },
-        {
-          "type": "define_function",
-          "named": true
-        },
-        {
-          "type": "if_not_exists_clause",
-          "named": true
-        },
-        {
-          "type": "keyword_define",
           "named": true
         },
         {
@@ -2283,10 +2224,6 @@
           "named": true
         },
         {
-          "type": "semi_colon",
-          "named": true
-        },
-        {
           "type": "value",
           "named": true
         }
@@ -3204,6 +3141,21 @@
     }
   },
   {
+    "type": "range",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "int",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "readonly_clause",
     "named": true,
     "fields": {},
@@ -3770,10 +3722,6 @@
         },
         {
           "type": "keyword_sleep",
-          "named": true
-        },
-        {
-          "type": "semi_colon",
           "named": true
         }
       ]
@@ -4524,6 +4472,10 @@
         {
           "type": "path",
           "named": true
+        },
+        {
+          "type": "range",
+          "named": true
         }
       ]
     }
@@ -4813,7 +4765,8 @@
   },
   {
     "type": "comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "custom_function_name",

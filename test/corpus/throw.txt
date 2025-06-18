@@ -33,7 +33,9 @@ THROW (SELECT * FROM foo);
         (create_statement
           (keyword_create)
           (create_target
-            (identifier))
+            (value
+              (base_value
+                (identifier))))
           (set_clause
             (keyword_set)
             (field_assignment
@@ -88,8 +90,6 @@ SELECT * FROM account;
 
 ---
 
-
-
 (source_file
   (expressions
     (expression
@@ -113,10 +113,12 @@ SELECT * FROM account;
         (create_statement
           (keyword_create)
           (create_target
-            (record_id
-              (object_key)
-              (record_id_value
-                (record_id_ident))))
+            (value
+              (base_value
+                (record_id
+                  (object_key)
+                  (record_id_value
+                    (record_id_ident))))))
           (set_clause
             (keyword_set)
             (field_assignment
@@ -132,10 +134,12 @@ SELECT * FROM account;
         (create_statement
           (keyword_create)
           (create_target
-            (record_id
-              (object_key)
-              (record_id_value
-                (record_id_ident))))
+            (value
+              (base_value
+                (record_id
+                  (object_key)
+                  (record_id_value
+                    (record_id_ident))))))
           (set_clause
             (keyword_set)
             (field_assignment

@@ -22,7 +22,7 @@ select * from person;
     (semi_colon)))
 
 =====================================
-Lower let and create
+lower let and create
 =====================================
 
 -- Define the parameter
@@ -50,7 +50,9 @@ create person set name = $name;
         (create_statement
           (keyword_create)
           (create_target
-            (identifier))
+            (value
+              (base_value
+                (identifier))))
           (set_clause
             (keyword_set)
             (field_assignment
@@ -60,4 +62,3 @@ create person set name = $name;
                 (base_value
                   (variable_name))))))))
     (semi_colon)))
-

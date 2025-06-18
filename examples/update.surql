@@ -74,7 +74,7 @@ UPDATE person:tobie PATCH [
 		"path": "Engineering",
 		"value": "true"
 	}
-]
+];
 
 -- Don't return any result
 UPDATE person SET skills += 'reading' RETURN NONE;

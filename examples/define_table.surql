@@ -42,7 +42,7 @@ DEFINE TABLE post SCHEMALESS
 	    OR $auth.admin = true;
 
 -- Create a TABLE if it does not already exist
-DEFINE TABLE IF NOT EXISTS reading
+DEFINE TABLE IF NOT EXISTS reading;
 
 -- Create an TABLE and overwrite if it already exists
 DEFINE TABLE OVERWRITE example;
