@@ -1,5 +1,13 @@
-; Fold entire multi-line SELECT statements
+; Folding queries for refactored SurrealQL grammar
+
+; Fold entire multi-line statements
 (select_statement) @fold
+(create_statement) @fold
+(update_statement) @fold
+(delete_statement) @fold
+(insert_statement) @fold
+(upsert_statement) @fold
+(relate_statement) @fold
 
 ; Foldable code blocks (content inside braces)
 (block) @fold
@@ -11,10 +19,31 @@
 (define_access_statement) @fold
 (define_function_statement) @fold
 (define_event_statement) @fold
+(define_database_statement) @fold
+(define_namespace_statement) @fold
+(define_param_statement) @fold
+(define_scope_statement) @fold
+(define_token_statement) @fold
+(define_user_statement) @fold
+(define_analyzer_statement) @fold
 
-; Fold if-statements and control flow
-(if_statement) @fold
+; Fold control statements and expressions
+(if_expression) @fold
 (for_statement) @fold
+(let_statement) @fold
 
-; Fold multi-line expressions in parentheses
-(sub_query) @fold
+; Fold complex expressions
+(subquery) @fold
+
+; Fold collections
+(array) @fold
+(object) @fold
+
+; Fold permission clauses (often multi-line)
+(permissions_clause) @fold
+
+; Fold complex FROM clauses with multiple conditions
+(from_clause) @fold
+
+; Fold table view definitions (AS SELECT ...)
+(table_view_clause) @fold
