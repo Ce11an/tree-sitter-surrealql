@@ -16,3 +16,9 @@ DEFINE INDEX idx_mtree_embedding ON Document FIELDS embeddings MTREE DIMENSION 4
 -- Define M-Tree index
 DEFINE INDEX idx_mtree_embedding_manhattan ON Document FIELDS embedding MTREE DIMENSION 4 DIST MANHATTAN;
 DEFINE INDEX idx_mtree_embedding_cosine ON Document FIELDS embedding MTREE DIMENSION 4 DIST COSINE;
+
+-- Create an INDEX and overwrite if it already exists
+DEFINE INDEX OVERWRITE example ON example FIELDS example;
+
+-- Create a INDEX if it does not already exist
+DEFINE INDEX IF NOT EXISTS example ON example FIELDS example;

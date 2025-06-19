@@ -193,3 +193,56 @@ DEFINE INDEX idx_mtree_embedding_cosine ON Document FIELDS embedding MTREE DIMEN
       (distance_values
        (keyword_cosine))))))
 (semi_colon)))
+
+==================================================
+Create an INDEX and overwrite if it already exists
+==================================================
+
+DEFINE INDEX OVERWRITE example ON example FIELDS example;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_index_statement
+     (keyword_define)
+     (keyword_index)
+     (keyword_overwrite)
+     (identifier)
+     (on_table_clause
+      (keyword_on)
+      (identifier))
+     (fields_columns_clause
+      (keyword_fields)
+      (identifier)))))
+  (semi_colon)))
+
+===========================================
+Create a INDEX if it does not already exist
+===========================================
+
+DEFINE INDEX IF NOT EXISTS example ON example FIELDS example;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_index_statement
+     (keyword_define)
+     (keyword_index)
+     (if_not_exists_clause
+      (keyword_if)
+      (keyword_not)
+      (keyword_exists))
+     (identifier)
+     (on_table_clause
+      (keyword_on)
+      (identifier))
+     (fields_columns_clause
+      (keyword_fields)
+      (identifier)))))
+  (semi_colon)))

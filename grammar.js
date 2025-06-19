@@ -424,7 +424,7 @@ module.exports = grammar({
       seq(
         $.keyword_define,
         $.keyword_index,
-        optional($.if_not_exists_clause),
+        optional(choice($.if_not_exists_clause, $.keyword_overwrite)),
         $.identifier,
         $.on_table_clause,
         $.fields_columns_clause,
@@ -553,7 +553,7 @@ module.exports = grammar({
       seq(
         $.keyword_define,
         $.keyword_token,
-        optional($.if_not_exists_clause),
+        optional(choice($.keyword_overwrite, $.if_not_exists_clause)),
         $.identifier,
         $.keyword_on,
         choice($.keyword_root, $.keyword_namespace, $.keyword_scope),
@@ -566,8 +566,7 @@ module.exports = grammar({
       seq(
         $.keyword_define,
         $.keyword_user,
-        optional($.if_not_exists_clause),
-        optional($.keyword_overwrite),
+        optional(choice($.keyword_overwrite, $.if_not_exists_clause)),
         $.identifier,
         $.keyword_on,
         choice($.keyword_root, $.keyword_namespace, $.keyword_database),

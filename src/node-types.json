@@ -972,6 +972,10 @@
           "named": true
         },
         {
+          "type": "keyword_overwrite",
+          "named": true
+        },
+        {
           "type": "mtree_dimension_clause",
           "named": true
         },
@@ -1200,6 +1204,10 @@
         },
         {
           "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_overwrite",
           "named": true
         },
         {
