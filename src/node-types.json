@@ -925,6 +925,10 @@
           "named": true
         },
         {
+          "type": "keyword_overwrite",
+          "named": true
+        },
+        {
           "type": "param_list",
           "named": true
         },

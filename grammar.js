@@ -413,7 +413,7 @@ module.exports = grammar({
       seq(
         $.keyword_define,
         $.keyword_function,
-        optional($.if_not_exists_clause),
+        optional(choice($.if_not_exists_clause, $.keyword_overwrite)),
         $.custom_function_name,
         $.param_list,
         $.block,
