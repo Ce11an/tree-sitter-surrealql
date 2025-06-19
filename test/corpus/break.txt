@@ -1,0 +1,152 @@
+====================
+Break out of a loop
+====================
+
+LET $numbers = [1,2,3,4,5,6,7,8,9];
+
+FOR $num IN $numbers {
+    IF $num > 5 {
+        BREAK;
+
+    } ELSE IF $num < 5 {
+        CREATE type::thing(
+            'person', $num
+        ) CONTENT {
+            name: "Person number " + <string>$num
+        };
+    };
+};
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (let_statement
+     (keyword_let)
+     (variable_name)
+     (value
+      (base_value
+       (array
+        (value
+         (base_value
+          (number
+           (int))))
+        (value
+         (base_value
+          (number
+           (int))))
+        (value
+         (base_value
+          (number
+           (int))))
+        (value
+         (base_value
+          (number
+           (int))))
+        (value
+         (base_value
+          (number
+           (int))))
+        (value
+         (base_value
+          (number
+           (int))))
+        (value
+         (base_value
+          (number
+           (int))))
+        (value
+         (base_value
+          (number
+           (int))))
+        (value
+         (base_value
+          (number
+           (int))))))))))
+(semi_colon)
+  (expression
+   (subquery_statement
+    (for_statement
+     (keyword_for)
+     (variable_name)
+     (keyword_in)
+     (value
+      (base_value
+       (variable_name)))
+     (block
+      (expressions
+       (expression
+        (subquery_statement
+         (if_statement
+          (keyword_if)
+          (value
+           (binary_expression
+            (value
+             (base_value
+              (variable_name)))
+            (operator)
+            (value
+             (base_value
+              (number
+               (int))))))
+          (block
+           (expressions
+            (expression
+             (primary_statement
+              (break_statement
+               (keyword_break))))
+            (semi_colon)))
+          (else_if_clause
+           (keyword_else)
+           (keyword_if)
+           (value
+            (binary_expression
+             (value
+              (base_value
+               (variable_name)))
+             (operator)
+             (value
+              (base_value
+               (number
+                (int))))))
+           (block
+            (expressions
+             (expression
+              (subquery_statement
+               (create_statement
+                (keyword_create)
+                (create_target
+                 (value
+                  (function_call
+                   (function_name)
+                   (argument_list
+                    (value
+                     (base_value
+                      (string)))
+                    (value
+                     (base_value
+                      (variable_name)))))))
+                (content_clause
+                 (keyword_content)
+                 (object
+                  (object_content
+                   (object_property
+                    (object_key)
+                    (value
+                     (binary_expression
+                      (value
+                       (base_value
+                        (string)))
+                      (operator
+                       (binary_operator))
+                      (value
+                       (cast_expression
+                        (type_name)
+                        (value
+                         (base_value
+                          (variable_name))))))))))))))
+  (semi_colon)))))))
+  (semi_colon))))))
+(semi_colon)))
