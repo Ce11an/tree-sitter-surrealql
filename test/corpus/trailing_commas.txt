@@ -1,0 +1,172 @@
+================================================================================
+Simple object with trailing comma
+================================================================================
+
+CREATE person SET data = {name: 'John',};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (value
+              (base_value
+                (identifier))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (object
+                    (object_content
+                      (object_property
+                        (object_key)
+                        (value
+                          (base_value
+                            (string)))))))))))))
+    (semi_colon)))
+
+================================================================================
+Simple array with trailing comma
+================================================================================
+
+CREATE person SET skills = ['Rust',];
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (value
+              (base_value
+                (identifier))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (array
+                    (value
+                      (base_value
+                        (string)))))))))))
+    (semi_colon)))
+
+================================================================================
+Specs example with trailing comma
+================================================================================
+
+UPDATE person:tobie CONTENT {
+	name: 'Tobie',
+	company: 'SurrealDB',
+	skills: ['Rust', 'Go', 'JavaScript'],
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (content_clause
+            (keyword_content)
+            (object
+              (object_content
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (string))))
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (string))))
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (array
+                        (value
+                          (base_value
+                            (string)))
+                        (value
+                          (base_value
+                            (string)))
+                        (value
+                          (base_value
+                            (string)))))))))))))
+    (semi_colon)))
+
+================================================================================
+Backward compatibility - no trailing comma
+================================================================================
+
+UPDATE person:tobie CONTENT {
+	name: 'Tobie',
+	company: 'SurrealDB',
+	skills: ['Rust', 'Go', 'JavaScript']
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (update_statement
+          (keyword_update)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (record_id_ident)))))
+          (content_clause
+            (keyword_content)
+            (object
+              (object_content
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (string))))
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (string))))
+                (object_property
+                  (object_key)
+                  (value
+                    (base_value
+                      (array
+                        (value
+                          (base_value
+                            (string)))
+                        (value
+                          (base_value
+                            (string)))
+                        (value
+                          (base_value
+                            (string)))))))))))))
+    (semi_colon)))
