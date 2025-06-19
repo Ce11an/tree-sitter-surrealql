@@ -1026,41 +1026,6 @@
     }
   },
   {
-    "type": "define_param",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "if_not_exists_clause",
-          "named": true
-        },
-        {
-          "type": "keyword_define",
-          "named": true
-        },
-        {
-          "type": "keyword_param",
-          "named": true
-        },
-        {
-          "type": "keyword_value",
-          "named": true
-        },
-        {
-          "type": "value",
-          "named": true
-        },
-        {
-          "type": "variable_name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "define_param_statement",
     "named": true,
     "fields": {},
@@ -1069,15 +1034,19 @@
       "required": true,
       "types": [
         {
-          "type": "define_param",
-          "named": true
-        },
-        {
           "type": "if_not_exists_clause",
           "named": true
         },
         {
           "type": "keyword_define",
+          "named": true
+        },
+        {
+          "type": "keyword_overwrite",
+          "named": true
+        },
+        {
+          "type": "keyword_param",
           "named": true
         },
         {

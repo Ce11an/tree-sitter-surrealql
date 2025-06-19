@@ -1946,51 +1946,23 @@
         },
         {
           "type": "SYMBOL",
-          "name": "define_param"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "if_not_exists_clause"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "variable_name"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_value"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "value"
-        }
-      ]
-    },
-    "define_param": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_define"
-        },
-        {
-          "type": "SYMBOL",
           "name": "keyword_param"
         },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "if_not_exists_clause"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "if_not_exists_clause"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_overwrite"
+                }
+              ]
             },
             {
               "type": "BLANK"
