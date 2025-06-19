@@ -1,0 +1,133 @@
+=================================================
+Enable scope authentication directly in SurrealDB
+=================================================
+
+DEFINE SCOPE account SESSION 24h
+	SIGNUP ( CREATE user SET email = $email, pass = crypto::argon2::generate($pass) )
+	SIGNIN ( SELECT * FROM user WHERE email = $email AND crypto::argon2::compare(pass, $pass) );
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_scope_statement
+     (keyword_define)
+     (keyword_scope)
+     (identifier)
+     (session_clause
+      (keyword_session)
+      (duration
+       (duration_part)))
+     (signup_clause
+      (keyword_signup)
+      (sub_query
+       (expression
+        (subquery_statement
+         (create_statement
+          (keyword_create)
+          (create_target
+           (value
+            (base_value
+             (identifier))))
+          (set_clause
+           (keyword_set)
+           (field_assignment
+            (identifier)
+            (assignment_operator)
+            (value
+             (base_value
+              (variable_name))))
+           (field_assignment
+            (identifier)
+            (assignment_operator)
+            (value
+             (function_call
+              (function_name)
+              (argument_list
+               (value
+                (base_value
+                 (variable_name)))))))))))))
+  (signin_clause
+   (keyword_signin)
+   (sub_query
+    (expression
+     (subquery_statement
+      (select_statement
+       (select_clause
+        (keyword_select)
+        (inclusive_predicate))
+       (from_clause
+        (keyword_from)
+        (value
+         (base_value
+          (identifier)))
+        (where_clause
+         (keyword_where)
+         (value
+          (binary_expression
+           (value
+            (binary_expression
+             (value
+              (base_value
+               (identifier)))
+             (operator)
+             (value
+              (base_value
+               (variable_name)))))
+           (operator
+            (keyword_and))
+           (value
+            (function_call
+             (function_name)
+             (argument_list
+              (value
+               (base_value
+                (identifier)))
+              (value
+               (base_value
+                (variable_name))))))))))))))))))
+(semi_colon)))
+
+===========================================
+Create a SCOPE if it does not already exist
+===========================================
+
+DEFINE SCOPE IF NOT EXISTS example;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_scope_statement
+     (keyword_define)
+     (keyword_scope)
+     (if_not_exists_clause
+      (keyword_if)
+      (keyword_not)
+      (keyword_exists))
+     (identifier))))
+  (semi_colon)))
+
+===========================================
+Create a SCOPE with overwrite
+===========================================
+
+DEFINE SCOPE OVERWRITE example;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_scope_statement
+     (keyword_define)
+     (keyword_scope)
+     (keyword_overwrite)
+     (identifier))))
+  (semi_colon)))
+

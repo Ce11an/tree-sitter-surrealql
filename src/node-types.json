@@ -1089,6 +1089,10 @@
           "named": true
         },
         {
+          "type": "keyword_overwrite",
+          "named": true
+        },
+        {
           "type": "keyword_scope",
           "named": true
         },

@@ -461,7 +461,7 @@ module.exports = grammar({
       seq(
         $.keyword_define,
         $.keyword_scope,
-        optional($.if_not_exists_clause),
+        optional(choice($.if_not_exists_clause, $.keyword_overwrite)),
         $.identifier,
         repeat(
           choice(
