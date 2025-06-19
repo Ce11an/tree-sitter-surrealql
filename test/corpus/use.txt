@@ -57,4 +57,3 @@ USE NS test DB test;
             (keyword_db)
             (identifier)))))
     (semi_colon)))
-

@@ -7,4 +7,3 @@ REBUILD INDEX uniq_isbn ON book;
 INFO FOR TABLE book;
 
 REBUILD INDEX IF EXISTS idx_author ON book;
-

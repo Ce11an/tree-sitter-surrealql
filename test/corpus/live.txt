@@ -59,4 +59,3 @@ LIVE SELECT * FROM person WHERE age > 18;
                         (number
                           (int))))))))))))
     (semi_colon)))
-

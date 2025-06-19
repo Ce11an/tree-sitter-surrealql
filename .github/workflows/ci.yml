@@ -19,7 +19,7 @@ jobs:
     name: Find changes
     runs-on: ubuntu-latest
     permissions:
-     pull-requests: read
+      pull-requests: read
     outputs:
       grammarjs: ${{ steps.filter.outputs.grammarjs }}
     steps:

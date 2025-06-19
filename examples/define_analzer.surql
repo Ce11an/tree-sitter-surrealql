@@ -55,4 +55,3 @@ DEFINE ANALYZER autocomplete FILTERS lowercase,edgengram(2,10);
 
 -- Creates an analyzer suitable for source code analysis.
 DEFINE ANALYZER code TOKENIZERS class,camel FILTERS lowercase,ascii;
-
