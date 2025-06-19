@@ -1619,6 +1619,27 @@
           "name": "keyword_event"
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "if_not_exists_clause"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_overwrite"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "identifier"
         },
