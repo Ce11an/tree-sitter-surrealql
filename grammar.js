@@ -502,29 +502,7 @@ module.exports = grammar({
             $.keyword_record,
             optional(seq($.keyword_signup, "(", $.create_statement, ")")),
             optional(seq($.keyword_signin, "(", $.select_statement, ")")),
-            optional(
-              seq(
-                $.keyword_with,
-                $.keyword_jwt,
-                choice(
-                  seq(
-                    $.keyword_algorithm,
-                    $.identifier,
-                    $.keyword_key,
-                    $.string,
-                  ),
-                  seq($.keyword_url, $.string),
-                ),
-                optional(
-                  seq(
-                    $.keyword_with,
-                    $.keyword_issuer,
-                    $.keyword_key,
-                    $.string,
-                  ),
-                ),
-              ),
-            ),
+            optional($.access_record_jwt_clause),
             optional(seq($.keyword_with, $.keyword_refresh)),
           ),
           seq(
@@ -535,6 +513,21 @@ module.exports = grammar({
         ),
         optional(seq($.keyword_authenticate, $.block)),
         optional($.duration_clause),
+      ),
+
+    access_record_jwt_clause: $ =>
+      prec.left(
+        seq(
+          $.keyword_with,
+          $.keyword_jwt,
+          choice(
+            seq($.keyword_algorithm, $.identifier, $.keyword_key, $.string),
+            seq($.keyword_url, $.string),
+          ),
+          optional(
+            seq($.keyword_with, $.keyword_issuer, $.keyword_key, $.string),
+          ),
+        ),
       ),
 
     define_table_statement: $ =>
@@ -1357,10 +1350,20 @@ module.exports = grammar({
     record_id_range: $ =>
       prec.right(
         3,
-        seq(
-          optional(seq($.record_id_value, optional(">"))),
+        choice(
+          seq(
+            $.record_id_value,
+            ">",
+            "..",
+            optional(seq("=", $.record_id_value)),
+          ),
+          seq($.record_id_value, ">", ".."),
+          seq($.record_id_value, "..", "=", $.record_id_value),
+          seq($.record_id_value, "..", $.record_id_value),
+          seq($.record_id_value, ".."),
+          seq("..", "=", $.record_id_value),
+          seq("..", $.record_id_value),
           "..",
-          optional(seq(optional("="), $.record_id_value)),
         ),
       ),
     sub_query: $ => seq("(", $.expression, ")"),

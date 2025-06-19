@@ -257,6 +257,49 @@
 
 ; Special
 (graph_path) @operator
+(cast_expression) @type
+(negated_expression) @operator
+
+; Field assignments
+(field_assignment 
+  (identifier) @property)
+
+; Object properties
+(object_property 
+  (object_key) @property)
+
+; Record IDs
+(record_id 
+  (object_key) @type.builtin)
+(record_id_ident) @constant
+
+; Path expressions  
+(subscript 
+  (identifier) @property)
+
+; Control flow keywords
+[
+  (keyword_if)
+  (keyword_else)
+  (keyword_for)
+  (keyword_break)
+  (keyword_continue)
+] @keyword.control
+
+; Storage keywords
+[
+  (keyword_let)
+  (keyword_set)
+  (keyword_unset)
+] @keyword.storage
+
+; Import/export keywords
+[
+  (keyword_use)
+] @keyword.import
+
+; Duration values
+(duration) @number.time
 
 ; Errors
 (ERROR) @error
