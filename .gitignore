@@ -34,3 +34,7 @@ dsl.d.ts
 *.wasm
 *.obj
 *.o
+
+# Claude Code
+.claude/
+specs/
