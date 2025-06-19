@@ -1007,11 +1007,19 @@
           "named": true
         },
         {
+          "type": "if_not_exists_clause",
+          "named": true
+        },
+        {
           "type": "keyword_define",
           "named": true
         },
         {
           "type": "keyword_namespace",
+          "named": true
+        },
+        {
+          "type": "keyword_overwrite",
           "named": true
         }
       ]
