@@ -12,7 +12,8 @@
     "format:check": "prettier --check ./grammar.js",
     "format:fix": "prettier --write ./grammar.js",
     "install": "node-gyp-build",
-    "prebuildify": "prebuildify --napi --strip"
+    "prebuildify": "prebuildify --napi --strip",
+    "prepare": "husky install"
   },
   "keywords": [
     "parser",
@@ -51,8 +52,13 @@
     }
   },
   "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prebuildify": "^6.0.0",
     "prettier": "3.5.3",
-    "tree-sitter-cli": "^0.25.6",
-    "prebuildify": "^6.0.0"
+    "tree-sitter-cli": "^0.25.6"
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
   }
 }
