@@ -520,6 +520,18 @@
       "type": "PATTERN",
       "value": "[rR][sS][55][11][22]"
     },
+    "keyword_hs256": {
+      "type": "PATTERN",
+      "value": "[hH][sS][22][55][66]"
+    },
+    "keyword_hs384": {
+      "type": "PATTERN",
+      "value": "[hH][sS][33][88][44]"
+    },
+    "keyword_hs512": {
+      "type": "PATTERN",
+      "value": "[hH][sS][55][11][22]"
+    },
     "keyword_bm25": {
       "type": "PATTERN",
       "value": "[bB][mM][22][55]"
@@ -2590,11 +2602,24 @@
             },
             {
               "type": "SYMBOL",
-              "name": "keyword_namespace"
+              "name": "keyword_database"
             },
             {
               "type": "SYMBOL",
-              "name": "keyword_scope"
+              "name": "keyword_namespace"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_scope"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                }
+              ]
             }
           ]
         },
@@ -2609,6 +2634,18 @@
         {
           "type": "SYMBOL",
           "name": "string"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "comment_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -6473,6 +6510,18 @@
             {
               "type": "SYMBOL",
               "name": "keyword_es512"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_hs256"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_hs384"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_hs512"
             },
             {
               "type": "SYMBOL",

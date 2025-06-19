@@ -1,0 +1,90 @@
+=========================
+Set the name of the token
+=========================
+
+DEFINE TOKEN token_name
+  -- Use this token provider for database authorization
+  ON DATABASE
+  -- Specify the cryptographic signature algorithm used to verify the token
+  TYPE HS512
+  -- Specify the secret used to sign and verify the authenticity of the token
+  VALUE "sNSYneezcr8kqphfOC6NwwraUHJCVAt0XjsRSNmssBaBRh3WyMa9TRfq8ST7fsU2H2kGiOpU4GbAF1bCiXmM1b3JGgleBzz7rsrz6VvYEM4q3CLkcO8CMBIlhwhzWmy8";
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_token_statement
+          (keyword_define)
+          (keyword_token)
+          (identifier)
+          (comment)
+          (keyword_on)
+          (keyword_database)
+          (comment)
+          (token_type_clause
+            (keyword_type)
+            (keyword_hs512))
+          (comment)
+          (keyword_value)
+          (string))))
+    (semi_colon)))
+
+===========================================
+Create a TOKEN if it does not already exist
+===========================================
+
+DEFINE TOKEN IF NOT EXISTS example ON SCOPE example TYPE HS512 VALUE "example";
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_token_statement
+          (keyword_define)
+          (keyword_token)
+          (if_not_exists_clause
+            (keyword_if)
+            (keyword_not)
+            (keyword_exists))
+          (identifier)
+          (keyword_on)
+          (keyword_scope)
+          (identifier)
+          (token_type_clause
+            (keyword_type)
+            (keyword_hs512))
+          (keyword_value)
+          (string))))
+    (semi_colon)))
+
+=============================
+Create a TOKEN with overwrite
+=============================
+
+DEFINE TOKEN OVERWRITE example ON SCOPE example TYPE HS512 VALUE "example";
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_token_statement
+          (keyword_define)
+          (keyword_token)
+          (keyword_overwrite)
+          (identifier)
+          (keyword_on)
+          (keyword_scope)
+          (identifier)
+          (token_type_clause
+            (keyword_type)
+            (keyword_hs512))
+          (keyword_value)
+          (string))))
+    (semi_colon)))
