@@ -1256,7 +1256,7 @@ module.exports = grammar({
 
     type_name: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-    literal_value: $ => choice($.int, $.string),
+    literal_value: $ => choice($.int, $.string, $.duration),
 
     type_or_separated: $ =>
       prec(1, seq($.type_name, repeat(seq("|", $.type_name)))),

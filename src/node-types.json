@@ -2356,6 +2356,10 @@
       "required": true,
       "types": [
         {
+          "type": "duration",
+          "named": true
+        },
+        {
           "type": "int",
           "named": true
         },
