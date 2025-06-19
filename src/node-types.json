@@ -1187,11 +1187,19 @@
       "required": true,
       "types": [
         {
+          "type": "comment_clause",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "if_not_exists_clause",
+          "named": true
+        },
+        {
+          "type": "keyword_database",
           "named": true
         },
         {
@@ -4204,6 +4212,18 @@
           "named": true
         },
         {
+          "type": "keyword_hs256",
+          "named": true
+        },
+        {
+          "type": "keyword_hs384",
+          "named": true
+        },
+        {
+          "type": "keyword_hs512",
+          "named": true
+        },
+        {
           "type": "keyword_jwks",
           "named": true
         },
@@ -5268,6 +5288,18 @@
   },
   {
     "type": "keyword_hnsw",
+    "named": true
+  },
+  {
+    "type": "keyword_hs256",
+    "named": true
+  },
+  {
+    "type": "keyword_hs384",
+    "named": true
+  },
+  {
+    "type": "keyword_hs512",
     "named": true
   },
   {
