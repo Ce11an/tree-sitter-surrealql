@@ -1335,9 +1335,9 @@ module.exports = grammar({
     version_number: _ => /[0-9]+(\.[0-9]+(\.[0-9]+)?)?/,
 
     // Complex structures
-    array: $ => seq("[", optional(commaSeparated($.value)), "]"),
+    array: $ => seq("[", optional(commaSeparatedTrailing($.value)), "]"),
     object: $ => seq("{", optional($.object_content), "}"),
-    object_content: $ => commaSeparated($.object_property),
+    object_content: $ => commaSeparatedTrailing($.object_property),
     object_property: $ => seq(choice($.object_key, $.string), ":", $.value),
     object_key: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
@@ -1435,6 +1435,10 @@ module.exports = grammar({
 
 function commaSeparated(rule) {
   return seq(rule, repeat(seq(",", rule)));
+}
+
+function commaSeparatedTrailing(rule) {
+  return seq(rule, repeat(seq(",", rule)), optional(","));
 }
 
 function make_keyword(word) {
