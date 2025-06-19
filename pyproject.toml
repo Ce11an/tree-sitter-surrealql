@@ -26,5 +26,6 @@ Homepage = "https://github.com/ce11an/tree-sitter-surrealql"
 core = ["tree-sitter~=0.21"]
 
 [tool.cibuildwheel]
-build = "cp38-*"
+build = "cp38-* cp39-* cp310-* cp311-* cp312-*"
+skip = "*-musllinux_aarch64"
 build-frontend = "build"
