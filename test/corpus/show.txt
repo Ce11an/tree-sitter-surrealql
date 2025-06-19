@@ -1,0 +1,56 @@
+==============================================
+Show changes to the reading table since a date
+==============================================
+
+SHOW CHANGES FOR TABLE reading SINCE d"2023-09-07T01:23:52Z" LIMIT 10;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (show_statement
+     (keyword_show)
+     (keyword_changes)
+     (keyword_for)
+     (keyword_table)
+     (identifier)
+     (keyword_since)
+     (value
+      (base_value
+       (prefixed_string)))
+     (limit_clause
+      (keyword_limit)
+      (number
+       (int))))))
+  (semi_colon)))
+
+=======================================================
+Show changes to the reading table since a version stamp
+=======================================================
+
+SHOW CHANGES FOR TABLE reading SINCE 1 LIMIT 10;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (show_statement
+     (keyword_show)
+     (keyword_changes)
+     (keyword_for)
+     (keyword_table)
+     (identifier)
+     (keyword_since)
+     (value
+      (base_value
+       (number
+        (int))))
+     (limit_clause
+      (keyword_limit)
+      (number
+       (int))))))
+  (semi_colon)))

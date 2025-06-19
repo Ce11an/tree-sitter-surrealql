@@ -3659,6 +3659,49 @@
     }
   },
   {
+    "type": "show_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_changes",
+          "named": true
+        },
+        {
+          "type": "keyword_for",
+          "named": true
+        },
+        {
+          "type": "keyword_show",
+          "named": true
+        },
+        {
+          "type": "keyword_since",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        },
+        {
+          "type": "limit_clause",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "signin_clause",
     "named": true,
     "fields": {},
@@ -3887,6 +3930,10 @@
         },
         {
           "type": "select_statement",
+          "named": true
+        },
+        {
+          "type": "show_statement",
           "named": true
         },
         {
@@ -4889,6 +4936,10 @@
     "named": true
   },
   {
+    "type": "keyword_changes",
+    "named": true
+  },
+  {
     "type": "keyword_chebyshev",
     "named": true
   },
@@ -5425,11 +5476,19 @@
     "named": true
   },
   {
+    "type": "keyword_show",
+    "named": true
+  },
+  {
     "type": "keyword_signin",
     "named": true
   },
   {
     "type": "keyword_signup",
+    "named": true
+  },
+  {
+    "type": "keyword_since",
     "named": true
   },
   {
