@@ -2898,6 +2898,10 @@
           "named": true
         },
         {
+          "type": "function_call",
+          "named": true
+        },
+        {
           "type": "graph_path",
           "named": true
         },
@@ -3439,6 +3443,25 @@
     }
   },
   {
+    "type": "replace_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_replace",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "return_clause",
     "named": true,
     "fields": {},
@@ -3939,6 +3962,10 @@
         {
           "type": "update_statement",
           "named": true
+        },
+        {
+          "type": "upsert_statement",
+          "named": true
         }
       ]
     }
@@ -4425,6 +4452,81 @@
         },
         {
           "type": "unset_clause",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        },
+        {
+          "type": "where_clause",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "upsert_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "content_clause",
+          "named": true
+        },
+        {
+          "type": "explain_clause",
+          "named": true
+        },
+        {
+          "type": "field_assignment",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_only",
+          "named": true
+        },
+        {
+          "type": "keyword_set",
+          "named": true
+        },
+        {
+          "type": "keyword_unset",
+          "named": true
+        },
+        {
+          "type": "keyword_upsert",
+          "named": true
+        },
+        {
+          "type": "merge_clause",
+          "named": true
+        },
+        {
+          "type": "parallel_clause",
+          "named": true
+        },
+        {
+          "type": "patch_clause",
+          "named": true
+        },
+        {
+          "type": "replace_clause",
+          "named": true
+        },
+        {
+          "type": "return_clause",
+          "named": true
+        },
+        {
+          "type": "timeout_clause",
           "named": true
         },
         {
@@ -5424,6 +5526,10 @@
     "named": true
   },
   {
+    "type": "keyword_replace",
+    "named": true
+  },
+  {
     "type": "keyword_return",
     "named": true
   },
@@ -5557,6 +5663,10 @@
   },
   {
     "type": "keyword_update",
+    "named": true
+  },
+  {
+    "type": "keyword_upsert",
     "named": true
   },
   {

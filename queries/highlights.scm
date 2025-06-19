@@ -187,6 +187,8 @@
   (keyword_authenticate)
   (keyword_grant)
   (keyword_access)
+  (keyword_upsert)
+  (keyword_replace)
 ] @keyword
 
 ; Operators
