@@ -621,3 +621,180 @@ DEFINE FIELD foo.*.bar ON TABLE baz;
             (keyword_table)
             (identifier)))))
     (semi_colon)))
+
+===============================
+Define field with duration type
+===============================
+
+DEFINE FIELD timeout ON TABLE session TYPE duration DEFAULT 30m;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_field_statement
+          (keyword_define)
+          (keyword_field)
+          (inclusive_predicate
+            (predicate
+              (value
+                (base_value
+                  (identifier)))))
+          (on_table_clause
+            (keyword_on)
+            (keyword_table)
+            (identifier))
+          (type_clause
+            (keyword_type)
+            (type
+              (type_name)))
+          (default_clause
+            (keyword_default)
+            (value
+              (base_value
+                (duration
+                  (duration_part))))))))
+    (semi_colon)))
+
+=================================
+Define field with duration literal
+=================================
+
+DEFINE FIELD expiry ON TABLE token TYPE 15m | 1h | 24h;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_field_statement
+          (keyword_define)
+          (keyword_field)
+          (inclusive_predicate
+            (predicate
+              (value
+                (base_value
+                  (identifier)))))
+          (on_table_clause
+            (keyword_on)
+            (keyword_table)
+            (identifier))
+          (type_clause
+            (keyword_type)
+            (type
+              (union_type
+                (literal_value
+                  (duration
+                    (duration_part)))
+                (literal_value
+                  (duration
+                    (duration_part)))
+                (literal_value
+                  (duration
+                    (duration_part)))))))))
+    (semi_colon)))
+
+==============================
+Define field with uuid type
+==============================
+
+DEFINE FIELD id ON TABLE user TYPE uuid;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_field_statement
+          (keyword_define)
+          (keyword_field)
+          (inclusive_predicate
+            (predicate
+              (value
+                (base_value
+                  (identifier)))))
+          (on_table_clause
+            (keyword_on)
+            (keyword_table)
+            (identifier))
+          (type_clause
+            (keyword_type)
+            (type
+              (type_name))))))
+    (semi_colon)))
+
+=======================================
+Define field with complex nested literal
+=======================================
+
+DEFINE FIELD complex ON TABLE test TYPE array<object>;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_field_statement
+          (keyword_define)
+          (keyword_field)
+          (inclusive_predicate
+            (predicate
+              (value
+                (base_value
+                  (identifier)))))
+          (on_table_clause
+            (keyword_on)
+            (keyword_table)
+            (identifier))
+          (type_clause
+            (keyword_type)
+            (type
+              (parameterized_type
+                (type_name)
+                (type
+                  (type_name))))))))
+    (semi_colon)))
+
+==========================================
+Define field with array of string literals
+==========================================
+
+DEFINE FIELD status ON TABLE task TYPE array<"pending" | "active" | "completed">;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_field_statement
+          (keyword_define)
+          (keyword_field)
+          (inclusive_predicate
+            (predicate
+              (value
+                (base_value
+                  (identifier)))))
+          (on_table_clause
+            (keyword_on)
+            (keyword_table)
+            (identifier))
+          (type_clause
+            (keyword_type)
+            (type
+              (parameterized_type
+                (type_name)
+                (type
+                  (union_type
+                    (literal_value
+                      (string))
+                    (literal_value
+                      (string))
+                    (literal_value
+                      (string))))))))))
+    (semi_colon)))
