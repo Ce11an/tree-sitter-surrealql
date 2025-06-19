@@ -1,0 +1,703 @@
+=============================
+UPSERT without a WHERE clause
+=============================
+
+UPSERT person SET name = 'Billy';
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (identifier)))
+     (keyword_set)
+     (field_assignment
+      (identifier)
+      (assignment_operator)
+      (value
+       (base_value
+        (string)))))))
+  (semi_colon)))
+
+==================
+Using where clause
+==================
+
+UPSERT person SET name = 'Jaime' WHERE name = 'Jaime';
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (identifier)))
+     (keyword_set)
+     (field_assignment
+      (identifier)
+      (assignment_operator)
+      (value
+       (base_value
+        (string))))
+     (where_clause
+      (keyword_where)
+      (value
+       (binary_expression
+        (value
+         (base_value
+          (identifier)))
+        (operator)
+        (value
+         (base_value
+          (string)))))))))
+(semi_colon)))
+
+
+===================
+With a specified ID
+===================
+
+UPSERT person:test SET name = 'Jaime' WHERE name = 'Jaime';
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (keyword_set)
+     (field_assignment
+      (identifier)
+      (assignment_operator)
+      (value
+       (base_value
+        (string))))
+     (where_clause
+      (keyword_where)
+      (value
+       (binary_expression
+        (value
+         (base_value
+          (identifier)))
+        (operator)
+        (value
+         (base_value
+          (string)))))))))
+(semi_colon)))
+
+====================
+Update with metadata
+====================
+
+UPDATE user SET
+	metadata = { likes: ["strawberries", "fields"] }
+WHERE
+	name = "Billy" AND
+	class = "wizard";
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (update_statement
+     (keyword_update)
+     (value
+      (base_value
+       (identifier)))
+     (set_clause
+      (keyword_set)
+      (field_assignment
+       (identifier)
+       (assignment_operator)
+       (value
+        (base_value
+         (object
+          (object_content
+           (object_property
+            (object_key)
+            (value
+             (base_value
+              (array
+               (value
+                (base_value
+                 (string)))
+               (value
+                (base_value
+                 (string)))))))))))))
+  (where_clause
+   (keyword_where)
+   (value
+    (binary_expression
+     (value
+      (binary_expression
+       (value
+        (binary_expression
+         (value
+          (base_value
+           (identifier)))
+         (operator)
+         (value
+          (base_value
+           (string)))))
+       (operator
+        (keyword_and))
+       (value
+        (base_value
+         (identifier)))))
+     (operator)
+     (value
+      (base_value
+       (string)))))))))
+(semi_colon)))
+
+======================
+Upsert a single record
+======================
+
+UPSERT ONLY person:tobie SET
+	name = 'Tobie',
+	company = 'SurrealDB',
+	skills = ['Rust', 'Go', 'JavaScript'];
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (keyword_only)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (keyword_set)
+     (field_assignment
+      (identifier)
+      (assignment_operator)
+      (value
+       (base_value
+        (string))))
+     (field_assignment
+      (identifier)
+      (assignment_operator)
+      (value
+       (base_value
+        (string))))
+  (field_assignment
+   (identifier)
+   (assignment_operator)
+   (value
+    (base_value
+     (array
+      (value
+       (base_value
+        (string)))
+      (value
+       (base_value
+        (string)))
+      (value
+       (base_value
+        (string))))))))))
+(semi_colon)))
+
+================================================
+Upsert a document and remove a tag from an array
+================================================
+
+UPSERT person:tobie SET interests += 'Java';
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (keyword_set)
+     (field_assignment
+      (identifier)
+      (assignment_operator)
+      (value
+       (base_value
+        (string)))))))
+  (semi_colon)))
+
+===============================================
+Upsert a document and increment a numeric value
+===============================================
+
+UPSERT webpage:home SET click_count += 1;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (keyword_set)
+     (field_assignment
+      (identifier)
+      (assignment_operator)
+      (value
+       (base_value
+        (number
+         (int))))))))
+  (semi_colon)))
+
+========================
+Upsert incremental field
+========================
+
+UPSERT event_for:[time::now().format("%Y-%m-%d")] SET
+    number += 1;
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (upsert_statement
+          (keyword_upsert)
+          (value
+            (base_value
+              (record_id
+                (object_key)
+                (record_id_value
+                  (array
+                    (value
+                      (path
+                        (function_call
+                          (function_name)
+                          (argument_list))
+                        (path_element
+                          (subscript
+                            (identifier)
+                            (argument_list
+                              (value
+                                (base_value
+                                  (string)))))))))))))
+          (keyword_set)
+          (field_assignment
+            (identifier)
+            (assignment_operator)
+            (value
+              (base_value
+                (number
+                  (int))))))))
+    (semi_colon)))
+
+========================================
+Upsert all records with the same content
+========================================
+
+UPSERT person CONTENT {
+	name: 'Tobie',
+	company: 'SurrealDB',
+	skills: ['Rust', 'Go', 'JavaScript']
+};
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (identifier)))
+     (content_clause
+      (keyword_content)
+      (object
+       (object_content
+        (object_property
+         (object_key)
+         (value
+          (base_value
+           (string))))
+        (object_property
+         (object_key)
+         (value
+          (base_value
+           (string))))
+        (object_property
+         (object_key)
+         (value
+          (base_value
+           (array
+            (value
+             (base_value
+              (string)))
+            (value
+             (base_value
+              (string)))
+            (value
+             (base_value
+              (string)))))))))))))
+(semi_colon)))
+
+====================
+Using REPLACE clause
+====================
+
+UPSERT person:gladys REPLACE { age: 70 };
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (replace_clause
+      (keyword_replace)
+      (object
+       (object_content
+        (object_property
+         (object_key)
+         (value
+          (base_value
+           (number
+            (int)))))))))))
+(semi_colon)))
+
+==================
+Using MERGE clause
+==================
+
+UPSERT person MERGE {
+	settings: {
+		marketing: true
+	}
+};
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (identifier)))
+     (merge_clause
+      (keyword_merge)
+      (object
+       (object_content
+        (object_property
+         (object_key)
+         (value
+          (base_value
+           (object
+            (object_content
+             (object_property
+              (object_key)
+              (value
+               (base_value
+                (keyword_true)))))))))))))))
+(semi_colon)))
+
+==================
+Using PATCH clause
+==================
+
+UPSERT person:tobie PATCH [
+	{
+		"op": "add",
+		"path": "Engineering",
+		"value": "true"
+	}
+];
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (patch_clause
+      (keyword_patch)
+      (array
+       (value
+        (base_value
+         (object
+          (object_content
+           (object_property
+            (string)
+            (value
+             (base_value
+              (string))))
+           (object_property
+            (string)
+            (value
+             (base_value
+              (string))))
+           (object_property
+            (string)
+            (value
+             (base_value
+              (string)))))))))))))
+(semi_colon)))
+
+======================
+Alter the RETURN value
+======================
+
+-- Don't return any result
+UPSERT person:tobie SET interests += 'reading' RETURN NONE;
+
+-- Return the changeset diff
+UPSERT person:tobie SET interests += 'reading' RETURN DIFF;
+
+-- Return the record before changes were applied
+UPSERT person:tobie SET interests += 'reading' RETURN BEFORE;
+
+-- Return the record after changes were applied (the default)
+UPSERT person:tobie SET interests += 'reading' RETURN AFTER;
+
+-- Return a specific field only from the upserted records
+UPSERT person:tobie SET interests = ['skiing', 'music'] RETURN name, interests;
+
+---
+
+  (source_file
+   (comment)
+   (expressions
+    (expression
+     (subquery_statement
+      (upsert_statement
+       (keyword_upsert)
+       (value
+        (base_value
+         (record_id
+          (object_key)
+          (record_id_value
+           (record_id_ident)))))
+       (keyword_set)
+       (field_assignment
+        (identifier)
+        (assignment_operator)
+        (value
+         (base_value
+          (string))))
+       (return_clause
+        (keyword_return)
+        (value
+         (base_value
+          (keyword_none)))))))
+  (semi_colon)
+(comment)
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (keyword_set)
+     (field_assignment
+      (identifier)
+      (assignment_operator)
+      (value
+       (base_value
+        (string))))
+     (return_clause
+      (keyword_return)
+      (keyword_diff)))))
+  (semi_colon)
+(comment)
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (keyword_set)
+     (field_assignment
+      (identifier)
+      (assignment_operator)
+      (value
+       (base_value
+        (string))))
+     (return_clause
+      (keyword_return)
+      (keyword_before)))))
+  (semi_colon)
+(comment)
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (keyword_set)
+     (field_assignment
+      (identifier)
+      (assignment_operator)
+      (value
+       (base_value
+        (string))))
+     (return_clause
+      (keyword_return)
+      (keyword_after)))))
+  (semi_colon)
+(comment)
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (keyword_set)
+     (field_assignment
+      (identifier)
+      (assignment_operator)
+      (value
+       (base_value
+        (array
+         (value
+          (base_value
+           (string)))
+         (value
+          (base_value
+           (string)))))))
+  (return_clause
+   (keyword_return)
+   (value
+    (base_value
+     (identifier)))
+   (value
+    (base_value
+     (identifier)))))))
+(semi_colon)))
+
+=============
+Using TIMEOUT
+=============
+
+UPSERT person:3 SET important = true WHERE ->knows->person->(knows WHERE influencer = true) TIMEOUT 5s;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (upsert_statement
+     (keyword_upsert)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (int)))))
+     (keyword_set)
+     (field_assignment
+      (identifier)
+      (assignment_operator)
+      (value
+       (base_value
+        (keyword_true))))
+     (where_clause
+      (keyword_where)
+      (value
+       (path
+        (graph_path
+         (identifier))
+        (path_element
+         (graph_path
+          (identifier)))
+        (path_element
+         (graph_path
+          (graph_predicate
+           (value
+            (base_value
+             (identifier)))
+           (where_clause
+            (keyword_where)
+            (value
+             (binary_expression
+              (value
+               (base_value
+                (identifier)))
+              (operator)
+              (value
+               (base_value
+                (keyword_true))))))))))))
+  (timeout_clause
+   (keyword_timeout)
+   (duration
+    (duration_part))))))
+(semi_colon)))

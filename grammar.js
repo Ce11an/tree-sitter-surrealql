@@ -136,6 +136,7 @@ module.exports = grammar({
     keyword_content: _ => make_keyword("CONTENT"),
     keyword_merge: _ => make_keyword("MERGE"),
     keyword_patch: _ => make_keyword("PATCH"),
+    keyword_replace: _ => make_keyword("REPLACE"),
     keyword_before: _ => make_keyword("BEFORE"),
     keyword_after: _ => make_keyword("AFTER"),
     keyword_table: _ => make_keyword("TABLE"),
@@ -150,6 +151,7 @@ module.exports = grammar({
     keyword_create: _ => make_keyword("CREATE"),
     keyword_delete: _ => make_keyword("DELETE"),
     keyword_update: _ => make_keyword("UPDATE"),
+    keyword_upsert: _ => make_keyword("UPSERT"),
     keyword_insert: _ => make_keyword("INSERT"),
     keyword_into: _ => make_keyword("INTO"),
     keyword_filters: _ => make_keyword("FILTERS"),
@@ -250,6 +252,7 @@ module.exports = grammar({
         $.delete_statement,
         $.create_statement,
         $.update_statement,
+        $.upsert_statement,
         $.remove_statement,
         $.return_statement,
         $.insert_statement,
@@ -684,6 +687,28 @@ module.exports = grammar({
             ),
           ),
         ),
+      ),
+
+    upsert_statement: $ =>
+      seq(
+        $.keyword_upsert,
+        optional($.keyword_only),
+        commaSeparated($.value),
+        optional(
+          choice(
+            $.content_clause,
+            $.merge_clause,
+            $.patch_clause,
+            $.replace_clause,
+            seq($.keyword_set, commaSeparated($.field_assignment)),
+            seq($.keyword_unset, commaSeparated($.identifier)),
+          ),
+        ),
+        optional($.where_clause),
+        optional($.return_clause),
+        optional($.timeout_clause),
+        optional($.parallel_clause),
+        optional($.explain_clause),
       ),
 
     relate_statement: $ =>
@@ -1122,6 +1147,8 @@ module.exports = grammar({
 
     patch_clause: $ => seq($.keyword_patch, $.array),
 
+    replace_clause: $ => seq($.keyword_replace, $.object),
+
     field_assignment: $ => seq($.identifier, $.assignment_operator, $.value),
 
     // Value-related rules
@@ -1182,6 +1209,7 @@ module.exports = grammar({
     path: $ =>
       choice(
         seq($.base_value, repeat1($.path_element)),
+        seq($.function_call, repeat1($.path_element)),
         seq($.graph_path, repeat($.path_element)),
       ),
 
@@ -1211,7 +1239,12 @@ module.exports = grammar({
     subscript: $ =>
       seq(
         ".",
-        choice($.identifier, seq($.function_name, $.argument_list), "*"),
+        choice(
+          prec(1, seq($.identifier, $.argument_list)),
+          seq($.function_name, $.argument_list),
+          $.identifier,
+          "*",
+        ),
       ),
 
     version: $ => seq("<", $.version_number, ">"),
