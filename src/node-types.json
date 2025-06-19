@@ -1336,10 +1336,6 @@
           "named": true
         },
         {
-          "type": "primary_statement",
-          "named": true
-        },
-        {
           "type": "return_clause",
           "named": true
         },

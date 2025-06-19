@@ -1,0 +1,339 @@
+===============================
+Delete all records from a table
+===============================
+
+DELETE person;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (delete_statement
+     (keyword_delete)
+     (value
+      (base_value
+       (identifier))))))
+  (semi_colon)))
+
+==========================================
+Delete a record with a specific numeric id
+==========================================
+
+DELETE person:100;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (delete_statement
+     (keyword_delete)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (int))))))))
+  (semi_colon)))
+
+=========================================
+Delete a record with a specific string id
+=========================================
+
+DELETE person:tobie;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (delete_statement
+     (keyword_delete)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident))))))))
+  (semi_colon)))
+
+===========================
+Return record before delete
+===========================
+
+DELETE ONLY person:tobie RETURN BEFORE;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (delete_statement
+     (keyword_delete)
+     (keyword_only)
+     (value
+      (base_value
+       (record_id
+        (object_key)
+        (record_id_value
+         (record_id_ident)))))
+     (return_clause
+      (keyword_return)
+      (keyword_before)))))
+  (semi_colon)))
+
+============================================
+Delete all records which match the condition
+============================================
+
+DELETE city WHERE name = 'London';
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (delete_statement
+     (keyword_delete)
+     (value
+      (base_value
+       (identifier)))
+     (where_clause
+      (keyword_where)
+      (value
+       (binary_expression
+        (value
+         (base_value
+          (identifier)))
+        (operator)
+        (value
+         (base_value
+          (string)))))))))
+  (semi_colon)))
+
+====================================
+Don't return any result after delete
+====================================
+
+DELETE user WHERE age < 18 RETURN NONE;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (delete_statement
+     (keyword_delete)
+     (value
+      (base_value
+       (identifier)))
+     (where_clause
+      (keyword_where)
+      (value
+       (binary_expression
+        (value
+         (base_value
+          (identifier)))
+        (operator)
+        (value
+         (base_value
+          (number
+           (int)))))))
+     (return_clause
+      (keyword_return)
+      (value
+       (base_value
+        (keyword_none)))))))
+(semi_colon)))
+
+=========================
+Return the changeset diff
+=========================
+
+DELETE user WHERE interests CONTAINS 'reading' RETURN DIFF;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (delete_statement
+     (keyword_delete)
+     (value
+      (base_value
+       (identifier)))
+     (where_clause
+      (keyword_where)
+      (value
+       (binary_expression
+        (value
+         (base_value
+          (identifier)))
+        (operator
+         (keyword_contains))
+        (value
+         (base_value
+          (string))))))
+     (return_clause
+      (keyword_return)
+      (keyword_diff)))))
+(semi_colon)))
+
+===================================================
+Return the record after delete changes were applied
+===================================================
+
+DELETE user WHERE interests CONTAINS 'reading' RETURN AFTER;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (delete_statement
+     (keyword_delete)
+     (value
+      (base_value
+       (identifier)))
+     (where_clause
+      (keyword_where)
+      (value
+       (binary_expression
+        (value
+         (base_value
+          (identifier)))
+        (operator
+         (keyword_contains))
+        (value
+         (base_value
+          (string))))))
+     (return_clause
+      (keyword_return)
+      (keyword_after)))))
+(semi_colon)))
+
+=================
+Delete field name
+=================
+
+DELETE info WHERE error_info.continue;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (delete_statement
+     (keyword_delete)
+     (value
+      (base_value
+       (identifier)))
+     (where_clause
+      (keyword_where)
+      (value
+       (path
+        (base_value
+         (identifier))
+        (path_element
+         (subscript
+          (identifier)))))))))
+  (semi_colon)))
+
+=====================
+Delete with a timeout
+=====================
+
+DELETE person WHERE ->knows->person->(knows WHERE influencer = false) TIMEOUT 5s;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (delete_statement
+     (keyword_delete)
+     (value
+      (base_value
+       (identifier)))
+     (where_clause
+      (keyword_where)
+      (value
+       (path
+        (graph_path
+         (identifier))
+        (path_element
+         (graph_path
+          (identifier)))
+        (path_element
+         (graph_path
+          (graph_predicate
+           (value
+            (base_value
+             (identifier)))
+           (where_clause
+            (keyword_where)
+            (value
+             (binary_expression
+              (value
+               (base_value
+                (identifier)))
+              (operator)
+              (value
+               (base_value
+                (keyword_false))))))))))))
+  (timeout_clause
+   (keyword_timeout)
+   (duration
+    (duration_part))))))
+(semi_colon)))
+
+==================
+Delete graph edges
+==================
+
+DELETE person:tobie->bought WHERE out=product:iphone;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (delete_statement
+     (keyword_delete)
+     (value
+      (path
+       (base_value
+        (record_id
+         (object_key)
+         (record_id_value
+          (record_id_ident))))
+       (path_element
+        (graph_path
+         (identifier)))))
+     (where_clause
+      (keyword_where)
+      (value
+       (binary_expression
+        (value
+         (base_value
+          (identifier)))
+        (operator)
+        (value
+         (base_value
+          (record_id
+           (object_key)
+           (record_id_value
+            (record_id_ident)))))))))))
+(semi_colon)))

@@ -701,16 +701,11 @@ module.exports = grammar({
       seq(
         $.keyword_delete,
         optional($.keyword_only),
-        choice(
-          $.primary_statement,
-          seq(
-            commaSeparated($.value),
-            optional($.where_clause),
-            optional($.return_clause),
-            optional($.timeout_clause),
-            optional($.parallel_clause),
-          ),
-        ),
+        commaSeparated($.value),
+        optional($.where_clause),
+        optional($.return_clause),
+        optional($.timeout_clause),
+        optional($.parallel_clause),
       ),
 
     insert_statement: $ =>
