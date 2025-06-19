@@ -442,6 +442,7 @@ module.exports = grammar({
       seq(
         $.keyword_define,
         $.keyword_namespace,
+        optional(choice($.if_not_exists_clause, $.keyword_overwrite)),
         $.identifier,
         optional($.comment_clause),
       ),

@@ -1,0 +1,58 @@
+==================
+Define a namespace
+==================
+
+DEFINE NAMESPACE abcum;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_namespace_statement
+     (keyword_define)
+     (keyword_namespace)
+     (identifier))))
+  (semi_colon)))
+
+===============================================
+Create a NAMESPACE if it does not already exist
+===============================================
+
+DEFINE NAMESPACE IF NOT EXISTS example;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_namespace_statement
+     (keyword_define)
+     (keyword_namespace)
+     (if_not_exists_clause
+      (keyword_if)
+      (keyword_not)
+      (keyword_exists))
+     (identifier))))
+  (semi_colon)))
+
+======================================================
+Create an NAMESPACE and overwrite if it already exists
+======================================================
+
+DEFINE NAMESPACE OVERWRITE example;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_namespace_statement
+     (keyword_define)
+     (keyword_namespace)
+     (keyword_overwrite)
+     (identifier))))
+  (semi_colon)))
