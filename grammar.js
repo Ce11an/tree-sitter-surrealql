@@ -450,18 +450,8 @@ module.exports = grammar({
     define_param_statement: $ =>
       seq(
         $.keyword_define,
-        $.define_param,
-        optional($.if_not_exists_clause),
-        $.variable_name,
-        $.keyword_value,
-        $.value,
-      ),
-
-    define_param: $ =>
-      seq(
-        $.keyword_define,
         $.keyword_param,
-        optional($.if_not_exists_clause),
+        optional(choice($.if_not_exists_clause, $.keyword_overwrite)),
         $.variable_name,
         $.keyword_value,
         $.value,

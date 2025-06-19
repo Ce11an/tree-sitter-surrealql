@@ -1,0 +1,73 @@
+==============
+Define a PARAM
+==============
+
+DEFINE PARAM $endpointBase VALUE "https://dummyjson.com";
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_param_statement
+     (keyword_define)
+     (keyword_param)
+     (variable_name)
+     (keyword_value)
+     (value
+      (base_value
+       (string))))))
+  (semi_colon)))
+
+===========================================
+Create a PARAM if it does not already exist
+===========================================
+
+DEFINE PARAM IF NOT EXISTS $example VALUE 123;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_param_statement
+     (keyword_define)
+     (keyword_param)
+     (if_not_exists_clause
+      (keyword_if)
+      (keyword_not)
+      (keyword_exists))
+     (variable_name)
+     (keyword_value)
+     (value
+      (base_value
+       (number
+        (int)))))))
+  (semi_colon)))
+
+==================================================
+Create an PARAM and overwrite if it already exists
+==================================================
+
+DEFINE PARAM OVERWRITE $example VALUE 123;
+
+---
+
+(source_file
+ (expressions
+  (expression
+   (subquery_statement
+    (define_param_statement
+     (keyword_define)
+     (keyword_param)
+     (keyword_overwrite)
+     (variable_name)
+     (keyword_value)
+     (value
+      (base_value
+       (number
+        (int)))))))
+  (semi_colon)))
+
