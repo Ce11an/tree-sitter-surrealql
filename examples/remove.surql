@@ -45,5 +45,3 @@ REMOVE FUNCTION IF EXISTS fn::update_author;
 REMOVE PARAM IF EXISTS $author;
 
 REMOVE TABLE IF EXISTS article;
-
-

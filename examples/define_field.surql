@@ -46,4 +46,3 @@ DEFINE FIELD permissions ON TABLE acl TYPE array
 
 --- Using multiple data types for a complex record id
 DEFINE FIELD id ON TABLE log TYPE [record, "info" | "warn" | "error", datetime];
-

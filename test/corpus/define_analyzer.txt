@@ -310,4 +310,3 @@ DEFINE ANALYZER OVERWRITE example TOKENIZERS blank;
             (keyword_tokenizers)
             (analyzer_tokenizers)))))
     (semi_colon)))
-

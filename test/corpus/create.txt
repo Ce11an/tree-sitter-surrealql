@@ -393,4 +393,3 @@ CREATE |person:500000| SET age = 46, username = "john-smith" TIMEOUT 500ms;
             (duration
               (duration_part))))))
     (semi_colon)))
-

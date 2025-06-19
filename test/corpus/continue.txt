@@ -96,4 +96,3 @@ FOR $person IN (SELECT id, age FROM person) {
                             (keyword_true))))))))
               (semi_colon))))))
     (semi_colon)))
-

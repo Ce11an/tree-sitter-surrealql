@@ -276,4 +276,3 @@ REMOVE TABLE IF EXISTS article;
             (keyword_exists))
           (identifier))))
     (semi_colon)))
-
