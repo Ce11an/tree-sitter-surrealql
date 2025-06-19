@@ -20,6 +20,9 @@ module.exports = grammar({
       ),
     semi_colon: _ => token(";"),
     keyword_info: _ => make_keyword("INFO"),
+    keyword_show: _ => make_keyword("SHOW"),
+    keyword_changes: _ => make_keyword("CHANGES"),
+    keyword_since: _ => make_keyword("SINCE"),
     keyword_if: _ => make_keyword("IF"),
     keyword_throw: _ => make_keyword("THROW"),
     keyword_exists: _ => make_keyword("EXISTS"),
@@ -252,6 +255,7 @@ module.exports = grammar({
         $.insert_statement,
         $.relate_statement,
         $.for_statement,
+        $.show_statement,
         $.define_analyzer_statement,
         $.define_database,
         $.define_event_statement,
@@ -706,6 +710,18 @@ module.exports = grammar({
         optional($.return_clause),
         optional($.timeout_clause),
         optional($.parallel_clause),
+      ),
+
+    show_statement: $ =>
+      seq(
+        $.keyword_show,
+        $.keyword_changes,
+        $.keyword_for,
+        $.keyword_table,
+        $.identifier,
+        $.keyword_since,
+        $.value,
+        optional($.limit_clause),
       ),
 
     insert_statement: $ =>

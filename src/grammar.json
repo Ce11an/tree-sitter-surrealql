@@ -132,6 +132,18 @@
       "type": "PATTERN",
       "value": "[iI][nN][fF][oO]"
     },
+    "keyword_show": {
+      "type": "PATTERN",
+      "value": "[sS][hH][oO][wW]"
+    },
+    "keyword_changes": {
+      "type": "PATTERN",
+      "value": "[cC][hH][aA][nN][gG][eE][sS]"
+    },
+    "keyword_since": {
+      "type": "PATTERN",
+      "value": "[sS][iI][nN][cC][eE]"
+    },
     "keyword_if": {
       "type": "PATTERN",
       "value": "[iI][fF]"
@@ -1025,6 +1037,10 @@
         {
           "type": "SYMBOL",
           "name": "for_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_statement"
         },
         {
           "type": "SYMBOL",
@@ -3529,6 +3545,51 @@
             {
               "type": "SYMBOL",
               "name": "parallel_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "show_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_show"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_changes"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_table"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_since"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "limit_clause"
             },
             {
               "type": "BLANK"
