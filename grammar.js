@@ -263,7 +263,7 @@ module.exports = grammar({
         $.for_statement,
         $.show_statement,
         $.define_analyzer_statement,
-        $.define_database,
+        $.define_database_statement,
         $.define_event_statement,
         $.define_field_statement,
         $.define_function_statement,
@@ -372,7 +372,7 @@ module.exports = grammar({
         ),
       ),
 
-    define_database: $ =>
+    define_database_statement: $ =>
       seq(
         $.keyword_define,
         $.keyword_database,

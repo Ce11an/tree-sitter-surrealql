@@ -1072,7 +1072,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "define_database"
+          "name": "define_database_statement"
         },
         {
           "type": "SYMBOL",
@@ -1569,7 +1569,7 @@
         }
       ]
     },
-    "define_database": {
+    "define_database_statement": {
       "type": "SEQ",
       "members": [
         {
