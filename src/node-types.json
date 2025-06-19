@@ -1,5 +1,48 @@
 [
   {
+    "type": "access_record_jwt_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_algorithm",
+          "named": true
+        },
+        {
+          "type": "keyword_issuer",
+          "named": true
+        },
+        {
+          "type": "keyword_jwt",
+          "named": true
+        },
+        {
+          "type": "keyword_key",
+          "named": true
+        },
+        {
+          "type": "keyword_url",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "alter_statement",
     "named": true,
     "fields": {},
@@ -582,6 +625,10 @@
       "required": true,
       "types": [
         {
+          "type": "access_record_jwt_clause",
+          "named": true
+        },
+        {
           "type": "block",
           "named": true
         },
@@ -627,10 +674,6 @@
         },
         {
           "type": "keyword_for",
-          "named": true
-        },
-        {
-          "type": "keyword_issuer",
           "named": true
         },
         {

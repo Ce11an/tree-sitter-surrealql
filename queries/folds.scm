@@ -8,5 +8,13 @@
 (define_table_statement) @fold
 (define_field_statement) @fold
 (define_index_statement) @fold
+(define_access_statement) @fold
+(define_function_statement) @fold
+(define_event_statement) @fold
 
-;TODO: Add folding blocks for if-statements
+; Fold if-statements and control flow
+(if_statement) @fold
+(for_statement) @fold
+
+; Fold multi-line expressions in parentheses
+(sub_query) @fold
