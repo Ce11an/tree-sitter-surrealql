@@ -382,6 +382,7 @@ module.exports = grammar({
       seq(
         $.keyword_define,
         $.keyword_event,
+        optional(choice($.if_not_exists_clause, $.keyword_overwrite)),
         $.identifier,
         $.on_table_clause,
         $.when_then_clause,

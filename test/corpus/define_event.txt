@@ -1,0 +1,861 @@
+==============================================================
+Create a new event whenever a user changes their email address
+==============================================================
+
+DEFINE EVENT OVERWRITE test ON TABLE user WHEN $before.email != $after.email THEN (
+    CREATE log SET
+        user       = $value.id,
+        // Turn events like "CREATE" into string "email created"
+        action     = 'email' + ' ' + $event.lowercase() + 'd',
+        // `email` field may be NONE, log as '' if so
+        old_email  = $before.email ?? '',
+        new_email  = $after.email  ?? '',
+        at         = time::now()
+);
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_event_statement
+          (keyword_define)
+          (keyword_event)
+          (keyword_overwrite)
+          (identifier)
+          (on_table_clause
+            (keyword_on)
+            (keyword_table)
+            (identifier))
+          (when_then_clause
+            (keyword_when)
+            (value
+              (binary_expression
+                (value
+                  (path
+                    (base_value
+                      (variable_name))
+                    (path_element
+                      (subscript
+                        (identifier)))))
+                (operator
+                  (binary_operator))
+                (value
+                  (path
+                    (base_value
+                      (variable_name))
+                    (path_element
+                      (subscript
+                        (identifier)))))))
+            (keyword_then)
+            (sub_query
+              (expression
+                (subquery_statement
+                  (create_statement
+                    (keyword_create)
+                    (create_target
+                      (value
+                        (base_value
+                          (identifier))))
+                    (set_clause
+                      (keyword_set)
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (path
+                            (base_value
+                              (variable_name))
+                            (path_element
+                              (subscript
+                                (identifier))))))
+                      (comment)
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (binary_expression
+                            (value
+                              (binary_expression
+                                (value
+                                  (binary_expression
+                                    (value
+                                      (base_value
+                                        (string)))
+                                    (operator
+                                      (binary_operator))
+                                    (value
+                                      (base_value
+                                        (string)))))
+                                (operator
+                                  (binary_operator))
+                                (value
+                                  (path
+                                    (base_value
+                                      (variable_name))
+                                    (path_element
+                                      (subscript
+                                        (identifier)
+                                        (argument_list)))))))
+                            (operator
+                              (binary_operator))
+                            (value
+                              (base_value
+                                (string))))))
+                      (comment)
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (binary_expression
+                            (value
+                              (path
+                                (base_value
+                                  (variable_name))
+                                (path_element
+                                  (subscript
+                                    (identifier)))))
+                            (operator
+                              (binary_operator))
+                            (value
+                              (base_value
+                                (string))))))
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (binary_expression
+                            (value
+                              (path
+                                (base_value
+                                  (variable_name))
+                                (path_element
+                                  (subscript
+                                    (identifier)))))
+                            (operator
+                              (binary_operator))
+                            (value
+                              (base_value
+                                (string))))))
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (function_call
+                            (function_name)
+                            (argument_list)))))))))))))
+    (semi_colon)))
+
+=======================
+Complex event statement
+=======================
+
+DEFINE EVENT purchase_made ON TABLE purchase
+    WHEN $before == NONE
+    THEN {
+        LET $customer = (SELECT * FROM customer WHERE id = $after.customer);
+        LET $product = (SELECT * FROM product WHERE id = $after.product);
+
+        RELATE $customer->bought->$product CONTENT {
+            quantity: $after.quantity,
+            total: $after.total,
+            status: 'Pending'
+        };
+
+        CREATE log SET
+            customer_id = $after.customer,
+            product_id = $after.product,
+            action = 'purchase_created',
+            timestamp = time::now();
+    };
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_event_statement
+          (keyword_define)
+          (keyword_event)
+          (identifier)
+          (on_table_clause
+            (keyword_on)
+            (keyword_table)
+            (identifier))
+          (when_then_clause
+            (keyword_when)
+            (value
+              (binary_expression
+                (value
+                  (base_value
+                    (variable_name)))
+                (operator
+                  (binary_operator))
+                (value
+                  (base_value
+                    (keyword_none)))))
+            (keyword_then)
+            (block
+              (expressions
+                (expression
+                  (subquery_statement
+                    (let_statement
+                      (keyword_let)
+                      (variable_name)
+                      (value
+                        (base_value
+                          (sub_query
+                            (expression
+                              (subquery_statement
+                                (select_statement
+                                  (select_clause
+                                    (keyword_select)
+                                    (inclusive_predicate))
+                                  (from_clause
+                                    (keyword_from)
+                                    (value
+                                      (base_value
+                                        (identifier)))
+                                    (where_clause
+                                      (keyword_where)
+                                      (value
+                                        (binary_expression
+                                          (value
+                                            (base_value
+                                              (identifier)))
+                                          (operator)
+                                          (value
+                                            (path
+                                              (base_value
+                                                (variable_name))
+                                              (path_element
+                                                (subscript
+                                                  (identifier))))))))))))))))))
+                (semi_colon)
+                (expression
+                  (subquery_statement
+                    (let_statement
+                      (keyword_let)
+                      (variable_name)
+                      (value
+                        (base_value
+                          (sub_query
+                            (expression
+                              (subquery_statement
+                                (select_statement
+                                  (select_clause
+                                    (keyword_select)
+                                    (inclusive_predicate))
+                                  (from_clause
+                                    (keyword_from)
+                                    (value
+                                      (base_value
+                                        (identifier)))
+                                    (where_clause
+                                      (keyword_where)
+                                      (value
+                                        (binary_expression
+                                          (value
+                                            (base_value
+                                              (identifier)))
+                                          (operator)
+                                          (value
+                                            (path
+                                              (base_value
+                                                (variable_name))
+                                              (path_element
+                                                (subscript
+                                                  (identifier))))))))))))))))))
+                (semi_colon)
+                (expression
+                  (subquery_statement
+                    (relate_statement
+                      (keyword_relate)
+                      (relate_subject
+                        (variable_name))
+                      (relate_subject
+                        (identifier))
+                      (relate_subject
+                        (variable_name))
+                      (content_clause
+                        (keyword_content)
+                        (object
+                          (object_content
+                            (object_property
+                              (object_key)
+                              (value
+                                (path
+                                  (base_value
+                                    (variable_name))
+                                  (path_element
+                                    (subscript
+                                      (identifier))))))
+                            (object_property
+                              (object_key)
+                              (value
+                                (path
+                                  (base_value
+                                    (variable_name))
+                                  (path_element
+                                    (subscript
+                                      (identifier))))))
+                            (object_property
+                              (object_key)
+                              (value
+                                (base_value
+                                  (string))))))))))
+                (semi_colon)
+                (expression
+                  (subquery_statement
+                    (create_statement
+                      (keyword_create)
+                      (create_target
+                        (value
+                          (base_value
+                            (identifier))))
+                      (set_clause
+                        (keyword_set)
+                        (field_assignment
+                          (identifier)
+                          (assignment_operator)
+                          (value
+                            (path
+                              (base_value
+                                (variable_name))
+                              (path_element
+                                (subscript
+                                  (identifier))))))
+                        (field_assignment
+                          (identifier)
+                          (assignment_operator)
+                          (value
+                            (path
+                              (base_value
+                                (variable_name))
+                              (path_element
+                                (subscript
+                                  (identifier))))))
+                        (field_assignment
+                          (identifier)
+                          (assignment_operator)
+                          (value
+                            (base_value
+                              (string))))
+                        (field_assignment
+                          (identifier)
+                          (assignment_operator)
+                          (value
+                            (function_call
+                              (function_name)
+                              (argument_list))))))))
+                (semi_colon)))))))
+    (semi_colon)))
+
+======================================================================
+CREATE event is triggered when a new record is inserted into the table
+======================================================================
+
+DEFINE EVENT publish_post ON TABLE publish_post
+    WHEN $event = "CREATE"
+    THEN (
+        UPDATE post SET status = "PUBLISHED" WHERE id = $after.post_id
+    );
+
+-- UPDATE event
+-- Here we are creating a notification when a user is updated.
+DEFINE EVENT user_updated ON TABLE user
+    WHEN $event = "UPDATE"
+    THEN (
+        CREATE notification SET message = "User updated", user_id = $after.id, created_at = time::now()
+    );
+
+-- DELETE event is triggered when a record is deleted from the table.
+-- Here we are creating a notification when a user is deleted.
+DEFINE EVENT user_deleted ON TABLE user
+    WHEN $event = "DELETE"
+    THEN (
+        CREATE notification SET message = "User deleted", user_id = $before.id, created_at = time::now()
+    );
+
+-- You can combine multiple events based on your use cases.
+-- Here we are creating a log when a user is created, updated or deleted.
+DEFINE EVENT user_event ON TABLE user
+    WHEN $event = "CREATE" OR $event = "UPDATE" OR $event = "DELETE"
+    THEN (
+        CREATE log SET
+            table = "user",
+            event = $event,
+            happened_at = time::now()
+    );
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_event_statement
+          (keyword_define)
+          (keyword_event)
+          (identifier)
+          (on_table_clause
+            (keyword_on)
+            (keyword_table)
+            (identifier))
+          (when_then_clause
+            (keyword_when)
+            (value
+              (binary_expression
+                (value
+                  (base_value
+                    (variable_name)))
+                (operator)
+                (value
+                  (base_value
+                    (string)))))
+            (keyword_then)
+            (sub_query
+              (expression
+                (subquery_statement
+                  (update_statement
+                    (keyword_update)
+                    (value
+                      (base_value
+                        (identifier)))
+                    (set_clause
+                      (keyword_set)
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (base_value
+                            (string)))))
+                    (where_clause
+                      (keyword_where)
+                      (value
+                        (binary_expression
+                          (value
+                            (base_value
+                              (identifier)))
+                          (operator)
+                          (value
+                            (path
+                              (base_value
+                                (variable_name))
+                              (path_element
+                                (subscript
+                                  (identifier))))))))))))))))
+    (semi_colon)
+    (comment)
+    (comment)
+    (expression
+      (subquery_statement
+        (define_event_statement
+          (keyword_define)
+          (keyword_event)
+          (identifier)
+          (on_table_clause
+            (keyword_on)
+            (keyword_table)
+            (identifier))
+          (when_then_clause
+            (keyword_when)
+            (value
+              (binary_expression
+                (value
+                  (base_value
+                    (variable_name)))
+                (operator)
+                (value
+                  (base_value
+                    (string)))))
+            (keyword_then)
+            (sub_query
+              (expression
+                (subquery_statement
+                  (create_statement
+                    (keyword_create)
+                    (create_target
+                      (value
+                        (base_value
+                          (identifier))))
+                    (set_clause
+                      (keyword_set)
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (base_value
+                            (string))))
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (path
+                            (base_value
+                              (variable_name))
+                            (path_element
+                              (subscript
+                                (identifier))))))
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (function_call
+                            (function_name)
+                            (argument_list)))))))))))))
+    (semi_colon)
+    (comment)
+    (comment)
+    (expression
+      (subquery_statement
+        (define_event_statement
+          (keyword_define)
+          (keyword_event)
+          (identifier)
+          (on_table_clause
+            (keyword_on)
+            (keyword_table)
+            (identifier))
+          (when_then_clause
+            (keyword_when)
+            (value
+              (binary_expression
+                (value
+                  (base_value
+                    (variable_name)))
+                (operator)
+                (value
+                  (base_value
+                    (string)))))
+            (keyword_then)
+            (sub_query
+              (expression
+                (subquery_statement
+                  (create_statement
+                    (keyword_create)
+                    (create_target
+                      (value
+                        (base_value
+                          (identifier))))
+                    (set_clause
+                      (keyword_set)
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (base_value
+                            (string))))
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (path
+                            (base_value
+                              (variable_name))
+                            (path_element
+                              (subscript
+                                (identifier))))))
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (function_call
+                            (function_name)
+                            (argument_list)))))))))))))
+    (semi_colon)
+    (comment)
+    (comment)
+    (expression
+      (subquery_statement
+        (define_event_statement
+          (keyword_define)
+          (keyword_event)
+          (identifier)
+          (on_table_clause
+            (keyword_on)
+            (keyword_table)
+            (identifier))
+          (when_then_clause
+            (keyword_when)
+            (value
+              (binary_expression
+                (value
+                  (binary_expression
+                    (value
+                      (binary_expression
+                        (value
+                          (binary_expression
+                            (value
+                              (binary_expression
+                                (value
+                                  (base_value
+                                    (variable_name)))
+                                (operator)
+                                (value
+                                  (base_value
+                                    (string)))))
+                            (operator
+                              (keyword_or))
+                            (value
+                              (base_value
+                                (variable_name)))))
+                        (operator)
+                        (value
+                          (base_value
+                            (string)))))
+                    (operator
+                      (keyword_or))
+                    (value
+                      (base_value
+                        (variable_name)))))
+                (operator)
+                (value
+                  (base_value
+                    (string)))))
+            (keyword_then)
+            (sub_query
+              (expression
+                (subquery_statement
+                  (create_statement
+                    (keyword_create)
+                    (create_target
+                      (value
+                        (base_value
+                          (identifier))))
+                    (set_clause
+                      (keyword_set)
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (base_value
+                            (string))))
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (base_value
+                            (variable_name))))
+                      (field_assignment
+                        (identifier)
+                        (assignment_operator)
+                        (value
+                          (function_call
+                            (function_name)
+                            (argument_list)))))))))))))
+    (semi_colon)))
+
+===========================================
+Create a EVENT if it does not already exist
+===========================================
+
+DEFINE EVENT IF NOT EXISTS example ON example THEN {};
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_event_statement
+          (keyword_define)
+          (keyword_event)
+          (if_not_exists_clause
+            (keyword_if)
+            (keyword_not)
+            (keyword_exists))
+          (identifier)
+          (on_table_clause
+            (keyword_on)
+            (identifier))
+          (when_then_clause
+            (keyword_then)
+            (block)))))
+    (semi_colon)))
+
+==================================================
+Create an EVENT and overwrite if it already exists
+==================================================
+
+DEFINE EVENT OVERWRITE example ON example THEN {};
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (define_event_statement
+          (keyword_define)
+          (keyword_event)
+          (keyword_overwrite)
+          (identifier)
+          (on_table_clause
+            (keyword_on)
+            (identifier))
+          (when_then_clause
+            (keyword_then)
+            (block)))))
+    (semi_colon)))
+
+=====================
+Event and permissions
+=====================
+
+CREATE comment SET
+    post = post:tomatosoup,
+    content = "So delicious!",
+    author = $auth.id;
+
+DEFINE EVENT on_comment_created ON TABLE comment
+    WHEN $event = "CREATE"
+    THEN {
+        -- Check if the post allows for adding comments.
+        -- User record doesn't have access to the `post` table.
+        IF $after.post.disable_comments {
+            THROW "Can't create a comment - Comments are disabled for this post";
+        };
+
+        -- Set the `approved` field on the new comment - automatically approve
+        -- comments made by the author of the post.
+        -- For security reasons, record users don't have any permissions for the `approved` field.
+        UPDATE $after.id SET
+            approved = $after.post.author == $after.author;
+    };
+
+---
+
+(source_file
+  (expressions
+    (expression
+      (subquery_statement
+        (create_statement
+          (keyword_create)
+          (create_target
+            (value
+              (base_value
+                (identifier))))
+          (set_clause
+            (keyword_set)
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (record_id
+                    (object_key)
+                    (record_id_value
+                      (record_id_ident))))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (base_value
+                  (string))))
+            (field_assignment
+              (identifier)
+              (assignment_operator)
+              (value
+                (path
+                  (base_value
+                    (variable_name))
+                  (path_element
+                    (subscript
+                      (identifier))))))))))
+    (semi_colon)
+    (expression
+      (subquery_statement
+        (define_event_statement
+          (keyword_define)
+          (keyword_event)
+          (identifier)
+          (on_table_clause
+            (keyword_on)
+            (keyword_table)
+            (identifier))
+          (when_then_clause
+            (keyword_when)
+            (value
+              (binary_expression
+                (value
+                  (base_value
+                    (variable_name)))
+                (operator)
+                (value
+                  (base_value
+                    (string)))))
+            (keyword_then)
+            (block
+              (comment)
+              (comment)
+              (expressions
+                (expression
+                  (subquery_statement
+                    (if_statement
+                      (keyword_if)
+                      (value
+                        (path
+                          (base_value
+                            (variable_name))
+                          (path_element
+                            (subscript
+                              (identifier)))
+                          (path_element
+                            (subscript
+                              (identifier)))))
+                      (block
+                        (expressions
+                          (expression
+                            (primary_statement
+                              (throw_statement
+                                (keyword_throw)
+                                (value
+                                  (base_value
+                                    (string))))))
+                          (semi_colon))))))
+                (semi_colon)
+                (comment)
+                (comment)
+                (comment)
+                (expression
+                  (subquery_statement
+                    (update_statement
+                      (keyword_update)
+                      (value
+                        (path
+                          (base_value
+                            (variable_name))
+                          (path_element
+                            (subscript
+                              (identifier)))))
+                      (set_clause
+                        (keyword_set)
+                        (field_assignment
+                          (identifier)
+                          (assignment_operator)
+                          (value
+                            (binary_expression
+                              (value
+                                (path
+                                  (base_value
+                                    (variable_name))
+                                  (path_element
+                                    (subscript
+                                      (identifier)))
+                                  (path_element
+                                    (subscript
+                                      (identifier)))))
+                              (operator
+                                (binary_operator))
+                              (value
+                                (path
+                                  (base_value
+                                    (variable_name))
+                                  (path_element
+                                    (subscript
+                                      (identifier))))))))))))
+                (semi_colon)))))))
+    (semi_colon)))
