@@ -55,7 +55,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
     "prebuildify": "^6.0.0",
-    "prettier": "3.5.3",
+    "prettier": "3.6.2",
     "tree-sitter-cli": "^0.25.6"
   },
   "lint-staged": {
