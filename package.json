@@ -56,7 +56,7 @@
     "lint-staged": "^16.1.2",
     "prebuildify": "^6.0.0",
     "prettier": "3.6.2",
-    "tree-sitter-cli": "^0.25.6"
+    "tree-sitter-cli": "^0.25.8"
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write"
