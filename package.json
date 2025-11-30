@@ -40,7 +40,7 @@
   "author": "Cellan Hall <hallcellan@gmail.com> (https://github.com/Ce11an)",
   "license": "MIT",
   "dependencies": {
-    "node-addon-api": "^8.4.0",
+    "node-addon-api": "^8.5.0",
     "node-gyp-build": "^4.8.4"
   },
   "peerDependencies": {
@@ -53,10 +53,10 @@
   },
   "devDependencies": {
     "husky": "^9.1.7",
-    "lint-staged": "^16.1.2",
+    "lint-staged": "^16.2.7",
     "prebuildify": "^6.0.0",
-    "prettier": "3.6.2",
-    "tree-sitter-cli": "^0.25.6"
+    "prettier": "3.7.3",
+    "tree-sitter-cli": "^0.25.10"
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write"
