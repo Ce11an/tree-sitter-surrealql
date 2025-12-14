@@ -23,7 +23,7 @@ jobs:
     outputs:
       grammarjs: ${{ steps.filter.outputs.grammarjs }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36
         id: filter
         with:
@@ -39,7 +39,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Set up tree-sitter
         uses: tree-sitter/setup-action/cli@v2
       - name: Run parser and binding tests
@@ -53,7 +53,7 @@ jobs:
         with:
           files: examples/**
       - name: Upload failures artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: "!cancelled() && steps.parse-files.outcome == 'failure'"
         with:
           name: failures-${{runner.os}}
@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 2
       - name: Check for scanner changes
@@ -84,10 +84,10 @@ jobs:
     if: needs.changes.outputs.grammarjs == 'true'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install Nodejs
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 18
 
