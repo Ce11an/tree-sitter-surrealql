@@ -4,7 +4,10 @@
 [![crates][crates]](https://crates.io/crates/tree-sitter-surrealql)
 [![pypi][pypi]](https://pypi.org/project/tree-sitter-surrealql/)
 
-SurrealQL grammar for [tree-sitter][].
+SurrealQL grammar for [tree-sitter](https://tree-sitter.github.io/tree-sitter/).
+
+> [!IMPORTANT]
+> This repository is now archived and read-only. Please see the official [SurrealQL Tree Sitter](https://github.com/surrealdb/surrealql-tree-sitter).
 
 ## Installation
 
